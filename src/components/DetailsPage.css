@@ -1,0 +1,78 @@
+.details-page {
+    text-align: center;
+  }
+  
+  .details-header {
+    margin: 40px 0;
+  }
+  
+  .logo {
+    width: 50px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .card-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px 0;
+  }
+  
+  .card {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .map {
+    background-color: #e0f7ea;
+  }
+  
+  .info {
+    background-color: #f8f8f8;
+  }
+  
+  .analyser {
+    background-color: #6c63ff;
+    color: #fff;
+  }
+  
+  .details-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #e0f7ea;
+  }
+  
+  .footer-logo {
+    text-align: left;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 40px;
+  }
+  
+  .footer-links h4 {
+    margin-bottom: 10px;
+  }
+  
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links li {
+    margin: 5px 0;
+    cursor: pointer;
+  }
+  
