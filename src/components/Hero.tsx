@@ -28,7 +28,11 @@ function Hero() {
             </p>
             <button
               className="btn btn-primary"
-              style={{ backgroundColor: "#6366F1", borderColor: "#6366F1" }}
+              style={{
+                backgroundColor: "#6366F1",
+                borderColor: "#6366F1",
+                borderRadius: "20px",
+              }}
               onClick={() => navigate("/details")}
             >
               Explore Nutrition Map

@@ -2,7 +2,6 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import refugees from "../../public/images/refugees.png"; // Correct path to the image
 
-// Define the type for the section names
 type SectionType = "problem" | "cause" | "solution";
 
 function AwarenessSection() {
@@ -12,7 +11,6 @@ function AwarenessSection() {
     setActiveSection(section);
   };
 
-  // Content that changes based on the active section
   const sectionContent = {
     problem: {
       title: "Awareness Gap",
@@ -43,7 +41,13 @@ function AwarenessSection() {
         <div className="container">
           <div className="row align-items-center">
             {/* Left Column: Text */}
-            <div className="col-md-7 text-start">
+            <div
+              className="col-md-7 text-start"
+              style={{
+                transition: "all 0.4s ease",
+                height: "250px",
+              }}
+            >
               {/* Subheading with lighter font weight and lighter color */}
               <p className="text-uppercase fw-normal text-secondary mb-2">
                 The {activeSection}.
@@ -116,7 +120,10 @@ function AwarenessSection() {
               >
                 <h5>The problem</h5>
                 {activeSection === "problem" && (
-                  <p className="mt-2">
+                  <p
+                    className="mt-2"
+                    style={{ textAlign: "left", color: "B3B3B3" }}
+                  >
                     Refugee families face an awareness gap regarding the
                     importance of nutrition for their children.
                   </p>
@@ -134,9 +141,10 @@ function AwarenessSection() {
               >
                 <h5>The Cause</h5>
                 {activeSection === "cause" && (
-                  <p className="mt-2">
-                    The point of using Lorem Ipsum is that it has a more-or-less
-                    normal distribution of letters.
+                  <p className="mt-2" style={{ textAlign: "left" }}>
+                    Refugee families often lack awareness and access to
+                    nutritional information due to their challenging
+                    backgrounds.
                   </p>
                 )}
               </div>
@@ -154,9 +162,9 @@ function AwarenessSection() {
               >
                 <h5>The Solution</h5>
                 {activeSection === "solution" && (
-                  <p className="mt-2">
-                    The point of using Lorem Ipsum is that it has a more-or-less
-                    normal distribution of letters.
+                  <p className="mt-2" style={{ textAlign: "left" }}>
+                    Empower refugee communities make informed nutrition and
+                    health decisions.
                   </p>
                 )}
               </div>
