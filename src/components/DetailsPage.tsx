@@ -1,5 +1,4 @@
-import React from 'react';
-import './DetailsPage.css';  // 为新页面创建的样式文件
+import "./DetailsPage.css"; // 为新页面创建的样式文件
 
 function DetailsPage() {
   return (
@@ -8,7 +7,7 @@ function DetailsPage() {
         <img src="your-logo-path" alt="Logo" className="logo" />
         <h1>Everything you need</h1>
       </header>
-      
+
       <div className="card-container">
         <div className="card map">Map</div>
         <div className="card info">Info</div>
@@ -18,7 +17,11 @@ function DetailsPage() {
       <footer className="details-footer">
         <div className="footer-logo">
           <img src="your-logo-path" alt="Logo" />
-          <p>We growing up your business to the international scale.<br />Maxwell, 2023.</p>
+          <p>
+            We growing up your business to the international scale.
+            <br />
+            Maxwell, 2023.
+          </p>
         </div>
         <div className="footer-links">
           <div className="company">

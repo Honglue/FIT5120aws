@@ -1,5 +1,4 @@
-import React from 'react';
-import './AwarenessSection.css'; // You can create this file for specific styles
+import "./AwarenessSection.css"; // You can create this file for specific styles
 
 function AwarenessSection() {
   return (
@@ -7,7 +6,8 @@ function AwarenessSection() {
       <div className="awareness-text">
         <h2>Awareness Gap</h2>
         <p>
-          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout...
+          It is a long established fact that a reader will be distracted by the
+          readable content of a page when looking at its layout...
         </p>
       </div>
       <div className="awareness-image">
