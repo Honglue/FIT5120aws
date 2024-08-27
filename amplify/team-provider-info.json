@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-betternutrition-dev-c4792-authRole",
+      "UnauthRoleArn": "arn:aws:iam::324037315444:role/amplify-betternutrition-dev-c4792-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::324037315444:role/amplify-betternutrition-dev-c4792-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-betternutrition-dev-c4792-deployment",
+      "UnauthRoleName": "amplify-betternutrition-dev-c4792-unauthRole",
+      "StackName": "amplify-betternutrition-dev-c4792",
+      "StackId": "arn:aws:cloudformation:us-east-1:324037315444:stack/amplify-betternutrition-dev-c4792/9e6fc1b0-6420-11ef-895e-0ebbbe8e0847",
+      "AmplifyAppId": "d1zbxaie0uo26r"
+    }
+  }
+}
