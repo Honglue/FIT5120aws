@@ -20,9 +20,10 @@
 }
 
 .card {
-  width: 200px;
-  height: 200px;
+  width: auto;
+  height: 300px;
   display: flex;
+  background-color: #e0f7ea;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
@@ -74,4 +75,31 @@
 .footer-links li {
   margin: 5px 0;
   cursor: pointer;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-title {
+  font-weight: 100;
+}
+
+.card-text {
+  font-weight: normal;
+  transition: color 0.3s ease;
+}
+
+.card-hover:hover {
+  background-color: #6366f1;
+  color: white;
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.card-hover:hover .card-title,
+.card-hover:hover .card-text {
+  color: white;
 }

@@ -1,151 +1,124 @@
-/* Container for the entire page */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Header styles */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
-  }
-  
-  .logo {
-    height: 40px; /* 根据你的需求调整 */
-  }
-  
-  .nav {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .nav a {
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-  }
-  
-  /* Hero section styles */
-  .hero {
-    position: relative;
-    text-align: center;
-    margin-bottom: 50px;
-  }
-  
-  .hero-image {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-  }
-  
-  .hero-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-  }
-  
-  .hero-content h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  .download-button {
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .download-button:hover {
-    background-color: #357ab7;
-  }
-  
-  /* Info section styles */
-  .info {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  
-  .info-block {
-    padding: 20px 0;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  
-  .info-block h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 15px;
-  }
-  
-  .info-block p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 10px;
-  }
-  
-  .info-link {
-    color: #4a90e2;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .info-link:hover {
-    text-decoration: underline;
-  }
-  
-  /* Footer styles */
-  .footer {
-    background-color: #f8f8f8;
-    padding: 40px 20px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-  
-  .footer-left {
-    max-width: 300px;
-  }
-  
-  .footer-left p {
-    color: #333;
-    margin-top: 10px;
-    font-size: 14px;
-  }
-  
-  .footer-right {
-    display: flex;
-    gap: 40px;
-  }
-  
-  .footer-links h4 {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .footer-links a {
-    display: block;
-    text-decoration: none;
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  
-  .footer-links a:hover {
-    color: #333;
-  }
-  
-  .footer-links {
-    max-width: 150px;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  background-color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.hero-image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.logo {
+  height: 40px; /* Adjust as needed */
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+/* Hero section styles */
+.hero {
+  position: relative;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.download-button {
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.download-button:hover {
+  background-color: #4b4ade;
+  border-color: #4b4ade;
+}
+
+/* Info section styles */
+.info {
+  display: grid;
+  text-align: left;
+  background-color: #fff;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+.info-block {
+  text-align: left;
+  padding: 20px 0;
+  background-color: transparent;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.info-block h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.info-block p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.info-link {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.info-link:hover {
+  text-decoration: underline;
+}

@@ -1,58 +1,72 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./DetailsPage.css";
-import logo from "../../public/images/logo.png";
-// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function DetailsPage() {
+  const navigate = useNavigate();
+
   return (
-    <div className="details-page">
-      <header className="details-header">
+    <div
+      className="container d-flex flex-column justify-content-center text-center my-5 flex-grow-1"
+      style={{ minHeight: "85vh" }}
+    >
+      {/* Header Section */}
+      <header className="mb-5">
         <h1>A platform to Empower You</h1>
-        <p>
-          We are here to empower you with the necessary tools. Here is how.{" "}
+        <p className="lead" style={{ color: "" }}>
+          We are here to empower refugee families with the necessary tools. Here
+          is how.
         </p>
       </header>
 
-      <div className="card-container">
-        <div className="card map">Map</div>
-        <div className="card info">Info</div>
-        <div className="card analyser">Analyser</div>
-      </div>
-
-      <footer className="details-footer">
-        <div className="footer-logo">
-          <img
-            src={logo}
-            alt="Better Nutrition"
-            width="25"
-            height="30"
-            className="d-inline-block align-top"
-          />
-          <p>
-            We aim to continue to make a positive impact.
-            <br />
-            BetterNutrition, 2024.
-          </p>
+      {/* Card Container */}
+      <div className="row justify-content-center">
+        <div className="col-md-3 mb-4">
+          <div
+            className="card text-dark h-100 card-hover"
+            style={{ minHeight: "300px", textAlign: "left" }}
+            onClick={() => navigate("/nutrition-map")}
+          >
+            <div className="card-body d-flex flex-column justify-content-between">
+              <h5 className="card-title">Nutrition Mapping Tool</h5>
+              <p className="card-text mt-auto" style={{ color: "#" }}>
+                Check nutrition deficiencies from your country of origin and
+                compare them to healthy standards.
+              </p>
+            </div>
+          </div>
         </div>
-        {/* <div className="footer-links">
-          <div className="company">
-            <h4>Company</h4>
-            <ul>
-              <li>Blog</li>
-              <li>Careers</li>
-              <li>Pricing</li>
-            </ul>
+        <div className="col-md-3 mb-4">
+          <div
+            className="card text-dark h-100 d-flex card-hover"
+            style={{ minHeight: "300px", textAlign: "left" }}
+            onClick={() => navigate("/information")}
+          >
+            <div className="card-body d-flex flex-column justify-content-between">
+              <h5 className="card-title">Health Information</h5>
+              <p className="card-text mt-auto" style={{ color: "#" }}>
+                Access important health-related info and support resources.
+              </p>
+            </div>
           </div>
-          <div className="legal">
-            <h4>Legal</h4>
-            <ul>
-              <li>Terms of Service</li>
-              <li>Privacy Policy</li>
-              <li>Cookies Policy</li>
-              <li>Data Processing</li>
-            </ul>
+        </div>
+        <div className="col-md-3 mb-4">
+          <div
+            className="card h-100 d-flex card-hover"
+            style={{
+              minHeight: "300px",
+              textAlign: "left",
+            }}
+          >
+            <div className="card-body d-flex flex-column justify-content-between">
+              <h5 className="card-title">Health Metrics Analyser</h5>
+              <p className="card-text mt-auto" style={{ color: "#" }}>
+                Input metrics to compare children's growth against standards.
+              </p>
+            </div>
           </div>
-        </div> */}
-      </footer>
+        </div>
+      </div>
     </div>
   );
 }

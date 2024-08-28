@@ -5,9 +5,11 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import AwarenessSection from "./components/AwarenessSection";
 import DetailsPage from "./components/DetailsPage";
-import NutritionMap from "./components/NutritionMap"; // Import the NutritionMap component
+import NutritionMap from "./components/NutritionMap";
 import "./components/App.css";
 import { theme } from "./theme";
+import Information from "./components/Information";
+import Footer from "./components/Footer";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -41,11 +43,12 @@ function App() {
                     </>
                   }
                 />
-                <Route path="/nutrition-map" element={<NutritionMap />} /> {/* Add the NutritionMap route */}
+                <Route path="/nutrition-map" element={<NutritionMap />} />
+                <Route path="/information" element={<Information />} />
               </Routes>
+              <Footer />
             </>
           ) : (
-            // Password Popup
             <div
               className="password-popup d-flex justify-content-center align-items-center"
               style={{ minHeight: "100vh" }}
