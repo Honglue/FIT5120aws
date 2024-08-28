@@ -20,9 +20,10 @@
 }
 
 .card {
-  width: 250px;
+  width: auto;
   height: 300px;
   display: flex;
+  background-color: #e0f7ea;
   justify-content: center;
   align-items: center;
   border-radius: 10px;

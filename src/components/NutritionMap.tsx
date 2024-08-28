@@ -79,11 +79,13 @@ const NutritionMap: React.FC = () => {
     const path = d3.geoPath().projection(projection);
 
     import("@/assets/countries-110m.json").then((worldMapData) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const typedWorldMapData = worldMapData as any;
 
       const mapData = feature(
         typedWorldMapData,
         typedWorldMapData.objects.countries
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ) as any as FeatureCollection<Geometry, GeoJsonProperties>;
 
       // Create a tooltip
@@ -131,7 +133,7 @@ const NutritionMap: React.FC = () => {
         .on("mouseout", () => {
           tooltip.style("opacity", 0);
         })
-        .on("click", function (event, d) {
+        .on("click", function (_, d) {
           const countryId = String(d.id).padStart(3, "0");
           setSelectedCountry(countryId); // Update selected country state
           if (countryId) {
@@ -142,12 +144,14 @@ const NutritionMap: React.FC = () => {
           }
         });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nutritionData, selectedCountry]);
 
   useEffect(() => {
     if (selectedCountry) {
       handleCountryClick(selectedCountry);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAgeGroup]);
 
   const handleCountryClick = (countryId: string) => {
