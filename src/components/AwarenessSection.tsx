@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import refugees from "../../public/images/refugees.png";
-
+import cause from "../../public/images/cause.png";
+import solution from "../../public/images/solution.png";
+import "./AwarenessSection.css";
 type SectionType = "problem" | "cause" | "solution";
 
 function AwarenessSection() {
@@ -22,13 +24,13 @@ function AwarenessSection() {
       title: "Lack of Information",
       subtitle:
         "The lack of awareness and access to nutritional information often stems from the challenging environments that refugee families come from. Without proper education and resources, understanding the importance of a balanced diet becomes difficult.",
-      image: refugees,
+      image: cause,
     },
     solution: {
       title: "Better Nutrition",
       subtitle:
         "To bridge this gap, we are here to provide educational resources tailored to refugee communities can empower them to make informed decisions about their nutrition and health.",
-      image: refugees,
+      image: solution,
     },
   };
 
@@ -58,7 +60,7 @@ function AwarenessSection() {
                 {title}
               </h4>
               <div className="pr-8">
-                <p className="lead" style={{ color: "#606060" }}>
+                <p className="lead" style={{ color: "#A4A4A4" }}>
                   {subtitle}
                 </p>
               </div>
@@ -66,7 +68,11 @@ function AwarenessSection() {
 
             {/* Right Column: Image */}
             <div className="col-md-5">
-              <img src={image} alt={title} className="img-fluid rounded" />
+              <img
+                src={image}
+                alt={title}
+                className="img-fluid rounded fixed-size"
+              />
             </div>
           </div>
         </div>
@@ -89,23 +95,24 @@ function AwarenessSection() {
             <div
               className="slider-progress position-absolute"
               style={{
-                width:
-                  activeSection === "problem"
-                    ? "33%"
-                    : activeSection === "cause"
-                    ? "66%"
-                    : "100%",
+                width: "33%",
                 height: "4px",
-                transition: "width 0.4s ease",
+                transition: "left 0.4s ease",
                 borderRadius: "10px",
                 backgroundColor: "#6366F1",
+                left:
+                  activeSection === "problem"
+                    ? "0%"
+                    : activeSection === "cause"
+                    ? "33%"
+                    : "67%",
               }}
-            ></div>
+            />
           </div>
         </div>
 
         {/* Slider Content */}
-        <div className="row text-center ">
+        <div className="row">
           {/* The problem */}
           <div className="col-md-4 text-start">
             <div
@@ -117,7 +124,7 @@ function AwarenessSection() {
               <p
                 className="mt-2"
                 style={{
-                  color: activeSection === "problem" ? "#606060" : "#C4C4C4",
+                  color: activeSection === "problem" ? "#A4A4A4" : "#C4C4C4",
                 }}
               >
                 Face an awareness gap regarding the importance of nutrition for
@@ -137,7 +144,7 @@ function AwarenessSection() {
               <p
                 className="mt-2"
                 style={{
-                  color: activeSection === "cause" ? "#606060" : "#C4C4C4",
+                  color: activeSection === "cause" ? "#A4A4A4" : "#C4C4C4",
                 }}
               >
                 Lack awareness to nutritional information due to their
@@ -157,7 +164,7 @@ function AwarenessSection() {
               <p
                 className="mt-2"
                 style={{
-                  color: activeSection === "solution" ? "#606060" : "#C4C4C4",
+                  color: activeSection === "solution" ? "#A4A4A4" : "#C4C4C4",
                 }}
               >
                 Empower refugee communities make informed nutrition and health

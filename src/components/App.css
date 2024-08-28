@@ -1,8 +1,7 @@
 body {
   width: 100%;
   margin: 0;
-  font-family: "Poppins", sans-serif; /* Updated to use Poppins font */
-  /* background-color: #f4f4f4; */
+  font-family: "Poppins", sans-serif;
   color: #333;
   height: 100vh;
   width: 100vw;

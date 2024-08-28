@@ -13,7 +13,6 @@ function Navbar() {
         backgroundColor: "rgba(255, 255, 255, 0.8)",
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
-        borderBottom: "1px solid #e0e0e0",
         padding: "10px",
         zIndex: 1000,
       }}
@@ -61,12 +60,16 @@ function Navbar() {
             <li className="nav-item me-3">
               <Link
                 className={`nav-link ${
-                  location.pathname === "/about" ? "active" : ""
+                  location.pathname === "/information" ? "active" : ""
                 }`}
-                to="/about"
+                to="/information"
                 style={{
-                  color: location.pathname === "/about" ? "#6366F1" : "inherit",
+                  color:
+                    location.pathname === "/information"
+                      ? "#6366F1"
+                      : "inherit",
                 }}
+                onClick={() => navigate("/information")}
               >
                 More Info
               </Link>
