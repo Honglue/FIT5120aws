@@ -1,7 +1,7 @@
 body {
   width: 100%;
   margin: 0;
-  font-family: "Arial", sans-serif;
+  font-family: "Poppins", sans-serif; /* Updated to use Poppins font */
   /* background-color: #f4f4f4; */
   color: #333;
   height: 100vh;

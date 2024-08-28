@@ -1,46 +1,9 @@
-.hero {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 50px;
-    background-color: #f9f9f9;
-  }
-  
-  .hero-content {
-    flex: 1;
-    max-width: 50%;
-  }
-  
-  .hero-content h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    font-weight: bold;
-  }
-  
-  .hero-content p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    color: #666;
-  }
-  
-  .learn-more-button {
-    background-color: #6C63FF;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .hero-image {
-    flex: 1;
-    max-width: 50%;
-  }
-  
-  .hero-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
-  
+.btn-custom {
+  background-color: #6366f1;
+  border-color: #6366f1;
+}
+
+.btn-custom:hover {
+  background-color: #4b4ade; /* Darker color on hover */
+  border-color: #4b4ade;
+}
