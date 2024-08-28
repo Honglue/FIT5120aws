@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import AwarenessSection from "./components/AwarenessSection";
 import DetailsPage from "./components/DetailsPage";
+import NutritionMap from "./components/NutritionMap"; // Import the NutritionMap component
 import "./components/App.css";
 import { theme } from "./theme";
 
@@ -40,7 +41,7 @@ function App() {
                     </>
                   }
                 />
-                {/* <Route path="/details" element={<DetailsPage />} /> */}
+                <Route path="/nutrition-map" element={<NutritionMap />} /> {/* Add the NutritionMap route */}
               </Routes>
             </>
           ) : (
