@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import vegetables from "../../public/images/vegetables.png";
+import vegetables from "../../../public/images/vegetables.png";
 import "./Hero.css"; // Ensure this file contains the CSS for glass effect
 
 function Hero() {

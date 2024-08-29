@@ -36,6 +36,7 @@ function DetailsPage() {
             </div>
           </div>
         </div>
+
         <div className="col-md-3 mb-4">
           <div
             className="card text-dark h-100 d-flex card-hover"
@@ -50,6 +51,7 @@ function DetailsPage() {
             </div>
           </div>
         </div>
+
         <div className="col-md-3 mb-4">
           <div
             className="card h-100 d-flex card-hover"
