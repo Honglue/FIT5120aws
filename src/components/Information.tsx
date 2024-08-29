@@ -1,8 +1,22 @@
 import React from "react";
 import "./Information.css";
 import help from "../../public/images/help.png";
+import html2pdf from "html2pdf.js";
 
 const Information: React.FC = () => {
+  const handleDownload = () => {
+    const element = document.body; // 选择整个网页
+    html2pdf()
+      .from(element)
+      .set({
+        margin: 1,
+        filename: 'webpage.pdf',
+        html2canvas: { scale: 2 },
+        jsPDF: { orientation: 'portrait' }
+      })
+      .save();
+  };
+
   return (
     <div className="container my-5 pt-4">
       <main>
@@ -22,7 +36,7 @@ const Information: React.FC = () => {
                 borderColor: "#6366F1",
                 borderRadius: "25px",
               }}
-              onClick={() => {}}
+              onClick={handleDownload} // 更新了 onClick 处理函数
             >
               Download
             </button>
