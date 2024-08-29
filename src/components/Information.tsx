@@ -5,13 +5,18 @@ import html2pdf from "html2pdf.js";
 
 const Information: React.FC = () => {
   const handleDownload = () => {
-    const element = document.body; // 选择整个网页
+    const element = document.body; // 确保选择整个网页
+
     html2pdf()
       .from(element)
       .set({
         margin: 1,
         filename: 'webpage.pdf',
-        html2canvas: { scale: 2 },
+        html2canvas: {
+          scale: 2, // 提高分辨率
+          width: window.innerWidth, // 捕捉整个窗口的宽度
+          windowWidth: document.documentElement.scrollWidth, // 确保捕捉整个页面宽度
+        },
         jsPDF: { orientation: 'portrait' }
       })
       .save();
@@ -36,7 +41,7 @@ const Information: React.FC = () => {
                 borderColor: "#6366F1",
                 borderRadius: "25px",
               }}
-              onClick={handleDownload} // 更新了 onClick 处理函数
+              onClick={handleDownload} // 使用更新后的下载处理函数
             >
               Download
             </button>
