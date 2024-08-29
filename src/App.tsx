@@ -10,6 +10,12 @@ import "./components/App.css";
 import { theme } from "./theme";
 import Information from "./components/Information";
 import Footer from "./components/Footer";
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -25,6 +31,7 @@ function App() {
   };
 
   return (
+    <I18nextProvider i18n={i18n}>
     <ThemeProvider theme={theme}>
       <Router>
         <div className="App">
@@ -73,6 +80,7 @@ function App() {
         </div>
       </Router>
     </ThemeProvider>
+    </I18nextProvider>
   );
 }
 

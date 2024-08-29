@@ -4,6 +4,7 @@ import refugees from "../../public/images/refugees.png";
 import cause from "../../public/images/cause.png";
 import solution from "../../public/images/solution.png";
 import "./AwarenessSection.css";
+import { useTranslation } from 'react-i18next';
 type SectionType = "problem" | "cause" | "solution";
 
 function AwarenessSection() {
@@ -12,6 +13,7 @@ function AwarenessSection() {
   const handleSectionClick = (section: SectionType) => {
     setActiveSection(section);
   };
+  const { t } = useTranslation();
 
   const sectionContent = {
     problem: {

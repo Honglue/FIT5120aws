@@ -1,10 +1,18 @@
+
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // 引入钩子
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../public/images/logo.png";
 
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t, i18n } = useTranslation(); // 初始化翻译钩子
+
+  // 处理语言切换的函数
+  const handleLanguageChange = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
 
   return (
     <nav
@@ -26,7 +34,7 @@ function Navbar() {
             height="30"
             className="d-inline-block align-top"
           />
-          <span style={{ paddingLeft: "10px" }}>Better Nutrition</span>
+          <span style={{ paddingLeft: "10px" }}>{t('Better Nutrition')}</span>
         </Link>
 
         <button
@@ -45,41 +53,32 @@ function Navbar() {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item me-3">
               <Link
-                className={`nav-link ${
-                  location.pathname === "/" ? "active" : ""
-                }`}
+                className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
                 to="/"
                 style={{
                   color: location.pathname === "/" ? "#6366F1" : "inherit",
                 }}
               >
-                Home
+                {t("home")}
               </Link>
             </li>
 
             <li className="nav-item me-3">
               <Link
-                className={`nav-link ${
-                  location.pathname === "/information" ? "active" : ""
-                }`}
+                className={`nav-link ${location.pathname === "/information" ? "active" : ""}`}
                 to="/information"
                 style={{
-                  color:
-                    location.pathname === "/information"
-                      ? "#6366F1"
-                      : "inherit",
+                  color: location.pathname === "/information" ? "#6366F1" : "inherit",
                 }}
                 onClick={() => navigate("/information")}
               >
-                More Info
+                {t("more_info")}
               </Link>
             </li>
 
-            <li className="nav-item">
+            <li className="nav-item me-3">
               <button
-                className={`btn ${
-                  location.pathname === "/nutrition-map" ? "active" : ""
-                }`}
+                className={`btn ${location.pathname === "/nutrition-map" ? "active" : ""}`}
                 style={{
                   backgroundColor: "#6366F1",
                   color: "white",
@@ -87,8 +86,32 @@ function Navbar() {
                 }}
                 onClick={() => navigate("/nutrition-map")}
               >
-                Nutrition Map
+                {t("nutrition_map")}
               </button>
+            </li>
+
+            <li className="nav-item">
+              <div className="dropdown">
+                <button
+                  className="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="languageDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {t("language")}
+                </button>
+                <ul className="dropdown-menu" aria-labelledby="languageDropdown">
+                  <li><button className="dropdown-item" onClick={() => handleLanguageChange('en')}>English</button></li>
+                  <li><button className="dropdown-item" onClick={() => handleLanguageChange('ar')}>العربية</button></li>
+                  <li><button className="dropdown-item" onClick={() => handleLanguageChange('es')}>Español</button></li>
+                  <li><button className="dropdown-item" onClick={() => handleLanguageChange('zh')}>中文</button></li>
+                  <li><button className="dropdown-item" onClick={() => handleLanguageChange('ja')}>日本語</button></li>
+                  <li><button className="dropdown-item" onClick={() => handleLanguageChange('ko')}>한국어</button></li>
+                  <li><button className="dropdown-item" onClick={() => handleLanguageChange('ru')}>Русский</button></li>
+                  <li><button className="dropdown-item" onClick={() => handleLanguageChange('fr')}>Français</button></li>
+                </ul>
+              </div>
             </li>
           </ul>
         </div>
