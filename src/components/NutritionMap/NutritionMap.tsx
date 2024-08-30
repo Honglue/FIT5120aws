@@ -3,6 +3,8 @@ import * as d3 from "d3";
 import { feature } from "topojson-client";
 import { FeatureCollection, Geometry, GeoJsonProperties } from "geojson";
 import ViolationBar from "./ViolationBar"; // Ensure this path is correct based on your file structure
+import nutrition from "../../../public/images/nutrition.png";
+import "./NutritionMap.css";
 
 interface NutritionData {
   nutrition_ID: string;
@@ -185,6 +187,41 @@ const NutritionMap: React.FC = () => {
 
   return (
     <div className="container my-5">
+      <section className="hero">
+        <div className="hero-image-container">
+          <img src={nutrition} alt="Hands" className="hero-image" />
+          <div className="dark-overlay"></div>
+        </div>
+
+        <div className="hero-content">
+          <h1>
+            Explore Your Country’s <br />
+            Eating Habits
+          </h1>
+        </div>
+      </section>
+
+      <div
+        style={{
+          textAlign: "left",
+        }}
+      >
+        <p>
+          Discover Your Country’s Eating Habits! Welcome to our interactive map,
+          where you can explore the dietary habits of every country around the
+          world. Simply find and click on your home country to uncover detailed
+          insights into how people in your nation are eating. Once you click on
+          your country, you’ll get a clear picture of how healthy the local diet
+          is. This information can guide you in making better food choices by
+          highlighting which foods are most beneficial and which ones you might
+          want to limit. Whether you’re curious about improving your own diet or
+          just interested in how your country compares to others, this map is a
+          great resource to help you understand and enhance your eating habits.
+          So, go ahead—find your country and start your journey towards
+          healthier eating today!
+        </p>
+      </div>
+
       <div className="pt-4">
         <svg ref={svgRef} width={800} height={500}></svg>
       </div>

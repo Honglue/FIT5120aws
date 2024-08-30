@@ -1,8 +1,19 @@
 import React from "react";
 import "./Information.css";
 import help from "../../../public/images/help.png";
+import info from "../../../public/images/info.png";
+import betterNutrition from "../../../public/BetterNutrition.pdf";
 
 const Information: React.FC = () => {
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = betterNutrition;
+    link.download = "Better Nutrition.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="container my-5 pt-4">
       <main>
@@ -13,19 +24,7 @@ const Information: React.FC = () => {
           </div>
 
           <div className="hero-content">
-            <h1>Essential Information</h1>
-            <button
-              className="download-button"
-              style={{
-                marginTop: "10px",
-                padding: "10px 20px",
-                borderColor: "#6366F1",
-                borderRadius: "25px",
-              }}
-              onClick={() => {}}
-            >
-              Download
-            </button>
+            <h1>Essential Health Information</h1>
           </div>
         </section>
 
@@ -147,6 +146,31 @@ const Information: React.FC = () => {
                 https://refugeehealthnetwork.org.au/
               </a>
             </p>
+          </div>
+        </section>
+
+        <section className="hero" style={{ paddingTop: "40px" }}>
+          <div className="hero-image-container">
+            <img src={info} alt="Hands" className="hero-image" />
+            <div className="dark-overlay"></div>
+          </div>
+
+          <div className="hero-content">
+            <h1>
+              Download a Concise Page of <br /> Health Information
+            </h1>
+            <button
+              className="download-button"
+              style={{
+                marginTop: "10px",
+                padding: "10px 20px",
+                borderColor: "#6366F1",
+                borderRadius: "25px",
+              }}
+              onClick={handleDownload}
+            >
+              Download
+            </button>
           </div>
         </section>
       </main>
