@@ -20,7 +20,7 @@ const Information: React.FC = () => {
         <section className="hero">
           <div className="hero-image-container">
             <img src={help} alt="Hands" className="hero-image" />
-            <div className="dark-overlay"></div>
+            {/* <div className="dark-overlay"></div> */}
           </div>
 
           <div className="hero-content">
