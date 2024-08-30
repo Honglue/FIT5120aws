@@ -207,18 +207,13 @@ const NutritionMap: React.FC = () => {
         }}
       >
         <p>
-          Discover Your Country’s Eating Habits! Welcome to our interactive map,
-          where you can explore the dietary habits of every country around the
-          world. Simply find and click on your home country to uncover detailed
-          insights into how people in your nation are eating. Once you click on
-          your country, you’ll get a clear picture of how healthy the local diet
-          is. This information can guide you in making better food choices by
-          highlighting which foods are most beneficial and which ones you might
-          want to limit. Whether you’re curious about improving your own diet or
-          just interested in how your country compares to others, this map is a
-          great resource to help you understand and enhance your eating habits.
-          So, go ahead—find your country and start your journey towards
-          healthier eating today!
+          Explore Your Country's Eating Habits! Use our interactive map to
+          discover the dietary patterns in your country. Click on your home
+          country to see detailed insights into local eating habits,
+          highlighting which foods are beneficial and which to limit. Whether
+          you're looking to improve your diet or curious about how your country
+          compares globally, this map is your guide to healthier eating. Start
+          your journey today!
         </p>
       </div>
 
