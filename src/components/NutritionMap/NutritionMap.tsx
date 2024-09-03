@@ -145,15 +145,19 @@ const NutritionMap: React.FC = () => {
 
       if (data && data.body) {
         const parsedData = JSON.parse(data.body);
-        const global = parsedData.filter(
-          (item: NutritionData) => Number(item.country_ID) === 0
+          // Filter for data where country_ID is 036 (Australia)
+        const australiaData = parsedData.filter(
+          (item: NutritionData) => Number(item.country_ID) === 36
         );
         const countryData = parsedData.filter(
-          (item: NutritionData) => Number(item.country_ID) !== 0
+          (item: NutritionData) => Number(item.country_ID) === Number(countryId)
         );
 
-        setGlobalData(global);
         setFilteredData(countryData);
+        setGlobalData(australiaData);
+        
+        console.log("Filtered Country Data:", countryData);
+        console.log("Global Data:", australiaData)
       } else {
         console.log("Unexpected response format:", data);
         setFilteredData([]);
