@@ -209,10 +209,10 @@ const NutritionMap: React.FC = () => {
           Explore Your Country's Eating Habits! Use our interactive map to
           discover the dietary patterns in your country. Click on your home
           country to see detailed insights into local eating habits,
-          highlighting which foods are beneficial and which to limit. Whether
-          you're looking to improve your diet or curious about how your country
+          highlighting which foods are beneficial and which to limit. 
+          {/* Whether you're looking to improve your diet or curious about how your country
           compares globally, this map is your guide to healthier eating. Start
-          your journey today!
+          your journey today! */}
         </p>
       </div>
 
@@ -227,10 +227,15 @@ const NutritionMap: React.FC = () => {
       {isMapVisible && (
         <div className="pt-4">
           <svg ref={svgRef} width={800} height={500}></svg>
+          <p style={{ margin: "0" }}>
+          Please note: The values presented are compared against the Australia
+          average. The highlighted countries represent the top countries of
+          origin for refugees in Australia.
+        </p>
         </div>
       )}
 
-      <div
+      {/* <div
         className="p-3 mt-4"
         style={{
           border: "1px solid #d3d3d3",
@@ -241,13 +246,15 @@ const NutritionMap: React.FC = () => {
         }}
       >
         <p style={{ margin: "0" }}>
-          Please note: The values presented are compared against the global
+          Please note: The values presented are compared against the Australia
           average. The highlighted countries represent the top countries of
           origin for refugees in Australia.
         </p>
-      </div>
+      </div> */}
 
       <div className="mt-3">
+      {selectedCountryName && (
+      <h2>Nutrition Data for {selectedCountryName}</h2>)}
         <label htmlFor="age-group-select">Filter by Age Group: </label>
         <select
           id="age-group-select"
@@ -268,9 +275,7 @@ const NutritionMap: React.FC = () => {
         {/* include country name here */}
         {/* Good Nutrition Section */}
         <div className="col-12">
-        {selectedCountryName && (
-      <h1>Nutrition Data for {selectedCountryName}</h1>)}
-          <h3>Good Nutrition</h3>
+          <h5>Good Nutrition</h5>
           <div className="border-bottom border-light pb-3 mb-4">
             {loading ? ( // **Display loading animation if data is being fetched**
               <div>Loading...</div>
@@ -334,7 +339,7 @@ const NutritionMap: React.FC = () => {
 
         {/* Bad Nutrition Section */}
         <div className="col-12">
-          <h3>Bad Nutrition</h3>
+          <h5>Bad Nutrition</h5>
           <div>
             {loading ? ( // **Display loading animation if data is being fetched**
               <div>Loading...</div>
