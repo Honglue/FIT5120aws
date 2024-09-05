@@ -1,16 +1,18 @@
+
 import { Link, useNavigate, useLocation } from "react-router-dom";
-// import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next"; // 引入钩子
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../public/images/logo.png";
 
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  // const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(); // 初始化翻译钩子
 
-  // const handleLanguageChange = (lang: string) => {
-  //   i18n.changeLanguage(lang);
-  // };
+  // 处理语言切换的函数
+  const handleLanguageChange = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
 
   return (
     <nav
@@ -32,7 +34,7 @@ function Navbar() {
             height="30"
             className="d-inline-block align-top"
           />
-          <span style={{ paddingLeft: "10px" }}>Better Nutrition</span>
+          <span style={{ paddingLeft: "10px" }}>{t('Better Nutrition')}</span>
         </Link>
 
         <button
@@ -51,43 +53,32 @@ function Navbar() {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item me-3">
               <Link
-                className={`nav-link ${
-                  location.pathname === "/" ? "active" : ""
-                }`}
+                className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
                 to="/"
                 style={{
                   color: location.pathname === "/" ? "#6366F1" : "inherit",
                 }}
               >
-                Home
-                {/* {t("home")} */}
+                {t("home")}
               </Link>
             </li>
 
             <li className="nav-item me-3">
               <Link
-                className={`nav-link ${
-                  location.pathname === "/information" ? "active" : ""
-                }`}
+                className={`nav-link ${location.pathname === "/information" ? "active" : ""}`}
                 to="/information"
                 style={{
-                  color:
-                    location.pathname === "/information"
-                      ? "#6366F1"
-                      : "inherit",
+                  color: location.pathname === "/information" ? "#6366F1" : "inherit",
                 }}
                 onClick={() => navigate("/information")}
               >
-                General Info
-                {/* {t("more_info")} */}
+                {t("more_info")}
               </Link>
             </li>
 
             <li className="nav-item me-3">
               <button
-                className={`btn ${
-                  location.pathname === "/nutrition-map" ? "active" : ""
-                }`}
+                className={`btn ${location.pathname === "/nutrition-map" ? "active" : ""}`}
                 style={{
                   backgroundColor: "#6366F1",
                   color: "white",
@@ -95,12 +86,11 @@ function Navbar() {
                 }}
                 onClick={() => navigate("/nutrition-map")}
               >
-                Nutrition Map
-                {/* {t("nutrition_map")} */}
+                {t("nutrition_map")}
               </button>
             </li>
 
-            {/* <li className="nav-item">
+            <li className="nav-item">
               <div className="dropdown">
                 <button
                   className="btn btn-secondary dropdown-toggle"
@@ -122,7 +112,7 @@ function Navbar() {
                   <li><button className="dropdown-item" onClick={() => handleLanguageChange('fr')}>Français</button></li>
                 </ul>
               </div>
-            </li> */}
+            </li>
           </ul>
         </div>
       </div>

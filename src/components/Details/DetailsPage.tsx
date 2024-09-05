@@ -52,6 +52,7 @@ function DetailsPage() {
           </div>
         </div>
 
+        {/* Updated Card for Health Metrics Analyser */}
         <div className="col-md-3 mb-4">
           <div
             className="card h-100 d-flex card-hover"
@@ -59,6 +60,7 @@ function DetailsPage() {
               minHeight: "300px",
               textAlign: "left",
             }}
+            onClick={() => navigate("/recommend")} /* Navigate to Recommend page */
           >
             <div className="card-body d-flex flex-column justify-content-between">
               <h5 className="card-title">Health Metrics Analyser</h5>

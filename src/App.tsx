@@ -14,6 +14,7 @@ import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import Recommend from "./components/Recommend/Recommend";  // 正确的导入路径
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,7 +34,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <div className="App">
-            {/* Check if the user is authenticated */}
             {isAuthenticated ? (
               <>
                 <Navbar />
@@ -50,6 +50,7 @@ function App() {
                   />
                   <Route path="/nutrition-map" element={<NutritionMap />} />
                   <Route path="/information" element={<Information />} />
+                  <Route path="/recommend" element={<Recommend />} /> {/* 添加 Recommend 路由 */}
                 </Routes>
                 <Footer />
               </>
