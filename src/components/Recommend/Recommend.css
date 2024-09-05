@@ -1,37 +1,76 @@
 .nutrition-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 20px 40px;
-  }
-  
-  .nutrition-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .nutrition-card h2 {
-    font-size: 1.2rem;
-    color: #2e2e2e;
-  }
-  
-  .nutrition-value {
-    font-size: 1rem;
-    color: #6a0dad;
-    margin: 10px 0;
-  }
-  
-  .nutrition-equivalent {
-    font-size: 0.9rem;
-    color: #666;
-  }
-  
-  .nutrition-image {
-    width: 100px;
-    height: auto;
-    margin-top: 10px;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 保持两列布局 */
+  gap: 0; /* 消除卡片之间的间距 */
+  padding: 20px 40px;
+  margin-top: 20px; /* 调整条的位置 */
+}
+
+.nutrition-card {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 60%; /* 增加卡片宽度 */
+  height: 450px; /* 增加卡片高度 */
+  margin: 10px auto; /* 居中卡片并增加顶部和底部的间距 */
+}
+
+.nutrition-card-header {
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px; /* 调整内边距以适应内容 */
+  border-bottom: 1px solid #ddd;
+}
+
+.nutrition-type {
+  font-size: 1.4rem; /* 增大字体大小 */
+  font-weight: bold;
+  color: #2e2e2e;
+}
+
+.nutrition-value {
+  font-size: 1.2rem; /* 增大字体大小 */
+  font-weight: bold;
+  color: #6366F1;
+}
+
+.nutrition-card-body {
+  padding: 15px; /* 增加内边距以适应较大的卡片 */
+  text-align: center;
+}
+
+.nutrition-description {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.nutrition-equivalent {
+  font-size: 1rem; /* 增大字体大小 */
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.nutrition-image {
+  width: 300px; /* 增大图片宽度 */
+  height: auto; /* 保持图片的宽高比 */
+  margin: 20px auto; /* 调整图片与上下文的距离 */
+}
+
+.nutrition-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
