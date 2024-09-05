@@ -24,7 +24,9 @@ const NutritionMap: React.FC = () => {
   const [filteredData, setFilteredData] = useState<NutritionData[]>([]);
   const [globalData, setGlobalData] = useState<NutritionData[]>([]);
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>("7");
+  const [selectedCountryName, setSelectedCountryName] = useState<string | null>(null); // New state for country name
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [isMapVisible, setIsMapVisible] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false); // **New state for loading**
 
   const highlightedCountries = [
@@ -36,31 +38,23 @@ const NutritionMap: React.FC = () => {
     "South Sudan",
   ];
 
-  useEffect(() => {
+  // Function to initialize and draw the map using D3
+  const renderMap = () => {
+    if (!svgRef.current) return;
+
     const svg = d3.select(svgRef.current);
     const width = 800;
     const height = 500;
 
-    const projection = d3
-      .geoMercator()
-      .scale(130)
-      .translate([width / 2, height / 1.5]);
-
+    const projection = d3.geoMercator().scale(130).translate([width / 2, height / 1.5]);
     const path = d3.geoPath().projection(projection);
 
+    // Import and render the map
     import("@/assets/countries-110m.json").then((worldMapData) => {
-      /* eslint-disable @typescript-eslint/no-explicit-any */
       const typedWorldMapData = worldMapData as any;
+      const mapData = feature(typedWorldMapData, typedWorldMapData.objects.countries) as any as FeatureCollection<Geometry, GeoJsonProperties>;
 
-      const mapData = feature(
-        typedWorldMapData,
-        typedWorldMapData.objects.countries
-        /* eslint-disable @typescript-eslint/no-explicit-any */
-      ) as any as FeatureCollection<Geometry, GeoJsonProperties>;
-
-      const tooltip = d3
-        .select("body")
-        .append("div")
+      const tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("position", "absolute")
         .style("background", "rgba(0, 0, 0, 0.8)")
@@ -70,8 +64,7 @@ const NutritionMap: React.FC = () => {
         .style("pointer-events", "none")
         .style("opacity", 0);
 
-      svg
-        .append("g")
+      svg.append("g")
         .selectAll("path")
         .data(mapData.features)
         .enter()
@@ -79,23 +72,15 @@ const NutritionMap: React.FC = () => {
         .attr("d", path)
         .attr("fill", (d) => {
           const countryName = d.properties?.name;
-          if (
-            selectedCountry !== String(d.id).padStart(3, "0") &&
-            highlightedCountries.includes(countryName)
-          ) {
+          if (selectedCountry !== String(d.id).padStart(3, "0") && highlightedCountries.includes(countryName)) {
             return "#A3A6F9";
           }
-
-          return selectedCountry === String(d.id).padStart(3, "0")
-            ? "#6366F1"
-            : "#D3D3D3";
+          return selectedCountry === String(d.id).padStart(3, "0") ? "#6366F1" : "#D3D3D3";
         })
         .attr("stroke", "#ffffff")
         .on("mouseover", function (event, d) {
           const countryName = d.properties?.name;
-          tooltip
-            .style("opacity", 1)
-            .text(countryName)
+          tooltip.style("opacity", 1).text(countryName)
             .style("left", `${event.pageX + 5}px`)
             .style("top", `${event.pageY - 28}px`);
         })
@@ -104,21 +89,30 @@ const NutritionMap: React.FC = () => {
         })
         .on("click", function (_, d) {
           const countryId = String(d.id).padStart(3, "0");
+          const countryName = d.properties?.name || null;
           setSelectedCountry(countryId);
-          if (countryId) {
-            handleCountryClick(countryId);
-          } else {
-            console.log("Country ID not found. Full object: ", d);
-          }
+          setSelectedCountryName(countryName);
+          tooltip.style("opacity", 0);
+          setIsMapVisible(false); // Auto-hide the map after a country is selected
         });
     });
-  }, [selectedCountry]);
-
+  };
+  const prevMapVisibility = useRef<boolean>(isMapVisible);
   useEffect(() => {
-    if (selectedCountry) {
-      handleCountryClick(selectedCountry);
+    if (!isMapVisible && prevMapVisibility.current) {
+      // Fetch data for the selected country when the map is transitioning from visible to hidden
+      if (selectedCountry) {
+        handleCountryClick(selectedCountry);
+      }
     }
-  }, [selectedAgeGroup]);
+  
+    // Render the map when it's visible or when the selected country changes
+    if (isMapVisible || selectedCountry) {
+      renderMap();
+    }
+
+    prevMapVisibility.current = isMapVisible;
+  }, [isMapVisible, selectedCountry, selectedAgeGroup]);
 
   const handleCountryClick = async (countryId: string) => {
     setLoading(true); // **Start loading when fetch begins**
@@ -186,7 +180,8 @@ const NutritionMap: React.FC = () => {
       console.log("Global value is 0, returning 0 deviation.");
       return 0;
     }
-    return ((countryValue - globalValue) / globalValue) * 100;
+    // return ((countryValue - globalValue) / globalValue) * 100;
+    return ((globalValue - countryValue) / countryValue) * 100;
   };
 
   return (
@@ -221,9 +216,19 @@ const NutritionMap: React.FC = () => {
         </p>
       </div>
 
-      <div className="pt-4">
-        <svg ref={svgRef} width={800} height={500}></svg>
+      {/* Button to toggle map visibility */}
+      <div className="my-3">
+        <button onClick={() => setIsMapVisible(!isMapVisible)}>
+          {isMapVisible ? "Hide Map" : "Show Map"}
+        </button>
       </div>
+
+      {/* Conditionally render the map based on isMapVisible */}
+      {isMapVisible && (
+        <div className="pt-4">
+          <svg ref={svgRef} width={800} height={500}></svg>
+        </div>
+      )}
 
       <div
         className="p-3 mt-4"
@@ -260,8 +265,11 @@ const NutritionMap: React.FC = () => {
       </div>
 
       <div className="row mt-4">
+        {/* include country name here */}
         {/* Good Nutrition Section */}
         <div className="col-12">
+        {selectedCountryName && (
+      <h1>Nutrition Data for {selectedCountryName}</h1>)}
           <h3>Good Nutrition</h3>
           <div className="border-bottom border-light pb-3 mb-4">
             {loading ? ( // **Display loading animation if data is being fetched**
@@ -293,18 +301,18 @@ const NutritionMap: React.FC = () => {
                       globalMedian
                     );
 
-                    if (deviation > 30) {
-                      low = 0;
+                    if (deviation > 25) {
+                      low = 100;
                       medium = 0;
-                      high = 100;
+                      high = 0;
                     } else if (deviation > 10) {
                       low = 0;
                       medium = 100;
                       high = 0;
                     } else {
-                      low = 100;
+                      low = 0;
                       medium = 0;
-                      high = 0;
+                      high = 100;
                     }
                   }
 
