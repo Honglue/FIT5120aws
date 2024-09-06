@@ -12,7 +12,7 @@
     background-color: white;
     border-radius: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px 200px;
+    padding: 10px 100px;
     width: 75%; 
 
   }
@@ -35,18 +35,19 @@
     outline: none;
     padding: 5px;
     text-align: center;
-    width: 80px; /* 调整输入框的宽度 */
+    width: 120px; /* 调整输入框的宽度 */
     background-color: #f7f7f7;
     border-radius: 20px;
   }
   
-  .calculate-button {
-    background-color: #6366F1;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
+.calculate-button {
+  background-color: #6366F1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px !important; 
+  cursor: pointer;
+  margin-left: 10px;
+}
+
   

@@ -1,9 +1,8 @@
 .nutrition-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 保持两列布局 */
-  gap: 0; /* 消除卡片之间的间距 */
-  padding: 20px 40px;
-  margin-top: 20px; /* 调整条的位置 */
+  grid-template-columns: repeat(2, 1fr); /* 两列布局 */
+  gap: 20px; /* 调整卡片之间的间距 */
+  padding: 20px 200px; /* 两侧留白，顶部和底部的间距适当 */
 }
 
 .nutrition-card {
@@ -13,35 +12,37 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  width: 60%; /* 增加卡片宽度 */
-  height: 450px; /* 增加卡片高度 */
-  margin: 10px auto; /* 居中卡片并增加顶部和底部的间距 */
+  width: 80%; /* 让卡片占满容器 */
+  height: 500px;
+  margin: 0; /* 确保卡片本身没有外边距 */
+  text-align: center;
 }
+
+
 
 .nutrition-card-header {
   background-color: #f7f7f7;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px; /* 调整内边距以适应内容 */
+  padding: 10px 15px;
   border-bottom: 1px solid #ddd;
 }
 
 .nutrition-type {
-  font-size: 1.4rem; /* 增大字体大小 */
+  font-size: 1.4rem;
   font-weight: bold;
   color: #2e2e2e;
 }
 
 .nutrition-value {
-  font-size: 1.2rem; /* 增大字体大小 */
+  font-size: 1.2rem;
   font-weight: bold;
   color: #6366F1;
 }
 
 .nutrition-card-body {
-  padding: 15px; /* 增加内边距以适应较大的卡片 */
-  text-align: center;
+  padding: 15px;
 }
 
 .nutrition-description {
@@ -51,15 +52,26 @@
 }
 
 .nutrition-equivalent {
-  font-size: 1rem; /* 增大字体大小 */
-  color: #333;
-  margin-bottom: 20px;
+  font-size: 1rem; /* 默认的字体大小 */
+  font-weight: bold;
+  color: #333; /* 默认颜色 */
+  margin-bottom: 10px;
+  text-align: left; /* 左对齐 */
+  margin-left: 15px; /* 向左移动 */
+}
+
+.nutrition-equivalent span {
+  display: block;
+  color: #6366F1; /* 蓝色字体 */
+  font-size: 1.5rem; /* 增大字体 */
+  font-weight: 600; /* 设置较粗的字体 */
+  text-align: left; /* 左对齐 */
 }
 
 .nutrition-image {
-  width: 300px; /* 增大图片宽度 */
-  height: auto; /* 保持图片的宽高比 */
-  margin: 20px auto; /* 调整图片与上下文的距离 */
+  width: 200px;
+  height: auto;
+  margin: 20px auto;
 }
 
 .nutrition-navigation {
@@ -69,8 +81,17 @@
 }
 
 .nav-button {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
+  margin-top: -100px;
+  margin-left: 30px;
+  margin-right: 30px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
