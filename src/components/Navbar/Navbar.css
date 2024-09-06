@@ -1,0 +1,13 @@
+.nav-btn-custom {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+}
+
+.nav-btn-custom:hover {
+  background: #4b4ade;
+  border-color: #4b4ade;
+  color: white;
+}
