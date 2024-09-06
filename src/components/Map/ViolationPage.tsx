@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ViolationBar from "./ViolationBar"; // Assuming the path is correct
-import { FiArrowLeft } from "react-icons/fi"; // Icon for the back button
+import { ViolationBar } from "./ViolationBar";
+import { FiArrowLeft } from "react-icons/fi";
 
 interface ViolationPageProps {
   selectedCountry: string;
@@ -13,7 +13,7 @@ interface ViolationPageProps {
 const goodNutritionIds = ["1", "2", "3", "4", "6", "10"];
 const badNutritionIds = ["5", "7", "8", "9", "11"];
 
-const ViolationPage: React.FC<ViolationPageProps> = ({
+export const ViolationPage: React.FC<ViolationPageProps> = ({
   selectedCountry,
   selectedCountryName,
   selectedAgeGroup,
@@ -283,5 +283,3 @@ const ViolationPage: React.FC<ViolationPageProps> = ({
     </div>
   );
 };
-
-export default ViolationPage;
