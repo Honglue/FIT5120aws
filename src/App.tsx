@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
 import AwarenessSection from "./components/Awareness/AwarenessSection";
 import DetailsPage from "./components/Details/DetailsPage";
@@ -9,12 +9,12 @@ import NutritionMap from "./components/NutritionMap/NutritionMap";
 import "./components/App.css";
 import { theme } from "./theme";
 import Information from "./components/Information/Information";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import Recommend from "./components/Recommend/Recommend";  // 正确的导入路径
+import Recommend from "./components/Recommend/Recommend"; // 正确的导入路径
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -50,7 +50,7 @@ function App() {
                   />
                   <Route path="/nutrition-map" element={<NutritionMap />} />
                   <Route path="/information" element={<Information />} />
-                  <Route path="/recommend" element={<Recommend />} /> {/* 添加 Recommend 路由 */}
+                  <Route path="/recommend" element={<Recommend />} />
                 </Routes>
                 <Footer />
               </>

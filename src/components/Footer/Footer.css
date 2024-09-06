@@ -1,0 +1,22 @@
+.footer {
+  padding: 40px 0;
+}
+
+.footer h5,
+.footer p,
+.footer ul {
+  text-align: left;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer ul li {
+  margin-bottom: 20px;
+}
+
+.footer li {
+  margin-top: 10px;
+}
