@@ -106,7 +106,7 @@ function DetailsPage() {
               cursor: "pointer",
               padding: "20px",
             }}
-            onClick={() => navigate("/nutrition-map")}
+            onClick={() => navigate("/recommend")}
           >
             <div className="card-body d-flex flex-column align-items-center justify-content-center">
               {/* Icon or Image */}

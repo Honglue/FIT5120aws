@@ -82,7 +82,7 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
           onClick={handleBackToMap}
           style={{ color: "#6366F1" }}
         >
-          <FiArrowLeft size={20} /> Back
+          <FiArrowLeft size={20} /> Back to Map
         </button>
       </div>
 

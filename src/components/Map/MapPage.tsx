@@ -33,7 +33,7 @@ const NutritionMapInfo = () => (
       Nutritional Map
     </h2>
     <p className="lead" style={{ fontSize: "16px" }}>
-      Use our interactive map to discover the nutrients patterns in your
+      Use our interactive map to discover the nutrients consumptions in your
       country. Click on your home country to see detailed insights, highlighting
       which foods are beneficial and which to limit.
     </p>
