@@ -6,10 +6,10 @@ import solution from "../../../public/images/solution.png";
 import "./AwarenessSection.css";
 
 // import { useTranslation } from "react-i18next";
-type SectionType = "problem" | "cause" | "solution";
+type SectionType = "challenge" | "cause" | "solution";
 
 function AwarenessSection() {
-  const [activeSection, setActiveSection] = useState<SectionType>("problem");
+  const [activeSection, setActiveSection] = useState<SectionType>("challenge");
 
   const handleSectionClick = (section: SectionType) => {
     setActiveSection(section);
@@ -17,7 +17,7 @@ function AwarenessSection() {
   // const { t } = useTranslation();
 
   const sectionContent = {
-    problem: {
+    challenge: {
       title: "Awareness Gap",
       subtitle:
         "Many refugee families arriving in Victoria come from conflict zones where survival was the priority, with little focus on health and well-being. As they settle into safety, they often lack awareness about the importance of nutrition and health for their children.",
@@ -104,7 +104,7 @@ function AwarenessSection() {
                 borderRadius: "10px",
                 backgroundColor: "#6366F1",
                 left:
-                  activeSection === "problem"
+                  activeSection === "challenge"
                     ? "0%"
                     : activeSection === "cause"
                     ? "33%"
@@ -116,18 +116,18 @@ function AwarenessSection() {
 
         {/* Slider Content */}
         <div className="row">
-          {/* The problem */}
+          {/* The challenge */}
           <div className="col-md-4 text-start">
             <div
               className="pr-3"
               style={{ cursor: "pointer" }}
-              onClick={() => handleSectionClick("problem")}
+              onClick={() => handleSectionClick("challenge")}
             >
-              <h5>The problem</h5>
+              <h5>The Challenge</h5>
               <p
                 className="lead"
                 style={{
-                  color: activeSection === "problem" ? "#71717A" : "#C4C4C4",
+                  color: activeSection === "challenge" ? "#71717A" : "#C4C4C4",
                   fontSize: "16px",
                 }}
               >
