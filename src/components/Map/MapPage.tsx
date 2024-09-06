@@ -16,6 +16,42 @@ const highlightedCountries = [
   "South Sudan",
 ];
 
+const NutritionMapInfo = () => (
+  <div
+    className="pt-4"
+    style={{
+      maxWidth: "350px",
+      margin: "0 auto",
+      textAlign: "left",
+      padding: "20px",
+      border: "1px solid #d3d3d3",
+      borderRadius: "10px",
+      backgroundColor: "#f9f9f9",
+    }}
+  >
+    <h2 style={{ fontWeight: "bold", marginBottom: "10px" }}>
+      Nutritional Map
+    </h2>
+    <p className="lead" style={{ fontSize: "16px" }}>
+      Use our interactive map to discover the nutrients patterns in your
+      country. Click on your home country to see detailed insights, highlighting
+      which foods are beneficial and which to limit.
+    </p>
+
+    <p className="lead" style={{ fontSize: "16px" }}>
+      <br />
+      <strong>How it works:</strong> <br />
+      1. Select a country from the map above. <br />
+      Note: The highlighted countries represent the top countries of origin for
+      refugees in Australia.
+      <br />
+      <br />
+      2. The nutrition level of each nutrient will be displayed, comparing it
+      against the Australia average.
+    </p>
+  </div>
+);
+
 export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
@@ -89,42 +125,6 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
       d3.select(tooltipRef.current).style("opacity", 0);
     };
   }, []);
-
-  const NutritionMapInfo = () => (
-    <div
-      className="pt-4"
-      style={{
-        maxWidth: "350px",
-        margin: "0 auto",
-        textAlign: "left",
-        padding: "20px",
-        border: "1px solid #d3d3d3",
-        borderRadius: "10px",
-        backgroundColor: "#f9f9f9",
-      }}
-    >
-      <h2 style={{ fontWeight: "bold", marginBottom: "10px" }}>
-        Nutritional Map
-      </h2>
-      <p className="lead" style={{ fontSize: "16px" }}>
-        Use our interactive map to discover the nutrients patterns in your
-        country. Click on your home country to see detailed insights,
-        highlighting which foods are beneficial and which to limit.
-      </p>
-
-      <p className="lead" style={{ fontSize: "16px" }}>
-        <br />
-        <strong>How it works:</strong> <br />
-        1. Select a country from the map above. <br />
-        Note: The highlighted countries represent the top countries of origin
-        for refugees in Australia.
-        <br />
-        <br />
-        2. The nutrition level of each nutrient will be displayed, comparing it
-        against the Australia average.
-      </p>
-    </div>
-  );
 
   return (
     <div

@@ -81,7 +81,7 @@ interface ViolationBarProps {
   high: number;
 }
 
-const ViolationBar: React.FC<ViolationBarProps> = ({
+export const ViolationBar: React.FC<ViolationBarProps> = ({
   nutritionId,
   low,
   medium,
@@ -182,5 +182,3 @@ const ViolationBar: React.FC<ViolationBarProps> = ({
     </div>
   );
 };
-
-export default ViolationBar;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import MapPage from "./MapPage";
-import ViolationPage from "./ViolationPage";
+import { MapPage } from "./MapPage";
+import { ViolationPage } from "./ViolationPage";
 
 const NutritionMap: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
