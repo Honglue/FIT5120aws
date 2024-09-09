@@ -3,7 +3,7 @@ import logo from "../../../public/images/logo.png";
 
 function Footer() {
   return (
-    <footer className="footer mt-auto p-5 w-100 bg-light">
+    <footer className="footer mt-auto p-3 w-100 bg-light">
       <div className="container bg-light">
         <div className="row">
           {/* Left Section: Company Description */}
@@ -24,14 +24,14 @@ function Footer() {
 
           {/* Right Sections: Wrapped in a container with ms-auto */}
           <div className="d-flex ms-auto col-md-6 justify-content-between">
-            <div className="text-start">
+            {/* <div className="text-start">
               <h5 className="fw-bold mb-3">Our team</h5>
               <ul className="list-unstyled">
                 <li>Blog</li>
                 <li>Careers</li>
                 <li>Pricing</li>
               </ul>
-            </div>
+            </div> */}
 
             <div className="text-start">
               <h5 className="fw-bold mb-3">Resources</h5>

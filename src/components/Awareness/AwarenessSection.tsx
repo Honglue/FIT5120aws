@@ -42,7 +42,7 @@ function AwarenessSection() {
   return (
     <div className="awareness-section">
       {/* Awareness Section */}
-      <section className="py-5">
+      <section className="py-3">
         <div className="container">
           <div className="row align-items-center">
             {/* Left Column: Text */}

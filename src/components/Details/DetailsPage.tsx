@@ -10,7 +10,7 @@ function DetailsPage() {
 
   return (
     <div
-      className="container d-flex flex-column justify-content-center text-center my-5 flex-grow-1"
+      className="container d-flex flex-column justify-content-center text-center my-3 flex-grow-1"
       style={{ minHeight: "85vh" }}
     >
       {/* Header Section */}
@@ -28,7 +28,7 @@ function DetailsPage() {
           <div
             className="card card-custom text-dark h-100"
             style={{
-              minHeight: "300px",
+              minHeight: "100px",
               textAlign: "left",
               cursor: "pointer",
               padding: "20px",

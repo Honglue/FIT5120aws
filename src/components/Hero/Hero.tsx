@@ -203,7 +203,8 @@ function Hero() {
 
   return (
     <section
-      className="hero-section d-flex align-items-center justify-content-center pt-4"
+      // className="hero-section d-flex align-items-center justify-content-center pt-4"
+      className="hero-section d-flex align-items-center justify-content-center pt-2"
       style={{ minHeight: "85vh" }}
     >
       <div
