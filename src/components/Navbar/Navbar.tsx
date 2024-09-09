@@ -83,13 +83,29 @@ function Navbar() {
             </li>
 
             <li className="nav-item me-3">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/nutrition-map" ? "active" : ""
+                }`}
+                to="/nutrition-map"
+                style={{
+                  color:
+                    location.pathname === "/nutrition-map" ? "#6366F1" : "inherit",
+                }}
+                onClick={() => navigate("/nutrition-map")}
+              >
+                {t("nutrition_map")}
+              </Link>
+            </li>
+
+            {/* <li className="nav-item me-3">
               <button
                 className="btn nav-btn-custom"
                 onClick={() => navigate("/nutrition-map")}
               >
                 {t("nutrition_map")}
               </button>
-            </li>
+            </li> */}
 
             <li className="nav-item">
               <div className="dropdown">
