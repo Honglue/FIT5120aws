@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
 import AwarenessSection from "./components/Awareness/AwarenessSection";
 import DetailsPage from "./components/Details/DetailsPage";
+import StatsSource from "./components/StatsSource/StatsSource";
 import NutritionMap from "./components/Map/NutritionMap";
 import "./components/App.css";
 import { theme } from "./theme";
@@ -44,6 +45,7 @@ function App() {
                       <>
                         <Hero />
                         <AwarenessSection />
+                        <StatsSource />
                         <DetailsPage />
                       </>
                     }
