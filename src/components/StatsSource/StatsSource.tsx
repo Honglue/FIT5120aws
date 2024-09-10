@@ -13,7 +13,7 @@ const countries = [
 
 const TimeSeriesChart: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<{ id: number; name: string } | null>(null);
-  const [data, setData] = useState<{ year: number; refugee: number; asylum: number }[]>([]);
+  const [data, setData] = useState<{ pop_year: number; refugee: number; asylum: number }[]>([]);
 
   useEffect(() => {
     if (selectedCountry) {
@@ -45,7 +45,7 @@ const TimeSeriesChart: React.FC = () => {
     }
   }, [data]);
 
-  const drawChart = (chartData: { year: number; refugee: number; asylum: number }[]) => {
+  const drawChart = (chartData: { pop_year: number; refugee: number; asylum: number }[]) => {
     d3.select("#chart").selectAll("*").remove();
 
     const margin = { top: 10, right: 30, bottom: 30, left: 60 },
@@ -61,7 +61,7 @@ const TimeSeriesChart: React.FC = () => {
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
     // X-axis for years
-    const x = d3.scaleLinear().domain([d3.min(chartData, (d) => d.year)!, d3.max(chartData, (d) => d.year)!]).range([0, width]);
+    const x = d3.scaleLinear().domain([d3.min(chartData, (d) => d.pop_year)!, d3.max(chartData, (d) => d.pop_year)!]).range([0, width]);
     svg
       .append("g")
       .attr("transform", `translate(0,${height})`)
@@ -73,8 +73,8 @@ const TimeSeriesChart: React.FC = () => {
 
     // Create line for refugee data
     const lineRefugee = d3
-      .line<{ year: number; refugee: number }>()
-      .x((d) => x(d.year))
+      .line<{ pop_year: number; refugee: number }>()
+      .x((d) => x(d.pop_year))
       .y((d) => y(d.refugee));
 
     svg
@@ -87,8 +87,8 @@ const TimeSeriesChart: React.FC = () => {
 
     // Create line for asylum data
     const lineAsylum = d3
-      .line<{ year: number; asylum: number }>()
-      .x((d) => x(d.year))
+      .line<{ pop_year: number; asylum: number }>()
+      .x((d) => x(d.pop_year))
       .y((d) => y(d.asylum));
 
     svg
@@ -102,7 +102,7 @@ const TimeSeriesChart: React.FC = () => {
     // Add label for refugee line
     svg
       .append("text")
-      .attr("transform", `translate(${x(chartData[chartData.length - 1].year)},${y(chartData[chartData.length - 1].refugee)})`)
+      .attr("transform", `translate(${x(chartData[chartData.length - 1].pop_year)},${y(chartData[chartData.length - 1].refugee)})`)
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
       .style("fill", "blue")
@@ -111,7 +111,7 @@ const TimeSeriesChart: React.FC = () => {
     // Add label for asylum line
     svg
       .append("text")
-      .attr("transform", `translate(${x(chartData[chartData.length - 1].year)},${y(chartData[chartData.length - 1].asylum)})`)
+      .attr("transform", `translate(${x(chartData[chartData.length - 1].pop_year)},${y(chartData[chartData.length - 1].asylum)})`)
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
       .style("fill", "red")
@@ -127,12 +127,12 @@ const TimeSeriesChart: React.FC = () => {
       .enter()
       .append("circle")
       .attr("class", "dot-refugee")
-      .attr("cx", (d) => x(d.year))
+      .attr("cx", (d) => x(d.pop_year))
       .attr("cy", (d) => y(d.refugee))
       .attr("r", 5)
       .attr("fill", "blue")
       .on("mouseover", function (_event, d) {
-        tooltip.style("opacity", 1).text(`Year: ${d.year}, Refugees: ${d.refugee}`);
+        tooltip.style("opacity", 1).text(`Year: ${d.pop_year}, Refugees: ${d.refugee}`);
       })
       .on("mousemove", function (event) {
         tooltip.style("left", `${event.pageX + 5}px`).style("top", `${event.pageY - 28}px`);
@@ -148,12 +148,12 @@ const TimeSeriesChart: React.FC = () => {
       .enter()
       .append("circle")
       .attr("class", "dot-asylum")
-      .attr("cx", (d) => x(d.year))
+      .attr("cx", (d) => x(d.pop_year))
       .attr("cy", (d) => y(d.asylum))
       .attr("r", 5)
       .attr("fill", "red")
       .on("mouseover", function (_event, d) {
-        tooltip.style("opacity", 1).text(`Year: ${d.year}, Asylum: ${d.asylum}`);
+        tooltip.style("opacity", 1).text(`Year: ${d.pop_year}, Asylum: ${d.asylum}`);
       })
       .on("mousemove", function (event) {
         tooltip.style("left", `${event.pageX + 5}px`).style("top", `${event.pageY - 28}px`);
