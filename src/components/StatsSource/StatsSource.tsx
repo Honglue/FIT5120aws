@@ -131,7 +131,7 @@ const TimeSeriesChart: React.FC = () => {
       .attr("cy", (d) => y(d.refugee))
       .attr("r", 5)
       .attr("fill", "blue")
-      .on("mouseover", function (event, d) {
+      .on("mouseover", function (_event, d) {
         tooltip.style("opacity", 1).text(`Year: ${d.year}, Refugees: ${d.refugee}`);
       })
       .on("mousemove", function (event) {
@@ -152,7 +152,7 @@ const TimeSeriesChart: React.FC = () => {
       .attr("cy", (d) => y(d.asylum))
       .attr("r", 5)
       .attr("fill", "red")
-      .on("mouseover", function (event, d) {
+      .on("mouseover", function (_event, d) {
         tooltip.style("opacity", 1).text(`Year: ${d.year}, Asylum: ${d.asylum}`);
       })
       .on("mousemove", function (event) {
