@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 
 // Country list with ISO 3166 IDs
@@ -13,16 +13,20 @@ const countries = [
 
 const TimeSeriesChart: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<{ id: number; name: string } | null>(null);
-  const [data, setData] = useState<{ pop_year: number; refugee: number; asylum: number }[]>([]);
+  const [chartData, setChartData] = useState<{ pop_year: number; refugee: number; asylum: number }[]>([]);
+  const [jsonData, setJsonData] = useState<any>(null); // Separate state for the second API (raw JSON data)
+  const [animatedSum, setAnimatedSum] = useState<number>(0); // To track the animated number sum
+  const animationIntervalRef = useRef<NodeJS.Timeout | null>(null); // To track the current animation interval
 
   useEffect(() => {
     if (selectedCountry) {
-      fetchData(selectedCountry.id);
+      fetchChartData(selectedCountry.id); // Fetch data for the D3 chart
+      fetchJsonData(selectedCountry.id); // Fetch raw JSON data for display
     }
   }, [selectedCountry]);
 
-  // Fetch data for the selected country
-  const fetchData = async (countryId: number) => {
+  // Fetch data for the chart
+  const fetchChartData = async (countryId: number) => {
     try {
       const response = await fetch("https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/refugeedata", {
         method: "POST",
@@ -32,24 +36,68 @@ const TimeSeriesChart: React.FC = () => {
         body: JSON.stringify({ country_id: countryId }),
       });
       const jsonResponse = await response.json();
-      setData(jsonResponse.body);
+      setChartData(jsonResponse.body);
     } catch (error) {
-      console.error("Error fetching data", error);
+      console.error("Error fetching chart data", error);
     }
   };
 
-  // Draw chart after data is fetched
-  useEffect(() => {
-    if (data.length > 0) {
-      drawChart(data);
+  // Fetch data for JSON display
+  const fetchJsonData = async (countryId: number) => {
+    try {
+      const response = await fetch("https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/mulnutritiondata", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ country_id: countryId }),
+      });
+      const jsonResponse = await response.json();
+      setJsonData(jsonResponse.body); // Store the raw JSON data for display
+    } catch (error) {
+      console.error("Error fetching JSON data", error);
     }
-  }, [data]);
+  };
+
+  // Trigger chart drawing and animation after data is fetched
+  useEffect(() => {
+    if (chartData.length > 0) {
+      drawChart(chartData);
+      restartAnimation(chartData); // Restart the sum animation when data is available
+    }
+  }, [chartData]);
+
+  // Function to animate the sum of the asylum values
+  const animateSum = (chartData: { pop_year: number; asylum: number }[]) => {
+    let currentSum = 0;
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < chartData.length) {
+        currentSum += chartData[index].asylum; // Summing up asylum numbers
+        setAnimatedSum(currentSum);
+        index++;
+      } else {
+        clearInterval(interval); // Stop when all data points are summed
+      }
+    }, 500); // Add the next point every 0.5 seconds
+    return interval;
+  };
+
+  // Restart the animation for new data and clear the previous one
+  const restartAnimation = (chartData: { pop_year: number; asylum: number }[]) => {
+    if (animationIntervalRef.current) {
+      clearInterval(animationIntervalRef.current);
+    }
+    setAnimatedSum(0); // Reset the animated sum to 0
+    const newInterval = animateSum(chartData);
+    animationIntervalRef.current = newInterval;
+  };
 
   const drawChart = (chartData: { pop_year: number; refugee: number; asylum: number }[]) => {
     d3.select("#chart").selectAll("*").remove();
 
-    const margin = { top: 10, right: 30, bottom: 30, left: 60 },
-      width = 460 - margin.left - margin.right,
+    const margin = { top: 10, right: 100, bottom: 50, left: 60 },
+      width = 600 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
 
     const svg = d3
@@ -60,18 +108,35 @@ const TimeSeriesChart: React.FC = () => {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // X-axis for years
-    const x = d3.scaleLinear().domain([d3.min(chartData, (d) => d.pop_year)!, d3.max(chartData, (d) => d.pop_year)!]).range([0, width]);
+    const x = d3
+      .scaleLinear()
+      .domain([d3.min(chartData, (d) => d.pop_year)!, d3.max(chartData, (d) => d.pop_year)!])
+      .range([0, width]);
+
     svg
       .append("g")
       .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(x).ticks(chartData.length));
 
-    // Y-axis for refugee and asylum numbers
-    const y = d3.scaleLinear().domain([0, d3.max(chartData, (d) => Math.max(d.refugee, d.asylum))!]).range([height, 0]);
+    const y = d3
+      .scaleLinear()
+      .domain([0, d3.max(chartData, (d) => Math.max(d.refugee, d.asylum))!])
+      .range([height, 0]);
     svg.append("g").call(d3.axisLeft(y));
 
-    // Create line for refugee data
+    svg
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("x", width / 2)
+      .attr("y", height + margin.bottom - 10)
+      .text("Year");
+
+    svg
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("transform", `translate(-40,${height / 2})rotate(-90)`)
+      .text("Population");
+
     const lineRefugee = d3
       .line<{ pop_year: number; refugee: number }>()
       .x((d) => x(d.pop_year))
@@ -85,7 +150,6 @@ const TimeSeriesChart: React.FC = () => {
       .attr("stroke-width", 2)
       .attr("d", lineRefugee);
 
-    // Create line for asylum data
     const lineAsylum = d3
       .line<{ pop_year: number; asylum: number }>()
       .x((d) => x(d.pop_year))
@@ -98,73 +162,10 @@ const TimeSeriesChart: React.FC = () => {
       .attr("stroke", "red")
       .attr("stroke-width", 2)
       .attr("d", lineAsylum);
-
-    // Add label for refugee line
-    svg
-      .append("text")
-      .attr("transform", `translate(${x(chartData[chartData.length - 1].pop_year)},${y(chartData[chartData.length - 1].refugee)})`)
-      .attr("dy", ".35em")
-      .attr("text-anchor", "start")
-      .style("fill", "blue")
-      .text("Refugees");
-
-    // Add label for asylum line
-    svg
-      .append("text")
-      .attr("transform", `translate(${x(chartData[chartData.length - 1].pop_year)},${y(chartData[chartData.length - 1].asylum)})`)
-      .attr("dy", ".35em")
-      .attr("text-anchor", "start")
-      .style("fill", "red")
-      .text("Asylum");
-
-    // Tooltip setup
-    const tooltip = d3.select("#tooltip").style("opacity", 0);
-
-    // Create dots for refugee data
-    svg
-      .selectAll(".dot-refugee")
-      .data(chartData)
-      .enter()
-      .append("circle")
-      .attr("class", "dot-refugee")
-      .attr("cx", (d) => x(d.pop_year))
-      .attr("cy", (d) => y(d.refugee))
-      .attr("r", 5)
-      .attr("fill", "blue")
-      .on("mouseover", function (_event, d) {
-        tooltip.style("opacity", 1).text(`Year: ${d.pop_year}, Refugees: ${d.refugee}`);
-      })
-      .on("mousemove", function (event) {
-        tooltip.style("left", `${event.pageX + 5}px`).style("top", `${event.pageY - 28}px`);
-      })
-      .on("mouseout", function () {
-        tooltip.style("opacity", 0);
-      });
-
-    // Create dots for asylum data
-    svg
-      .selectAll(".dot-asylum")
-      .data(chartData)
-      .enter()
-      .append("circle")
-      .attr("class", "dot-asylum")
-      .attr("cx", (d) => x(d.pop_year))
-      .attr("cy", (d) => y(d.asylum))
-      .attr("r", 5)
-      .attr("fill", "red")
-      .on("mouseover", function (_event, d) {
-        tooltip.style("opacity", 1).text(`Year: ${d.pop_year}, Asylum: ${d.asylum}`);
-      })
-      .on("mousemove", function (event) {
-        tooltip.style("left", `${event.pageX + 5}px`).style("top", `${event.pageY - 28}px`);
-      })
-      .on("mouseout", function () {
-        tooltip.style("opacity", 0);
-      });
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "40px" }}>
       <div>
         <label>Select Country:</label>
         <select onChange={(e) => setSelectedCountry(countries[parseInt(e.target.value)])}>
@@ -175,10 +176,19 @@ const TimeSeriesChart: React.FC = () => {
             </option>
           ))}
         </select>
+        <div id="chart"></div>
       </div>
 
-      <div id="chart"></div>
-      <div id="tooltip" style={{ position: "absolute", opacity: 0, background: "lightgray", padding: "5px" }}></div>
+      {/* Animated number display */}
+      <div style={{ fontSize: "24px", fontWeight: "bold", textAlign: "center" }}>
+        Total Asylum from 2010: {animatedSum}
+      </div>
+
+      {/* Display the fetched JSON data from the second API */}
+      <div style={{ marginTop: "20px", fontSize: "14px", maxWidth: "600px", wordWrap: "break-word", backgroundColor: "#f9f9f9", padding: "10px", borderRadius: "8px" }}>
+        <h3>Fetched JSON Data:</h3>
+        <pre>{JSON.stringify(jsonData, null, 2)}</pre> {/* Displaying the fetched JSON data */}
+      </div>
     </div>
   );
 };
