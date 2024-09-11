@@ -162,6 +162,79 @@ const TimeSeriesChart: React.FC = () => {
       .attr("stroke", "red")
       .attr("stroke-width", 2)
       .attr("d", lineAsylum);
+    
+      svg
+    .append("text")
+    .attr("transform", `translate(${x(chartData[chartData.length - 1].pop_year) + 5},${y(chartData[chartData.length - 1].refugee)})`)
+    .attr("dy", ".35em")
+    .attr("text-anchor", "start")
+    .style("fill", "blue")
+    .text("Refugees");
+
+  // Add Asylum label
+  svg
+    .append("text")
+    .attr("transform", `translate(${x(chartData[chartData.length - 1].pop_year) + 5},${y(chartData[chartData.length - 1].asylum)})`)
+    .attr("dy", ".35em")
+    .attr("text-anchor", "start")
+    .style("fill", "red")
+    .text("Asylum");
+
+  // Tooltip div
+  const tooltip = d3
+    .select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("background", "#f9f9f9")
+    .style("border", "1px solid #d3d3d3")
+    .style("border-radius", "5px")
+    .style("padding", "10px")
+    .style("opacity", 0)
+    .style("pointer-events", "none");
+
+  // Add dots for refugees
+  svg
+    .selectAll(".dot-refugee")
+    .data(chartData)
+    .enter()
+    .append("circle")
+    .attr("class", "dot-refugee")
+    .attr("cx", (d) => x(d.pop_year))
+    .attr("cy", (d) => y(d.refugee))
+    .attr("r", 5)
+    .attr("fill", "blue")
+    .on("mouseover", (event, d) => {
+      tooltip
+        .style("opacity", 1)
+        .html(`<strong>Year:</strong> ${d.pop_year}<br><strong>Refugees:</strong> ${d.refugee}`)
+        .style("left", `${event.pageX + 10}px`)
+        .style("top", `${event.pageY - 20}px`);
+    })
+    .on("mouseout", () => {
+      tooltip.style("opacity", 0);
+    });
+
+  // Add dots for asylum seekers
+  svg
+    .selectAll(".dot-asylum")
+    .data(chartData)
+    .enter()
+    .append("circle")
+    .attr("class", "dot-asylum")
+    .attr("cx", (d) => x(d.pop_year))
+    .attr("cy", (d) => y(d.asylum))
+    .attr("r", 5)
+    .attr("fill", "red")
+    .on("mouseover", (event, d) => {
+      tooltip
+        .style("opacity", 1)
+        .html(`<strong>Year:</strong> ${d.pop_year}<br><strong>Asylum Seekers:</strong> ${d.asylum}`)
+        .style("left", `${event.pageX + 10}px`)
+        .style("top", `${event.pageY - 20}px`);
+    })
+    .on("mouseout", () => {
+      tooltip.style("opacity", 0);
+    });
   };
 
   return (
