@@ -1,48 +1,92 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Recommend.css';
-import InputBar from './InputBar'; // 导入 InputBar 组件
-
-interface NutritionData {
-  type: string;
-  value: string;
-  equivalent: string;
-  image: string;
-}
-
-const nutritionData: NutritionData[] = [
-  { type: 'Protein', value: '100 KJ', equivalent: '2 x Drumstick', image: 'public/images/Drumstick.pic.jpg' },
-  { type: 'Vitamin A', value: '100 KJ', equivalent: '1 x Cheese', image: 'public/images/Cheese.pic.jpg' },
-  { type: 'Vitamin B', value: '100 KJ', equivalent: '1 x Pack of Nuts', image: 'public/images/Nuts.pic.jpg' },
-  { type: 'Vitamin C', value: '100 KJ', equivalent: '3 x Oranges', image: 'public/images/Orange.pic.jpg' },
-];
+import InputBar from './InputBar';
+import VegetablesCard from './VegetablesCard';
+import FruitsCard from './FruitsCard';
+import GrainsCard from './GrainsCard';
+import LeanMeatsCard from './LeanMeatsCard';
+import MilkProductCard from './MilkProductCard';
 
 const Recommend: React.FC = () => {
+  const [closestPercentile, setClosestPercentile] = useState<string | null>(null);
+  const [gender, setGender] = useState<string | null>(null);
+  const [age, setAge] = useState<number | null>(null); // State for user's age
+  const [error, setError] = useState<string | null>(null); // State for error handling
+  const [nutritionData, setNutritionData] = useState<any | null>(null); // Fetched nutrition data
+
+  // Fetch the JSON data based on age and gender
+  useEffect(() => {
+    const fetchNutritionData = async () => {
+      if (!age || !gender) return; // Only fetch when age and gender are available
+
+      // Convert gender from "Male"/"Female" to "boys"/"girls"
+      const formattedGender = gender === 'male' ? 'boys' : 'girls';
+
+      try {
+        const response = await fetch('/us32.json'); // Path to JSON in the public folder
+        const data = await response.json();
+        
+        // Find the matching entry based on age and formatted gender
+        const filtered = data.find(
+          (item: any) => item.gender === formattedGender && item.age === String(age)
+        );
+
+        if (filtered) {
+          setNutritionData(filtered); // Store the matched data
+          setError(null);
+        } else {
+          setNutritionData(null);
+          setError('No data found for the given age and gender.');
+        }
+      } catch (err) {
+        console.error('Error fetching nutrition data:', err);
+        setError('Failed to load nutrition data.');
+      }
+    };
+
+    fetchNutritionData();
+  }, [age, gender]); // Re-run fetch whenever age or gender changes
+
+  // Handle the result from InputBar (age, gender, percentile)
+  const handleResult = (percentile: string | null, genderValue: string | null, ageValue: number | null, errorMessage: string | null) => {
+    setClosestPercentile(percentile);
+    setGender(genderValue);
+    console.log(genderValue);
+    setAge(ageValue);
+    setError(errorMessage);
+  };
+
   return (
-    <div>
-      <InputBar /> {/* 添加 InputBar 组件 */}
-      <div className="nutrition-header">
-        <h2>Recommended Intake of Nutrition Per Day</h2> {/* 新增标题 */}
+    <div className="recommend-page-container">
+      <div className="input-bar-container">
+        <InputBar onResult={handleResult} />
       </div>
-      <div className="nutrition-container">
-        {nutritionData.map((item, index) => (
-          <div className="nutrition-card" key={index}>
-            <div className="nutrition-card-header">
-              <h2 className="nutrition-type">{item.type}</h2>
-              <p className="nutrition-value">{item.value}</p>
-            </div>
-            <div className="nutrition-card-body">
-              <p className="nutrition-description">
-                Many refugee families arriving in Victoria come from conflict-ridden backgrounds where survival was their primary focus, leaving
-              </p>
-              <p className="nutrition-equivalent">Equivalent to {item.equivalent}</p>
-              <img src={item.image} alt={item.type} className="nutrition-image" />
-              <div className="nutrition-navigation">
-                <button className="nav-button">←</button>
-                <button className="nav-button">→</button>
-              </div>
-            </div>
-          </div>
-        ))}
+
+      {error && <p className="error-message">{error}</p>}
+
+      {closestPercentile && gender && nutritionData && (
+        <div className="result">
+          <h3>Your BMI Percentile: {closestPercentile}</h3>
+          <p>Gender: {gender}</p>
+          <p>Age: {age}</p>
+          <h4>Recommended Nutrition:</h4>
+          <ul>
+            <li>Vegetables: {nutritionData.vegetable} serves</li>
+            <li>Fruits: {nutritionData.fruit} serves</li>
+            <li>Grain: {nutritionData.grain} serves</li>
+            <li>Lean Meat: {nutritionData['lean meat']} serves</li>
+            <li>Milk: {nutritionData.milk} serves</li>
+          </ul>
+        </div>
+      )}
+
+      {/* Pass the fetched nutrition data to all the card components */}
+      <div className="recommend-page">
+        <VegetablesCard data={nutritionData} />
+        <FruitsCard data={nutritionData} />
+        <GrainsCard data={nutritionData} />
+        <LeanMeatsCard data={nutritionData} />
+        <MilkProductCard data={nutritionData} />
       </div>
     </div>
   );

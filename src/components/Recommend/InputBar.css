@@ -5,27 +5,27 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f9f9f9;
-  max-width: 500px;  /* Limit the width for better appearance */
+  max-width: 500px; /* Limit the width for better appearance */
   box-sizing: border-box;
-  margin-top: 100px;  /* Add space at the top for the navigation */
+  margin-top: 100px; /* Add space at the top for the navigation */
 }
 
 /* Styling for individual form fields */
-.form-group {
+.input-bar .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 }
 
 /* Labels for form fields */
-.form-group label {
+.input-bar .form-group label {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 /* Input fields styling */
-.form-group input[type="number"],
-.form-group select {
+.input-bar .form-group input[type="number"],
+.input-bar .form-group select {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -34,8 +34,8 @@
   box-sizing: border-box; /* Ensures padding doesn't affect total width */
 }
 
-/* Submit button styling */
-button {
+/* Submit button styling scoped to InputBar */
+.input-bar button {
   padding: 10px 15px;
   font-size: 16px;
   color: #fff;
@@ -47,23 +47,23 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
+.input-bar button:hover {
   background-color: #0056b3;
 }
 
 /* Error message styling */
-.error-message {
+.input-bar .error-message {
   color: red;
   margin-top: 10px;
   font-size: 14px;
 }
 
 /* Result output */
-.result {
+.input-bar .result {
   margin-top: 20px;
   color: green;
 }
 
-.result h3 {
+.input-bar .result h3 {
   font-size: 18px;
 }
