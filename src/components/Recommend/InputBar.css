@@ -5,24 +5,29 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
-    max-width: 500px;
-    /* Limit the width for better appearance */
+    max-width: 1000px;
     box-sizing: border-box;
     margin-top: 100px;
-    /* Add space at the top for the navigation */
+
 }
 
 /* Styling for individual form fields */
 .input-bar .form-group {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
     margin-bottom: 15px;
+    width: 100%;
 }
 
 /* Labels for form fields */
 .input-bar .form-group label {
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 0;
+    width: 30%;
+    text-align: left;
+    padding-right: 10px;
 }
 
 /* Input fields styling */
@@ -32,9 +37,9 @@
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 100%;
+    width: 70%;
+    /* Adjust width for input fields */
     box-sizing: border-box;
-    /* Ensures padding doesn't affect total width */
 }
 
 /* Submit button styling scoped to InputBar */
@@ -47,7 +52,7 @@
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
-    margin-top: 10px;
+
 }
 
 .input-bar button:hover {
