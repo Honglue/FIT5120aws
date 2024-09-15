@@ -1,97 +1,84 @@
-.nutrition-container {
+.recommend-page {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 两列布局 */
-  gap: 20px; /* 调整卡片之间的间距 */
-  padding: 20px 200px; /* 两侧留白，顶部和底部的间距适当 */
+  grid-template-columns: repeat(2, 1fr);
+  /* Two cards per row */
+  gap: 20px;
+  /* Space between cards */
+  justify-items: center;
+  /* Center the cards */
+  padding: 20px;
+  /* Padding around the entire container */
 }
 
-.nutrition-card {
-  background-color: white;
-  border-radius: 15px;
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  width: 80%; /* 让卡片占满容器 */
-  height: 500px;
-  margin: 0; /* 确保卡片本身没有外边距 */
+  align-items: center;
+  justify-content: space-between;
+  /* Ensure even spacing between content */
+  width: 300px;
+  /* Fixed width for all cards */
+  height: 400px;
+  /* Fixed height for all cards */
+  overflow: hidden;
+}
+
+.title-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ccc;
+}
+
+.title-bar h3 {
+  margin: 0;
+}
+
+.title-bar span {
+  color: #888;
+}
+
+.content-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   text-align: center;
 }
 
+.content-text {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
 
-
-.nutrition-card-header {
-  background-color: #f7f7f7;
+.card-buttons {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  width: 100%;
+}
+
+.switch-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
   padding: 10px 15px;
-  border-bottom: 1px solid #ddd;
-}
-
-.nutrition-type {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #2e2e2e;
-}
-
-.nutrition-value {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #6366F1;
-}
-
-.nutrition-card-body {
-  padding: 15px;
-}
-
-.nutrition-description {
-  font-size: 0.95rem;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.nutrition-equivalent {
-  font-size: 1rem; /* 默认的字体大小 */
-  font-weight: bold;
-  color: #333; /* 默认颜色 */
-  margin-bottom: 10px;
-  text-align: left; /* 左对齐 */
-  margin-left: 15px; /* 向左移动 */
-}
-
-.nutrition-equivalent span {
-  display: block;
-  color: #6366F1; /* 蓝色字体 */
-  font-size: 1.5rem; /* 增大字体 */
-  font-weight: 600; /* 设置较粗的字体 */
-  text-align: left; /* 左对齐 */
-}
-
-.nutrition-image {
-  width: 200px;
-  height: auto;
-  margin: 20px auto;
-}
-
-.nutrition-navigation {
-  display: flex;
-  justify-content: space-between;
-  margin-top: auto;
-}
-
-.nav-button {
-  margin-top: -100px;
-  margin-left: 30px;
-  margin-right: 30px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+}
+
+.switch-button:hover {
+  background-color: #0056b3;
+}
+
+.switch-button:hover {
+  background-color: #0056b3;
 }

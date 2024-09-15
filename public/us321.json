@@ -1,0 +1,146 @@
+[
+    {
+        "category": "vegetable",
+        "kJ per serve": "300",
+        "quantity": "0.5",
+        "description": "cup of cooked broccoli, spinach, carrots or pumpkin"
+    },
+    {
+        "category": "vegetable",
+        "kJ per serve": "300",
+        "quantity": "0.5",
+        "description": "cup cooked beans, peas or lentils"
+    },
+    {
+        "category": "vegetable",
+        "kJ per serve": "300",
+        "quantity": "1",
+        "description": "cup of green leafy or raw salad vegetables"
+    },
+    {
+        "category": "vegetable",
+        "kJ per serve": "300",
+        "quantity": "0.5",
+        "description": "cup of sweetcorn"
+    },
+    {
+        "category": "vegetable",
+        "kJ per serve": "300",
+        "quantity": "0.5",
+        "description": "medium potato, sweet potato, taro or cassava"
+    },
+    {
+        "category": "vegetable",
+        "kJ per serve": "300",
+        "quantity": "1",
+        "description": "medium tomato"
+    },
+    {
+        "category": "fruit",
+        "kJ per serve": "350",
+        "quantity": "1",
+        "description": "medium apple, banana, orange or pear"
+    },
+    {
+        "category": "fruit",
+        "kJ per serve": "350",
+        "quantity": "2",
+        "description": "small apricots, kiwi fruits or plums"
+    },
+    {
+        "category": "fruit",
+        "kJ per serve": "350",
+        "quantity": "1",
+        "description": "cup canned fruit with no added sugar"
+    },
+    {
+        "category": "fruit",
+        "kJ per serve": "350",
+        "quantity": "0.5",
+        "description": "cup 100% fruit juice with no added sugar"
+    },
+    {
+        "category": "grain",
+        "kJ per serve": "500",
+        "quantity": "1",
+        "description": "slice of bread"
+    },
+    {
+        "category": "grain",
+        "kJ per serve": "500",
+        "quantity": "0.5",
+        "description": "medium roll bread"
+    },
+    {
+        "category": "grain",
+        "kJ per serve": "500",
+        "quantity": "0.5",
+        "description": "cup cooked porridge"
+    },
+    {
+        "category": "grain",
+        "kJ per serve": "500",
+        "quantity": "0.5",
+        "description": "cup cooked rice, pasta, noodles, barley, buckwheat, semolina, polenta, bulgur or quinoa"
+    },
+    {
+        "category": "grain",
+        "kJ per serve": "500",
+        "quantity": "0.25",
+        "description": "cup muesli"
+    },
+    {
+        "category": "grain",
+        "kJ per serve": "500",
+        "quantity": "3",
+        "description": "crispbreads"
+    },
+    {
+        "category": "lean meat",
+        "kJ per serve": "600",
+        "quantity": "65",
+        "description": "g cooked lean meat of beef, veal, lamb, pork, kangaroo or goat"
+    },
+    {
+        "category": "lean meat",
+        "kJ per serve": "600",
+        "quantity": "80",
+        "description": "g cooked poultry of skinless chicken or turkey"
+    },
+    {
+        "category": "lean meat",
+        "kJ per serve": "600",
+        "quantity": "100",
+        "description": "g cooked fish fillet or small can of fish"
+    },
+    {
+        "category": "lean meat",
+        "kJ per serve": "600",
+        "quantity": "2",
+        "description": "large eggs"
+    },
+    {
+        "category": "milk",
+        "kJ per serve": "600",
+        "quantity": "1",
+        "description": "cup milk"
+    },
+    {
+        "category": "milk",
+        "kJ per serve": "600",
+        "quantity": "2",
+        "description": "slices hard cheese"
+    },
+    {
+        "category": "milk",
+        "kJ per serve": "600",
+        "quantity": "0.5",
+        "description": "cup yoghurt"
+    },
+    {
+        "category": "milk",
+        "kJ per serve": "600",
+        "quantity": "1",
+        "description": "cup soy beverage"
+    }
+]

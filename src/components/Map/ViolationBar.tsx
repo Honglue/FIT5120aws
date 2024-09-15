@@ -81,7 +81,7 @@ interface ViolationBarProps {
   high: number;
 }
 
-const ViolationBar: React.FC<ViolationBarProps> = ({
+export const ViolationBar: React.FC<ViolationBarProps> = ({
   nutritionId,
   low,
   medium,
@@ -95,29 +95,27 @@ const ViolationBar: React.FC<ViolationBarProps> = ({
   };
 
   return (
-    <div className="violation-bar-container my-2 p-3 rounded bg-light">
-      <div
-        className="d-flex align-items-center mb-3"
-        style={{ textAlign: "left" }}
-      >
+    <div
+      className="violation-bar-container my-2 p-3"
+      style={{ textAlign: "left" }}
+    >
+      <div className="mb-3">
         <h5>{variableMap[nutritionId]}</h5>
       </div>
 
+      {/* Labels for Low, Normal, High */}
+      <div className="d-flex justify-content-between mb-1">
+        <div>Low</div>
+        <div>Normal</div>
+        <div>High</div>
+      </div>
+
       {/* Custom Progress Bar with Three Sections */}
-      <div
-        className="d-flex"
-        style={{
-          height: "20px",
-          width: "100%",
-          borderRadius: "4px",
-          textAlign: "left",
-        }}
-      >
+      <div className="d-flex" style={{ height: "20px", width: "100%" }}>
         {/* Low Section */}
         <div
           style={{
             width: "33.33%",
-            position: "relative",
             backgroundColor: "#e0e0e0",
             marginRight: "4px",
             borderRadius: "4px",
@@ -138,7 +136,6 @@ const ViolationBar: React.FC<ViolationBarProps> = ({
         <div
           style={{
             width: "33.33%",
-            position: "relative",
             backgroundColor: "#e0e0e0",
             borderRadius: "4px",
             marginRight: "4px",
@@ -159,7 +156,6 @@ const ViolationBar: React.FC<ViolationBarProps> = ({
         <div
           style={{
             width: "33.33%",
-            position: "relative",
             backgroundColor: "#e0e0e0",
             borderRadius: "4px",
           }}
@@ -176,25 +172,13 @@ const ViolationBar: React.FC<ViolationBarProps> = ({
         </div>
       </div>
 
-      {/* Info Section */}
-      <div className="d-flex justify-content-between mt-3">
-        <div className="text-center">
-          <div className="">Low</div>
-        </div>
-        <div className="text-center">
-          <div className="">Normal</div>
-        </div>
-        <div className="text-center">
-          <div className="">High</div>
-        </div>
-      </div>
-
       {/* Description Section */}
-      <div className="mt-3" style={{ textAlign: "left" }}>
-        <p>{getDescription()}</p>
-      </div>
+      <p className="mt-4">
+        <strong>Level: </strong>
+        {low > 0 ? "Low" : medium > 0 ? "Medium" : "High"}
+      </p>
+
+      <p className="">{getDescription()}</p>
     </div>
   );
 };
-
-export default ViolationBar;

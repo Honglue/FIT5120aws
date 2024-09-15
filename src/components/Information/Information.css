@@ -1,124 +1,111 @@
 .container {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
   background-color: #fff;
   font-family: "Poppins", sans-serif;
 }
 
-.hero-image-container {
-  position: relative;
-  display: inline-block;
+.content-center {
+  padding-top: 20px;
+  max-width: 750px;
+  margin: 0 auto;
 }
 
-.hero-image {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.dark-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  pointer-events: none;
-}
-
-/* Header styles */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 0;
-}
-
-.logo {
-  height: 40px;
-}
-
-.nav {
-  display: flex;
-  gap: 20px;
-}
-
-.nav a {
-  text-decoration: none;
-  color: #000;
-  font-weight: bold;
-}
-
-/* Hero section styles */
 .hero {
-  position: relative;
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.hero-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
+  background-color: #f6f7fd;
+  padding: 20px;
+  text-align: left;
 }
 
 .hero-content h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
+  text-align: left;
+  font-size: 2.5rem;
+  font-weight: bold;
 }
 
-.download-button {
-  background-color: #6366f1;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.download-button:hover {
-  background-color: #4b4ade;
-  border-color: #4b4ade;
-}
-
-/* Info section styles */
 .info {
-  display: grid;
   text-align: left;
   background-color: #fff;
-  grid-template-columns: 1fr;
-  gap: 40px;
+  /* margin-bottom: 40px; */
 }
 
 .info-block {
   text-align: left;
   padding: 20px 0;
-  background-color: transparent;
   border-bottom: 1px solid #e0e0e0;
 }
 
 .info-block h2 {
   font-size: 24px;
   color: #333;
-  margin-bottom: 15px;
 }
 
-.info-block p {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.info-link {
+.expandable-title {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: medium;
   color: #6366f1;
-  text-decoration: none;
-  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-.info-link:hover {
-  text-decoration: underline;
+.expandable-title:hover {
+  color: #4b4ade;
+}
+
+.expandable-content {
+  /* padding-left: 20px; */
+  margin-top: 10px;
+  transition: max-height 0.6s ease, padding 0.6s ease;
+}
+
+.expandable-content.show {
+  max-height: 500px;
+  padding: 15px 0;
+}
+
+.download-content {
+  background-image: url(../../../public/images/nutrition.png);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  margin: 40px 0;
+  height: 300px;
+  text-align: "left";
+}
+
+.download-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.download-content-text {
+  z-index: 1;
+  color: white;
+  padding: 50px;
+  text-align: "left";
+}
+
+.button-container {
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-custom {
+  padding: 10px 20px;
+  border-radius: 25px;
+  margin-bottom: 40px;
+}
+
+.btn-custom:hover {
+  background-color: #4b4ade;
+  border-color: #4b4ade;
 }

@@ -4,11 +4,12 @@ import refugees from "../../../public/images/refugees.png";
 import cause from "../../../public/images/cause.png";
 import solution from "../../../public/images/solution.png";
 import "./AwarenessSection.css";
+
 // import { useTranslation } from "react-i18next";
-type SectionType = "problem" | "cause" | "solution";
+type SectionType = "challenge" | "cause" | "solution";
 
 function AwarenessSection() {
-  const [activeSection, setActiveSection] = useState<SectionType>("problem");
+  const [activeSection, setActiveSection] = useState<SectionType>("challenge");
 
   const handleSectionClick = (section: SectionType) => {
     setActiveSection(section);
@@ -16,7 +17,7 @@ function AwarenessSection() {
   // const { t } = useTranslation();
 
   const sectionContent = {
-    problem: {
+    challenge: {
       title: "Awareness Gap",
       subtitle:
         "Many refugee families arriving in Victoria come from conflict zones where survival was the priority, with little focus on health and well-being. As they settle into safety, they often lack awareness about the importance of nutrition and health for their children.",
@@ -29,7 +30,7 @@ function AwarenessSection() {
       image: cause,
     },
     solution: {
-      title: "Better Nutrition",
+      title: "Nutrition Bridge",
       subtitle:
         "To bridge this gap, we are here to provide educational resources tailored to refugee communities can empower them to make informed decisions about their nutrition and health.",
       image: solution,
@@ -39,9 +40,9 @@ function AwarenessSection() {
   const { title, subtitle, image } = sectionContent[activeSection];
 
   return (
-    <div>
+    <div className="awareness-section">
       {/* Awareness Section */}
-      <section className="py-5">
+      <section className="py-3">
         <div className="container">
           <div className="row align-items-center">
             {/* Left Column: Text */}
@@ -54,15 +55,15 @@ function AwarenessSection() {
               }}
             >
               {/* Subheading with lighter font weight and lighter color */}
-              <p className="text-uppercase fw-normal">The {activeSection}</p>
+              <p className="lead">The {activeSection}</p>
               <h4
                 className="display-4"
-                style={{ color: "black", fontWeight: "400" }}
+                style={{ color: "black", fontWeight: "500" }}
               >
                 {title}
               </h4>
               <div className="pr-8">
-                <p className="lead" style={{ color: "#A4A4A4" }}>
+                <p className="lead" style={{ color: "#71717A" }}>
                   {subtitle}
                 </p>
               </div>
@@ -91,7 +92,7 @@ function AwarenessSection() {
               height: "4px",
               marginRight: "10px",
               borderRadius: "10px",
-              backgroundColor: "#F4F6F8",
+              backgroundColor: "#EAEBFF",
             }}
           >
             <div
@@ -103,7 +104,7 @@ function AwarenessSection() {
                 borderRadius: "10px",
                 backgroundColor: "#6366F1",
                 left:
-                  activeSection === "problem"
+                  activeSection === "challenge"
                     ? "0%"
                     : activeSection === "cause"
                     ? "33%"
@@ -115,22 +116,23 @@ function AwarenessSection() {
 
         {/* Slider Content */}
         <div className="row">
-          {/* The problem */}
+          {/* The challenge */}
           <div className="col-md-4 text-start">
             <div
-              className="p-3"
+              className="pr-3"
               style={{ cursor: "pointer" }}
-              onClick={() => handleSectionClick("problem")}
+              onClick={() => handleSectionClick("challenge")}
             >
-              <h5>The problem</h5>
+              <h5>The Challenge</h5>
               <p
-                className="mt-2"
+                className="lead"
                 style={{
-                  color: activeSection === "problem" ? "#A4A4A4" : "#C4C4C4",
+                  color: activeSection === "challenge" ? "#71717A" : "#C4C4C4",
+                  fontSize: "16px",
                 }}
               >
-                Face an awareness gap regarding the importance of nutrition for
-                their children.
+                Face an awareness gap regarding <br />
+                the importance of nutrition for their children.
               </p>
             </div>
           </div>
@@ -138,19 +140,20 @@ function AwarenessSection() {
           {/* The Cause */}
           <div className="col-md-4 text-start">
             <div
-              className="p-3"
+              className="pr-3"
               style={{ cursor: "pointer" }}
               onClick={() => handleSectionClick("cause")}
             >
               <h5>The Cause</h5>
               <p
-                className="mt-2"
+                className="lead"
                 style={{
-                  color: activeSection === "cause" ? "#A4A4A4" : "#C4C4C4",
+                  color: activeSection === "cause" ? "#71717A" : "#C4C4C4",
+                  fontSize: "16px",
                 }}
               >
-                Lack awareness to nutritional information due to their
-                challenging backgrounds.
+                Lack awareness to nutritional information <br />
+                due to their challenging backgrounds.
               </p>
             </div>
           </div>
@@ -158,19 +161,20 @@ function AwarenessSection() {
           {/* The Solution */}
           <div className="col-md-4 text-start">
             <div
-              className="p-3"
+              className="pr-3"
               style={{ cursor: "pointer" }}
               onClick={() => handleSectionClick("solution")}
             >
               <h5>The Solution</h5>
               <p
-                className="mt-2"
+                className="lead"
                 style={{
-                  color: activeSection === "solution" ? "#A4A4A4" : "#C4C4C4",
+                  color: activeSection === "solution" ? "#71717A" : "#C4C4C4",
+                  fontSize: "16px",
                 }}
               >
-                Empower refugee communities make informed nutrition and health
-                decisions.
+                Empower refugee communities make <br />
+                informed nutrition and health decisions.
               </p>
             </div>
           </div>
