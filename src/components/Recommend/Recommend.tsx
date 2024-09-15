@@ -66,7 +66,7 @@ const Recommend: React.FC = () => {
 
       {closestPercentile && gender && nutritionData && (
         <div className="result">
-          <h3>Your BMI Percentile: {closestPercentile}</h3>
+          {/* <h3>Your BMI Percentile: {closestPercentile}</h3>
           <p>Gender: {gender}</p>
           <p>Age: {age}</p>
           <h4>Recommended Nutrition:</h4>
@@ -76,17 +76,17 @@ const Recommend: React.FC = () => {
             <li>Grain: {nutritionData.grain} serves</li>
             <li>Lean Meat: {nutritionData['lean meat']} serves</li>
             <li>Milk: {nutritionData.milk} serves</li>
-          </ul>
+          </ul> */}
         </div>
       )}
 
-      {/* Pass the fetched nutrition data to all the card components */}
+      {/* Display empty cards with placeholder content when there's no data */}
       <div className="recommend-page">
-        <VegetablesCard data={nutritionData} />
-        <FruitsCard data={nutritionData} />
-        <GrainsCard data={nutritionData} />
-        <LeanMeatsCard data={nutritionData} />
-        <MilkProductCard data={nutritionData} />
+        <VegetablesCard data={nutritionData || {}} />
+        <FruitsCard data={nutritionData || {}} />
+        <GrainsCard data={nutritionData || {}} />
+        <LeanMeatsCard data={nutritionData || {}} />
+        <MilkProductCard data={nutritionData || {}} />
       </div>
     </div>
   );

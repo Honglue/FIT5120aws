@@ -21,31 +21,37 @@ const VegetablesCard: React.FC<VegetablesCardProps> = ({ data }) => {
       description: 'cup of cooked broccoli, spinach, carrots or pumpkin',
       quantity: '0.5',
       kJ: '300',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
     {
       description: 'cup cooked beans, peas or lentils',
       quantity: '0.5',
       kJ: '300',
+      image: 'https://via.placeholder.com/100?text=Beans+or+Peas',
     },
     {
       description: 'cup of green leafy or raw salad vegetables',
       quantity: '1',
       kJ: '300',
+      image: 'https://via.placeholder.com/100?text=Salad+Vegetables',
     },
     {
       description: 'cup of sweetcorn',
       quantity: '0.5',
       kJ: '300',
+      image: 'https://via.placeholder.com/100?text=Sweetcorn',
     },
     {
       description: 'medium potato, sweet potato, taro or cassava',
       quantity: '0.5',
       kJ: '300',
+      image: 'https://via.placeholder.com/100?text=Potato',
     },
     {
       description: 'medium tomato',
       quantity: '1',
       kJ: '300',
+      image: 'https://via.placeholder.com/100?text=Tomato',
     },
   ];
 
@@ -57,41 +63,50 @@ const VegetablesCard: React.FC<VegetablesCardProps> = ({ data }) => {
     setCurrentPage((prev) => (prev < vegetablePages.length - 1 ? prev + 1 : 0));
   };
 
-  // If data is not available yet, show loading or empty state
-  if (!data || !data.vegetable) {
-    return <p>Loading vegetable data...</p>;
-  }
+  // Render placeholder content when data is not available
+  const vegetableServes = data?.vegetable ? parseFloat(data.vegetable) : 0;
 
-  // Calculate total kJ (vegetable serves * 300 kJ per serve)
-  const totalKJ = parseFloat(data.vegetable) * 300;
+  // Calculate total kJ (vegetable serves * 300 kJ per serve) or default to 0
+  const totalKJ = vegetableServes * 300;
 
-  // Calculate the text for the current page
-  const currentQuantity = parseFloat(vegetablePages[currentPage].quantity) * parseFloat(data.vegetable);
-  const pageText = `${currentQuantity} ${vegetablePages[currentPage].description}`;
+  // Calculate the text for the current page, or use placeholder
+  const currentQuantity = vegetableServes * parseFloat(vegetablePages[currentPage].quantity);
+  const pageText = vegetableServes
+    ? `${currentQuantity} ${vegetablePages[currentPage].description}`
+    : 'Placeholder text for vegetables.';
 
-  return (
-    <div className="card">
-      <div className="title-bar">
-        <h3>Vegetables</h3>
-        {/* Display the calculated total kJ */}
-        <span>Total kJ: {totalKJ}</span>
-      </div>
-
-      {/* Content area with dynamically calculated text and placeholder image */}
-      <div className="content-area">
-        <button className="switch-button" onClick={handleSwitchLeft}>⮜</button>
+    return (
+      <div className="card">
+        {/* Title bar */}
+        <div className="title-bar">
+          <h3>Vegetables</h3>
+          {/* Display the calculated total kJ or 0 if no data */}
+          <span>Total kJ: {totalKJ || '0'}</span>
+        </div>
+  
+        {/* Content area: Description and Image */}
         <div className="content">
+          {/* Description text */}
           <div className="content-text">
             <p>{pageText}</p>
           </div>
+          {/* Image */}
           <div className="content-image">
-            <img src="https://via.placeholder.com/100" alt="Placeholder" className="card-image" />
+            <img
+              src={vegetablePages[currentPage].image}
+              alt={vegetablePages[currentPage].description}
+              className="card-image"
+            />
           </div>
         </div>
-        <button className="switch-button" onClick={handleSwitchRight}>⮞</button>
+  
+        {/* Button area */}
+        <div className="card-buttons">
+          <button className="switch-button left" onClick={handleSwitchLeft}>⮜</button>
+          <button className="switch-button right" onClick={handleSwitchRight}>⮞</button>
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default VegetablesCard;

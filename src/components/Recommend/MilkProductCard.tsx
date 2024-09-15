@@ -21,21 +21,25 @@ const MilkProductCard: React.FC<MilkProductCardProps> = ({ data }) => {
       description: 'cup milk',
       quantity: '1',
       kJ: '600',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
     {
       description: 'slices hard cheese',
       quantity: '2',
       kJ: '600',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
     {
       description: 'cup yoghurt',
       quantity: '0.5',
       kJ: '600',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
     {
       description: 'cup soy beverage',
       quantity: '1',
       kJ: '600',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
   ];
 
@@ -47,41 +51,50 @@ const MilkProductCard: React.FC<MilkProductCardProps> = ({ data }) => {
     setCurrentPage((prev) => (prev < milkPages.length - 1 ? prev + 1 : 0));
   };
 
-  // If data is not available yet, show loading or empty state
-  if (!data || !data.milk) {
-    return <p>Loading milk data...</p>;
-  }
+  // Render placeholder content when data is not available
+  const milkServes = data?.milk ? parseFloat(data.milk) : 0;
 
-  // Calculate total kJ (milk serves * 600 kJ per serve)
-  const totalKJ = parseFloat(data.milk) * 600;
+  // Calculate total kJ (milk serves * 600 kJ per serve) or default to 0
+  const totalKJ = milkServes * 600;
 
-  // Calculate the text for the current page
-  const currentQuantity = parseFloat(milkPages[currentPage].quantity) * parseFloat(data.milk);
-  const pageText = `${currentQuantity} ${milkPages[currentPage].description}`;
+  // Calculate the text for the current page, or use placeholder
+  const currentQuantity = milkServes * parseFloat(milkPages[currentPage].quantity);
+  const pageText = milkServes
+    ? `${currentQuantity} ${milkPages[currentPage].description}`
+    : 'Placeholder text for milk products.';
 
-  return (
-    <div className="card">
-      <div className="title-bar">
-        <h3>Milk Products</h3>
-        {/* Display the calculated total kJ */}
-        <span>Total kJ: {totalKJ}</span>
-      </div>
-
-      {/* Content area with dynamically calculated text and placeholder image */}
-      <div className="content-area">
-        <button className="switch-button" onClick={handleSwitchLeft}>⮜</button>
+    return (
+      <div className="card">
+        {/* Title Bar */}
+        <div className="title-bar">
+          <h3>Milk Products</h3>
+          {/* Display the calculated total kJ or 0 if no data */}
+          <span>Total kJ: {totalKJ || '0'}</span>
+        </div>
+    
+        {/* Content section */}
         <div className="content">
+          {/* Description text */}
           <div className="content-text">
             <p>{pageText}</p>
           </div>
+          {/* Image section */}
           <div className="content-image">
-            <img src="https://via.placeholder.com/100" alt="Placeholder" className="card-image" />
+            <img
+              src={milkPages[currentPage].image}
+              alt={milkPages[currentPage].description}
+              className="card-image"
+            />
           </div>
         </div>
-        <button className="switch-button" onClick={handleSwitchRight}>⮞</button>
+    
+        {/* Buttons aligned horizontally at the bottom */}
+        <div className="card-buttons">
+          <button className="switch-button left" onClick={handleSwitchLeft}>⮜</button>
+          <button className="switch-button right" onClick={handleSwitchRight}>⮞</button>
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default MilkProductCard;

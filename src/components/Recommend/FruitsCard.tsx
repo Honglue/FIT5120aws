@@ -21,21 +21,25 @@ const FruitsCard: React.FC<FruitsCardProps> = ({ data }) => {
       description: 'medium apple, banana, orange or pear',
       quantity: '1',
       kJ: '350',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
     {
       description: 'small apricots, kiwi fruits or plums',
       quantity: '2',
       kJ: '350',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
     {
       description: 'cup canned fruit with no added sugar',
       quantity: '1',
       kJ: '350',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
     {
       description: 'cup 100% fruit juice with no added sugar',
       quantity: '0.5',
       kJ: '350',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
   ];
 
@@ -47,41 +51,50 @@ const FruitsCard: React.FC<FruitsCardProps> = ({ data }) => {
     setCurrentPage((prev) => (prev < fruitPages.length - 1 ? prev + 1 : 0));
   };
 
-  // If data is not available yet, show loading or empty state
-  if (!data || !data.fruit) {
-    return <p>Loading fruit data...</p>;
-  }
+  // Render placeholder content when data is not available
+  const fruitServes = data?.fruit ? parseFloat(data.fruit) : 0;
 
-  // Calculate total kJ (fruit serves * 350 kJ per serve)
-  const totalKJ = parseFloat(data.fruit) * 350;
+  // Calculate total kJ (fruit serves * 350 kJ per serve) or default to 0
+  const totalKJ = fruitServes * 350;
 
-  // Calculate the text for the current page
-  const currentQuantity = parseFloat(fruitPages[currentPage].quantity) * parseFloat(data.fruit);
-  const pageText = `${currentQuantity} ${fruitPages[currentPage].description}`;
+  // Calculate the text for the current page, or use placeholder
+  const currentQuantity = fruitServes * parseFloat(fruitPages[currentPage].quantity);
+  const pageText = fruitServes
+    ? `${currentQuantity} ${fruitPages[currentPage].description}`
+    : 'Placeholder text for fruits.';
 
-  return (
-    <div className="card">
-      <div className="title-bar">
-        <h3>Fruits</h3>
-        {/* Display the calculated total kJ */}
-        <span>Total kJ: {totalKJ}</span>
-      </div>
-
-      {/* Content area with dynamically calculated text and placeholder image */}
-      <div className="content-area">
-        <button className="switch-button" onClick={handleSwitchLeft}>⮜</button>
+    return (
+      <div className="card">
+        {/* Title Bar */}
+        <div className="title-bar">
+          <h3>Fruits</h3>
+          {/* Display the calculated total kJ or 0 if no data */}
+          <span>Total kJ: {totalKJ || '0'}</span>
+        </div>
+    
+        {/* Content area */}
         <div className="content">
+          {/* Description text */}
           <div className="content-text">
             <p>{pageText}</p>
           </div>
+          {/* Image */}
           <div className="content-image">
-            <img src="https://via.placeholder.com/100" alt="Placeholder" className="card-image" />
+            <img
+              src={fruitPages[currentPage].image}
+              alt={fruitPages[currentPage].description}
+              className="card-image"
+            />
           </div>
         </div>
-        <button className="switch-button" onClick={handleSwitchRight}>⮞</button>
+    
+        {/* Button area at the bottom */}
+        <div className="card-buttons">
+          <button className="switch-button left" onClick={handleSwitchLeft}>⮜</button>
+          <button className="switch-button right" onClick={handleSwitchRight}>⮞</button>
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default FruitsCard;
