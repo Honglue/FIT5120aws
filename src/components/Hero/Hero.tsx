@@ -75,6 +75,7 @@ const CarouselComponent = () => {
                       className="lead"
                       style={{ fontWeight: "100", color: "#A4A4A4" }}
                     >
+                      <img src={vegetables} alt="Vegetables" />
                       Helping Refugee Families in Victoria Identify and Address
                       Nutritional Gaps for a Healthier Future.
                     </p>
