@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import vegetable from '../../assets/vegetable.png';
 import vegetables from "../../../public/images/vegetables.png";
 import help from "../../../public/images/help.png";
 import "./Hero.css";
@@ -51,6 +52,16 @@ const CarouselComponent = () => {
                 <div className="row align-items-center">
                   {/* Image */}
                   <div className="col-md-6 d-none d-md-block">
+                  <img
+                    src={vegetable}  // 使用导入的图片
+                    alt="Vegetable"
+                    className="img-fluid"
+                    style={{
+                      objectFit: "cover",
+                      width: "500px",
+                      height: "auto",
+                    }}
+                  />
                     <img
                       src={vegetables}
                       alt="Vegetables"
