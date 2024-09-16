@@ -101,6 +101,16 @@ const Recommend: React.FC = () => {
             borderRadius: "10px",
           }}
         />
+        <img
+          src="/images/vegetables.png"
+          alt="vegetable"
+          style={{
+            width: "500px",
+            height: "auto",
+            objectFit: "cover",
+            borderRadius: "10px",
+          }}
+        />
       </div>
     </div>
   );
