@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import refugees from "../../../public/images/refugees.png";
+import refugees from "../../../public/images/refugees.png";
 import cause from "../../../public/images/cause.png";
 import solution from "../../../public/images/solution.png";
 import "./AwarenessSection.css";
@@ -21,7 +21,7 @@ function AwarenessSection() {
       title: "Awareness Gap",
       subtitle:
         "Many refugee families arriving in Victoria come from conflict zones where survival was the priority, with little focus on health and well-being. As they settle into safety, they often lack awareness about the importance of nutrition and health for their children.",
-        image: "/images/refugees.png",
+      image: refugees,
     },
     cause: {
       title: "Lack of Information",
