@@ -176,7 +176,7 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
             .style("top", `${event.pageY - 28}px`)
             .text(countryName);
         })
-        .on("mouseout", function (event, d) {
+        .on("mouseout", function (d) {
           const countryName = d.properties?.name;
           // Reset to original color after mouseout
           d3.select(this).attr(
