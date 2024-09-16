@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import vegetables from "/images/vegetables.png";
-import help from "/images/help.png";
 import "./Hero.css";
 
 const CarouselComponent = () => {
@@ -49,7 +47,7 @@ const CarouselComponent = () => {
                 <div className="row align-items-center">
                   <div className="col-md-6 d-none d-md-block">
                     <img
-                      src={vegetables}
+                      src="/images/vegetables.png"
                       alt="Vegetables"
                       className="img-fluid"
                       style={{
@@ -87,7 +85,7 @@ const CarouselComponent = () => {
               <div
                 className="slide-content"
                 style={{
-                  backgroundImage: `url(${help})`,
+                  backgroundImage: `url(/images/help.png)`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   height: "100%",
