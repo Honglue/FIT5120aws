@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import vegetables from "../../../public/images/vegetables.png";
-import help from "../../../public/images/help.png";
 import "./Hero.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+// 使用绝对路径来引用 public 文件夹中的图片
+const vegetables = "/images/vegetables.png";
+const help = "/images/help.png";
 
 const CarouselComponent = () => {
   const navigate = useNavigate();
@@ -14,19 +16,19 @@ const CarouselComponent = () => {
     {
       id: 1,
       title: "Slide 1",
-      image: "../../../public/images/vegetables.png",
+      image: "/images/vegetables.png",
       description: "This is the description for Slide 1",
     },
     {
       id: 2,
       title: "Slide 2",
-      image: "../../../public/images/vegetables.png",
+      image: "/images/vegetables.png",
       description: "This is the description for Slide 2",
     },
     {
       id: 3,
       title: "Slide 3",
-      image: "../../../public/images/vegetables.png",
+      image: "/images/vegetables.png",
       description: "This is the description for Slide 3",
     },
   ];
@@ -47,9 +49,7 @@ const CarouselComponent = () => {
           <div className="carousel-slide">
             {i === 0 && (
               <div className="glass-card p-4 rounded-4">
-                {/* Glass Card Container */}
                 <div className="row align-items-center">
-                  {/* Image */}
                   <div className="col-md-6 d-none d-md-block">
                     <img
                       src={vegetables}
@@ -63,7 +63,6 @@ const CarouselComponent = () => {
                     />
                   </div>
 
-                  {/* Text and Button */}
                   <div className="col-md-5 text-start">
                     <h2
                       className="display-4"
@@ -114,7 +113,6 @@ const CarouselComponent = () => {
                   padding: "20px",
                 }}
               >
-                {/* Overlay div */}
                 <div
                   style={{
                     position: "absolute",
@@ -127,7 +125,6 @@ const CarouselComponent = () => {
                   }}
                 ></div>
 
-                {/* Content div */}
                 <div
                   style={{
                     color: "white",
@@ -144,7 +141,6 @@ const CarouselComponent = () => {
                   </h1>
                 </div>
 
-                {/* Button div (Centered) */}
                 <div
                   style={{
                     display: "flex",
@@ -171,9 +167,7 @@ const CarouselComponent = () => {
 
             {i === 2 && (
               <div className="glass-card p-4 rounded-4">
-                {/* Third Slide Content */}
                 <div className="row align-items-center">
-                  {/* You can customize this slide content */}
                   <div className="col-md-12 text-start">
                     <h1 className="display-4">Children Health Indicator</h1>
                     <p className="lead">Access your children health today</p>
@@ -185,7 +179,6 @@ const CarouselComponent = () => {
         ))}
       </div>
 
-      {/* Navigation Dots */}
       <div className="carousel-dots">
         {carouselItems.map((item, index) => (
           <span
@@ -200,11 +193,8 @@ const CarouselComponent = () => {
 };
 
 function Hero() {
-  // const navigate = useNavigate();
-
   return (
     <section
-      // className="hero-section d-flex align-items-center justify-content-center pt-4"
       className="hero-section d-flex align-items-center justify-content-center pt-2"
       style={{ minHeight: "85vh" }}
     >

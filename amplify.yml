@@ -12,7 +12,6 @@ frontend:
         - npm install
     build:
       commands:
-        - npm run clean
         - npm run build
         - ls -lh dist/
         - ls -lh dist/assets/
