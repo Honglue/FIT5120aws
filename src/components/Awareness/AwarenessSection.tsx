@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import refugees from "../../../public/images/refugees.png";
+import refugees from "../../../public/images/aw.jpg";
 import cause from "../../../public/images/cause.jpg";
 import solution from "../../../public/images/solution.jpg";
 import "./AwarenessSection.css";

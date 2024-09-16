@@ -136,7 +136,7 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, nutritionId }) => {
             style={{ width: "80%", margin: "0 auto" }}
           >
             <img
-              src={`../../../public/images/${images[currentIndex]}`}
+              src={`/images/${images[currentIndex]}`}
               alt={variableMap[nutritionId]}
               style={{
                 width: "250px",
