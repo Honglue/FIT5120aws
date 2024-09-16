@@ -8,4 +8,12 @@ export default defineConfig({
       '@': '/src', // Alias for the src directory
     },
   },
+  build: {
+    assetsInlineLimit: 0,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
 });
