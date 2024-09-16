@@ -233,12 +233,12 @@ const TimeSeriesChart: React.FC = () => {
       >
         {/* Description with emphasized information */}
         <p style={{ margin: "0", textAlign: "left", fontSize: "18px" }}>
-          <span style={{ fontWeight: "medium", fontSize: "26px" }}>
+          <span style={{ fontWeight: "medium", fontSize: "24px" }}>
             {percentage}%
           </span>{" "}
           <span className="lead">of them are</span>{" "}
           <span
-            style={{ fontWeight: "medium", color: "#333", fontSize: "26px" }}
+            style={{ fontWeight: "medium", color: "#333", fontSize: "24px" }}
           >
             {label}
           </span>
@@ -283,7 +283,7 @@ const TimeSeriesChart: React.FC = () => {
 
         <div className="d-flex justify-content-center">
           <div className="d-flex border p-2 rounded-pill custom-select-wrapper">
-            <div className="me-4 p-1 d-flex justify-content-between align-items-center">
+            <div className="p-1 d-flex justify-content-between align-items-center">
               <span
                 className="custom-select-label"
                 style={{ paddingLeft: "10px" }}

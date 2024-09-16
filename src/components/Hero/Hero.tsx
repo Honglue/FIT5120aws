@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import vegetables from "../../../public/images/vegetables.png";
+import help from "../../../public/images/help.png";
 import "./Hero.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -97,7 +98,7 @@ const CarouselComponent = () => {
               <div
                 className="slide-content"
                 style={{
-                  backgroundImage: `url(../../../public/images/help.png)`,
+                  backgroundImage: `url(${help})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   height: "100%",

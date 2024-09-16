@@ -4,7 +4,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import Loading from "../Loading/loading";
 import Modal from "./Modal"; // Import the new Modal component
 import "./ViolationPage.css";
-
+import Legend from "./Legends/Legends";
 interface ViolationPageProps {
   selectedCountry: string;
   selectedCountryName: string | null;
@@ -23,11 +23,13 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
   handleAgeGroupChange,
   handleBackToMap,
 }) => {
+  // eslint-disable-next-line
   const [filteredData, setFilteredData] = useState<any[]>([]);
+  // eslint-disable-next-line
   const [globalData, setGlobalData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedNutritionType, setSelectedNutritionType] = useState("good");
-  const [showModal, setShowModal] = useState(false); // Manage modal visibility
+  const [showModal, setShowModal] = useState(false);
   const [selectedNutritionId, setSelectedNutritionId] = useState<string | null>(
     null
   ); // Manage selected nutrition item
@@ -60,6 +62,7 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
         setFilteredData(parsedData);
 
         const australiaData = parsedData.filter(
+          // eslint-disable-next-line
           (item: any) => Number(item.country_ID) === 36
         );
         setGlobalData(australiaData);
@@ -146,7 +149,11 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
     setSelectedNutritionId(null);
   };
 
-  const renderNutritionCards = (nutritionData: any[]) => {
+  const renderNutritionCards = (
+    // eslint-disable-next-line
+    nutritionData: any[],
+    isGoodNutrition: boolean
+  ) => {
     return (
       <div className="row">
         {nutritionData.map((data) => (
@@ -165,16 +172,21 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
                   low={data.low}
                   medium={data.medium}
                   high={data.high}
+                  isGoodNutrition={isGoodNutrition}
                 />
-              </div>
-              {/* Hidden button to display on hover */}
-              <div className="hover-overlay">
-                <button
-                  className="example-button"
+
+                <p
+                  style={{ textAlign: "left", paddingLeft: "16px" }}
                   onClick={() => handleExampleClick(data.id)}
                 >
-                  See Example
-                </button>
+                  Tap{" "}
+                  <span
+                    style={{ textDecoration: "underline", cursor: "pointer" }}
+                  >
+                    here
+                  </span>{" "}
+                  to view food examples.
+                </p>
               </div>
             </div>
           </div>
@@ -195,9 +207,35 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
         </button>
       </div>
 
+      <div
+        // className="bg-light"
+        style={{
+          // backgroundColor: "#f0f0f0",
+          borderRadius: "10px",
+          padding: "20px",
+          border: "1px solid #ccc",
+          width: "100%",
+          boxSizing: "border-box",
+          color: "#333",
+          textAlign: "left",
+          margin: "30px 10px",
+        }}
+      >
+        Comparing dieatary from {selectedCountryName} with the Australia average
+        intake.
+      </div>
+
       <div className="d-flex align-items-center justify-content-between mb-4">
         <h2 className="me-3">{selectedCountryName}</h2>
-        <div className="d-flex border p-2 rounded-pill ms-auto">
+        <div
+          className="d-flex border p-2 rounded-pill ms-auto"
+          style={{
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            backgroundColor: "#f9f9f9", // Light background to make the filter more prominent
+            padding: "10px",
+          }}
+        >
+          {/* Age filter */}
           <div className="me-4 p-1">
             <span className="me-2" style={{ paddingLeft: "10px" }}>
               Age:
@@ -207,8 +245,16 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
               value={selectedAgeGroup}
               onChange={handleAgeGroupChange}
               className="border-0 bg-light rounded-pill"
+              style={{
+                padding: "8px 20px",
+                backgroundColor: "#ffffff",
+                boxShadow: "0 1px 6px rgba(0, 0, 0, 0.1)",
+                border: "1px solid #d3d3d3",
+                cursor: "pointer",
+                transition: "box-shadow 0.2s ease-in-out",
+              }}
             >
-              <option value="7">Select age</option>
+              <option value="7">All ages</option>
               <option value="1">0-11 months</option>
               <option value="2">12-23 months</option>
               <option value="3">2-5 years</option>
@@ -228,29 +274,20 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
               value={selectedNutritionType}
               onChange={handleNutritionTypeChange}
               className="border-0 bg-light rounded-pill"
+              style={{
+                padding: "8px 20px",
+                backgroundColor: "#ffffff",
+                boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)",
+                border: "1px solid #d3d3d3",
+                cursor: "pointer",
+                transition: "box-shadow 0.2s ease-in-out",
+              }}
             >
               <option value="good">Good Nutrition</option>
               <option value="bad">Bad Nutrition</option>
             </select>
           </div>
         </div>
-      </div>
-
-      <div
-        className="bg-light"
-        style={{
-          // backgroundColor: "#f0f0f0",
-          borderRadius: "10px",
-          padding: "20px",
-          border: "1px solid #ccc",
-          width: "100%",
-          boxSizing: "border-box",
-          color: "#333",
-          textAlign: "left",
-        }}
-      >
-        Comparing dieatary from {selectedCountryName} with the global average
-        intake.
       </div>
 
       {/* Conditionally render based on selectedNutritionType */}
@@ -267,35 +304,38 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
             <a
               href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
               target="_blank"
-              style={{ color: "#6366F1" }}
+              style={{ textDecoration: "underline" }}
             >
               {" "}
               Learn more.
             </a>
           </p>
 
-          {renderNutritionCards(goodNutritionData)}
+          <Legend isGoodNutrition={true} />
+
+          {renderNutritionCards(goodNutritionData, true)}
         </div>
       ) : (
-        <div className="nutrition-section">
-          <h5 className="mb-4" style={{ textAlign: "left" }}>
+        <div className="nutrition-section mt-4">
+          <h5 className="mb-2" style={{ textAlign: "left" }}>
             Bad Nutrition
           </h5>
           <p style={{ textAlign: "left" }}>
             Bad nutrition, including overeating or undereating, leads to
             nutrient deficiencies or excesses, causing health issues such as
-            obesity, diabetes, or malnutrition.
+            obesity, diabetes.{" "}
             <a
               href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
               target="_blank"
-              style={{ color: "#6366F1" }}
+              style={{ textDecoration: "underline" }}
             >
-              {" "}
               Learn more.
             </a>
           </p>
 
-          {renderNutritionCards(badNutritionData)}
+          <Legend isGoodNutrition={false} />
+
+          {renderNutritionCards(badNutritionData, false)}
         </div>
       )}
 

@@ -1,8 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import * as d3 from "d3";
 import { feature } from "topojson-client";
 import { FeatureCollection, Geometry, GeoJsonProperties } from "geojson";
-
+import Select from "react-select";
+// eslint-disable-next-line
+import { getNames, getCode } from "country-list";
+import "./MapPage.css";
 interface MapPageProps {
   onCountrySelect: (countryId: string, countryName: string | null) => void;
 }
@@ -16,47 +19,113 @@ const highlightedCountries = [
   "South Sudan",
 ];
 
-const NutritionMapInfo = () => (
-  <div
-    className="pt-4"
-    style={{
-      maxWidth: "350px",
-      margin: "0 auto",
-      textAlign: "left",
-      padding: "20px",
-      border: "1px solid #d3d3d3",
-      borderRadius: "10px",
-      backgroundColor: "#f9f9f9",
-    }}
-  >
-    <h2 style={{ fontWeight: "bold", marginBottom: "10px" }}>
-      Nutritional Map
-    </h2>
-    <p className="lead" style={{ fontSize: "16px" }}>
-      Use our interactive map to discover the nutrients patterns in your
-      country. Click on your home country to see detailed insights, highlighting
-      which foods are beneficial and which to limit.
-    </p>
+const CountrySearch: React.FC<MapPageProps> = ({ onCountrySelect }) => {
+  const countries = getNames();
+  const options = countries.map((country: string) => ({
+    label: country,
+    value: getCode(country),
+  }));
 
-    <p className="lead" style={{ fontSize: "16px" }}>
-      <br />
-      <strong>How it works:</strong> <br />
-      1. Select a country from the map above. <br />
-      Note: The highlighted countries represent the top countries of origin for
-      refugees in Australia.
-      <br />
-      <br />
-      2. The nutrition level of each nutrient will be displayed, comparing it
-      against the Australia average.
-    </p>
-  </div>
-);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+
+  // eslint-disable-next-line
+  const handleCountrySelect = (selectedOption: any) => {
+    setSelectedCountry(selectedOption);
+
+    if (selectedOption) {
+      const countryId = selectedOption.value;
+      const countryName = selectedOption.label;
+      onCountrySelect(countryId, countryName);
+    }
+  };
+
+  return (
+    <div style={{ maxWidth: "400px", marginBottom: "20px" }}>
+      <Select
+        options={options}
+        value={selectedCountry}
+        onChange={handleCountrySelect}
+        placeholder="Select a country"
+        styles={{
+          control: (baseStyles) => ({
+            ...baseStyles,
+            borderRadius: "50px",
+            width: "300px",
+            margin: "10px",
+            padding: "5px 20px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          }),
+          placeholder: (baseStyles) => ({
+            ...baseStyles,
+          }),
+          option: (baseStyles, state) => ({
+            ...baseStyles,
+            backgroundColor: state.isSelected ? "#6366F1" : "#fff",
+            color: state.isSelected ? "#fff" : "#000",
+            "&:hover": {
+              backgroundColor: "#e0e7ff",
+            },
+          }),
+        }}
+      />
+    </div>
+  );
+};
+
+const NutritionMapInfo = () => {
+  const items = [
+    { label: "Select any country from the map", active: false },
+    { label: "You will be directed to the next page", active: true },
+    {
+      label:
+        "The country's nutrition will be compared to the Australian average",
+      active: false,
+    },
+  ];
+
+  return (
+    <div style={{ maxWidth: "50%" }}>
+      <div
+        className="pt-4"
+        style={{
+          maxWidth: "400px",
+          marginBottom: "20px",
+          textAlign: "left",
+          padding: "10px",
+          borderRadius: "10px",
+        }}
+      >
+        <h2 style={{ fontWeight: "bold", marginBottom: "10px" }}>
+          Nutritional Map
+        </h2>
+        <p className="lead" style={{ fontSize: "16px" }}>
+          Explore your countries dieatary patterns by selecting from the map.
+          Click on your country for detailed insights.
+        </p>
+      </div>
+
+      <div className="sidebar-container">
+        {items.map((item, index) => (
+          <div key={index} className="sidebar-item active">
+            <div className="circle">{index + 1}</div>
+            <span className="label">{item.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <p className="lead" style={{ fontSize: "16px", paddingTop: "20px" }}>
+        Note: The highlighted countries represent the{" "}
+        <span style={{ color: "#6366f1" }}>top refugee origins</span> in
+        Australia.
+      </p>
+    </div>
+  );
+};
 
 export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
 
-  // Function to initialize and draw the map using D3
   const renderMap = () => {
     if (!svgRef.current || !tooltipRef.current) return;
 
@@ -91,27 +160,36 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
         .attr("d", path)
         .attr("fill", (d) => {
           const countryName = d.properties?.name;
+          // Highlight refugee countries with dark purple
           return highlightedCountries.includes(countryName)
-            ? "#A3A6F9"
-            : "#D3D3D3";
+            ? "#6366f1" // Dark Purple
+            : "#D3D3D3"; // Default gray for other countries
         })
         .attr("stroke", "#ffffff")
         .on("mouseover", function (event, d) {
           const countryName = d.properties?.name;
+          // Change hover color to theme's purple
+          d3.select(this).attr("fill", "#6366f1");
           tooltip
             .style("opacity", 1)
             .style("left", `${event.pageX + 5}px`)
             .style("top", `${event.pageY - 28}px`)
             .text(countryName);
         })
-        .on("mouseout", () => {
+        .on("mouseout", function (event, d) {
+          const countryName = d.properties?.name;
+          // Reset to original color after mouseout
+          d3.select(this).attr(
+            "fill",
+            highlightedCountries.includes(countryName) ? "#6366f1" : "#D3D3D3"
+          );
           tooltip.style("opacity", 0);
         })
         .on("click", function (_, d) {
           const countryId = String(d.id).padStart(3, "0");
           const countryName = d.properties?.name || null;
-          onCountrySelect(countryId, countryName); // Notify the parent component when a country is selected
-          tooltip.style("opacity", 0); // Hide tooltip after selecting a country
+          onCountrySelect(countryId, countryName);
+          tooltip.style("opacity", 0);
         });
     });
   };
@@ -128,30 +206,43 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
 
   return (
     <div
-      className="map-container"
       style={{
+        height: "90vh",
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "left",
-        padding: "40px",
+        justifyContent: "center",
       }}
     >
-      <NutritionMapInfo />
+      <CountrySearch onCountrySelect={onCountrySelect} />
 
-      <svg ref={svgRef} width={900} height={500}></svg>
       <div
-        ref={tooltipRef}
+        className="map-container"
         style={{
-          position: "absolute",
-          background: "rgba(0, 0, 0, 0.8)",
-          color: "#fff",
-          padding: "5px",
-          borderRadius: "4px",
-          pointerEvents: "none",
-          opacity: 0,
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingLeft: "40px",
         }}
-      ></div>
+      >
+        <NutritionMapInfo />
+
+        <svg ref={svgRef} width={900} height={500}></svg>
+
+        <div
+          ref={tooltipRef}
+          style={{
+            position: "absolute",
+            background: "rgba(0, 0, 0, 0.8)",
+            color: "#fff",
+            padding: "5px",
+            borderRadius: "4px",
+            pointerEvents: "none",
+            opacity: 0,
+          }}
+        ></div>
+      </div>
     </div>
   );
 };
