@@ -14,6 +14,7 @@ const Recommend: React.FC = () => {
   const [gender, setGender] = useState<string | null>(null);
   const [age, setAge] = useState<number | null>(null); // State for user's age
   const [error, setError] = useState<string | null>(null); // State for error handling
+  // eslint-disable-next-line
   const [nutritionData, setNutritionData] = useState<any | null>(null); // Fetched nutrition data
 
   // Fetch the JSON data based on age and gender
@@ -30,6 +31,7 @@ const Recommend: React.FC = () => {
 
         // Find the matching entry based on age and formatted gender
         const filtered = data.find(
+          // eslint-disable-next-line
           (item: any) =>
             item.gender === formattedGender && item.age === String(age)
         );
