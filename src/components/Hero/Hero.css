@@ -10,7 +10,6 @@
   overflow: hidden;
   margin: auto;
   padding: 20px;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,6 +78,7 @@
 }
 
 .carousel-slide {
+  padding-top: 10px;
   min-width: 98%;
   height: auto;
   position: relative;
@@ -150,7 +150,7 @@
 }
 
 .slide-content {
-  width: 95%;
+  width: 98%;
   position: relative;
   overflow: hidden;
   transition: transform 0.5s ease, box-shadow 0.5s ease;

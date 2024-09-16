@@ -39,7 +39,7 @@ const CarouselComponent = () => {
       <div
         className="carousel-slide-wrapper"
         style={{
-          transform: `translateX(-${currentIndex * 98}%)`,
+          transform: `translateX(-${currentIndex * 96}%)`,
         }}
       >
         {Array.from({ length: 3 }, (_, i) => (
@@ -74,8 +74,8 @@ const CarouselComponent = () => {
                       className="lead"
                       style={{ fontWeight: "100", color: "#A4A4A4" }}
                     >
-                      Helping Refugee Families Identify and Address Nutritional
-                      Gaps for a Healthier Future. Explore our nutritional map.
+                      Helping Refugee Families in Victoria Identify and Address
+                      Nutritional Gaps for a Healthier Future.
                     </p>
                     <button
                       className="btn btn-custom btn-primary"
@@ -86,7 +86,7 @@ const CarouselComponent = () => {
                       }}
                       onClick={() => navigate("/nutrition-map")}
                     >
-                      Nutritional Map
+                      Explore nutritional map
                     </button>
                   </div>
                 </div>
@@ -175,7 +175,7 @@ const CarouselComponent = () => {
                   {/* You can customize this slide content */}
                   <div className="col-md-12 text-start">
                     <h1 className="display-4">Children Health Indicator</h1>
-                    <p className="lead">Coming soon</p>
+                    <p className="lead">Access your children health today</p>
                   </div>
                 </div>
               </div>
