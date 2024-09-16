@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
+import "./StatsSource.css";
+import LoadingBar from "../Loading/loading";
 
 // Country list with ISO 3166 IDs
 const countries = [
@@ -12,16 +14,22 @@ const countries = [
 ];
 
 const TimeSeriesChart: React.FC = () => {
-  const [selectedCountry, setSelectedCountry] = useState<{ id: number; name: string } | null>(null);
-  const [chartData, setChartData] = useState<{ pop_year: number; refugee: number; asylum: number }[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<{
+    id: number;
+    name: string;
+  } | null>(countries[0]);
+  const [chartData, setChartData] = useState<
+    { pop_year: number; refugee: number }[]
+  >([]);
+  // eslint-disable-next-line
   const [jsonData, setJsonData] = useState<any>(null);
   const [animatedSum, setAnimatedSum] = useState<number>(0);
-  const [imagePath, setImagePath] = useState<string>("");
-
+  const [loading, setLoading] = useState<boolean>(false);
   const animationIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (selectedCountry) {
+      setLoading(true);
       fetchChartData(selectedCountry.id);
       fetchJsonData(selectedCountry.id);
     }
@@ -29,62 +37,51 @@ const TimeSeriesChart: React.FC = () => {
 
   const fetchChartData = async (countryId: number) => {
     try {
-      const response = await fetch("https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/refugeedata", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ country_id: countryId }),
-      });
+      const response = await fetch(
+        "https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/refugeedata",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ country_id: countryId }),
+        }
+      );
       const jsonResponse = await response.json();
       setChartData(jsonResponse.body);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching chart data", error);
+      setLoading(false);
     }
   };
 
   const fetchJsonData = async (countryId: number) => {
     try {
-      const response = await fetch("https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/mulnutritiondata", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ country_id: countryId }),
-      });
-  
-      const jsonResponse = await response.json();
-  
-      // Log the entire parsed JSON response
-      console.log("Full JSON Response:", jsonResponse);
-  
-      // Since jsonResponse.body is an array, access the first element
-      if (jsonResponse.body && jsonResponse.body.length > 0) {
-        const jsonData = jsonResponse.body[0]; // Get the first object in the array
-        console.log("Fetched JSON Data:", jsonData); // Log the fetched data
-  
-        setJsonData(jsonData); // Set the first item as jsonData
-  
-        // Logic to handle image path based on underweight value
-        const underweight = parseFloat(jsonData.underweight);
-        if (underweight > 3) {
-          setImagePath("../../../public/images/stats4.png");
-        } else if (underweight > 2) {
-          setImagePath("../../../public/images/stats3.png");
-        } else if (underweight > 1) {
-          setImagePath("../../../public/images/stats2.png");
-        } else {
-          setImagePath("../../../public/images/stats1.png");
+      const response = await fetch(
+        "https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/mulnutritiondata",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ country_id: countryId }),
         }
+      );
+
+      const jsonResponse = await response.json();
+
+      if (jsonResponse.body && jsonResponse.body.length > 0) {
+        const jsonData = jsonResponse.body[0];
+        console.log("Fetched JSON Data:", jsonData);
+        setJsonData(jsonData);
       } else {
         console.error("Error: No data found in 'body' array");
       }
-  
     } catch (error) {
       console.error("Error fetching JSON data", error);
     }
   };
-  
 
   useEffect(() => {
     if (chartData.length > 0) {
@@ -93,22 +90,24 @@ const TimeSeriesChart: React.FC = () => {
     }
   }, [chartData]);
 
-  const animateSum = (chartData: { pop_year: number; asylum: number }[]) => {
+  const animateSum = (chartData: { pop_year: number; refugee: number }[]) => {
     let currentSum = 0;
     let index = 0;
     const interval = setInterval(() => {
       if (index < chartData.length) {
-        currentSum += chartData[index].asylum;
+        currentSum += chartData[index].refugee;
         setAnimatedSum(currentSum);
         index++;
       } else {
         clearInterval(interval);
       }
-    }, 500);
+    }, 50);
     return interval;
   };
 
-  const restartAnimation = (chartData: { pop_year: number; asylum: number }[]) => {
+  const restartAnimation = (
+    chartData: { pop_year: number; refugee: number }[]
+  ) => {
     if (animationIntervalRef.current) {
       clearInterval(animationIntervalRef.current);
     }
@@ -117,7 +116,7 @@ const TimeSeriesChart: React.FC = () => {
     animationIntervalRef.current = newInterval;
   };
 
-  const drawChart = (chartData: { pop_year: number; refugee: number; asylum: number }[]) => {
+  const drawChart = (chartData: { pop_year: number; refugee: number }[]) => {
     d3.select("#chart").selectAll("*").remove();
     const margin = { top: 10, right: 100, bottom: 50, left: 60 },
       width = 600 - margin.left - margin.right,
@@ -133,15 +132,24 @@ const TimeSeriesChart: React.FC = () => {
 
     const x = d3
       .scaleLinear()
-      .domain([d3.min(chartData, (d) => d.pop_year)!, d3.max(chartData, (d) => d.pop_year)!])
+      .domain([
+        d3.min(chartData, (d) => d.pop_year)!,
+        d3.max(chartData, (d) => d.pop_year)!,
+      ])
       .range([0, width]);
 
-    svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x).ticks(chartData.length));
+    svg
+      .append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(
+        d3.axisBottom(x).ticks(chartData.length).tickFormat(d3.format("d")) // Format ticks as integers (no commas)
+      );
 
     const y = d3
       .scaleLinear()
-      .domain([0, d3.max(chartData, (d) => Math.max(d.refugee, d.asylum))!])
+      .domain([0, d3.max(chartData, (d) => d.refugee)!])
       .range([height, 0]);
+
     svg.append("g").call(d3.axisLeft(y));
 
     svg
@@ -155,7 +163,7 @@ const TimeSeriesChart: React.FC = () => {
       .append("text")
       .attr("text-anchor", "middle")
       .attr("transform", `translate(-40,${height / 2})rotate(-90)`)
-      .text("Population");
+      .text(`${selectedCountry?.name} Refugees Population in Australia`);
 
     const lineRefugee = d3
       .line<{ pop_year: number; refugee: number }>()
@@ -166,24 +174,10 @@ const TimeSeriesChart: React.FC = () => {
       .append("path")
       .datum(chartData)
       .attr("fill", "none")
-      .attr("stroke", "blue")
+      .attr("stroke", "#4b4ade")
       .attr("stroke-width", 2)
       .attr("d", lineRefugee);
 
-    const lineAsylum = d3
-      .line<{ pop_year: number; asylum: number }>()
-      .x((d) => x(d.pop_year))
-      .y((d) => y(d.asylum));
-
-    svg
-      .append("path")
-      .datum(chartData)
-      .attr("fill", "none")
-      .attr("stroke", "red")
-      .attr("stroke-width", 2)
-      .attr("d", lineAsylum);
-
-    // Add data points and tooltips for refugees
     const tooltip = d3
       .select("body")
       .append("div")
@@ -204,139 +198,149 @@ const TimeSeriesChart: React.FC = () => {
       .attr("cx", (d) => x(d.pop_year))
       .attr("cy", (d) => y(d.refugee))
       .attr("r", 5)
-      .attr("fill", "blue")
+      .attr("fill", "#4b4ade")
       .on("mouseover", (event, d) => {
         tooltip
           .style("opacity", 1)
-          .html(`<strong>Year:</strong> ${d.pop_year}<br><strong>Refugees:</strong> ${d.refugee}`)
+          .html(
+            `<strong>Year:</strong> ${d.pop_year}<br><strong>Refugees:</strong> ${d.refugee}`
+          )
           .style("left", `${event.pageX + 10}px`)
           .style("top", `${event.pageY - 20}px`);
       })
       .on("mouseout", () => {
         tooltip.style("opacity", 0);
       });
-
-    svg
-      .selectAll(".dot-asylum")
-      .data(chartData)
-      .enter()
-      .append("circle")
-      .attr("class", "dot-asylum")
-      .attr("cx", (d) => x(d.pop_year))
-      .attr("cy", (d) => y(d.asylum))
-      .attr("r", 5)
-      .attr("fill", "red")
-      .on("mouseover", (event, d) => {
-        tooltip
-          .style("opacity", 1)
-          .html(`<strong>Year:</strong> ${d.pop_year}<br><strong>Asylum Seekers:</strong> ${d.asylum}`)
-          .style("left", `${event.pageX + 10}px`)
-          .style("top", `${event.pageY - 20}px`);
-      })
-      .on("mouseout", () => {
-        tooltip.style("opacity", 0);
-      });
-
-    svg
-      .append("text")
-      .attr("transform", `translate(${x(chartData[chartData.length - 1].pop_year) + 5},${y(chartData[chartData.length - 1].refugee)})`)
-      .attr("dy", ".35em")
-      .attr("text-anchor", "start")
-      .style("fill", "blue")
-      .text("Refugees");
-
-    svg
-      .append("text")
-      .attr("transform", `translate(${x(chartData[chartData.length - 1].pop_year) + 5},${y(chartData[chartData.length - 1].asylum)})`)
-      .attr("dy", ".35em")
-      .attr("text-anchor", "start")
-      .style("fill", "red")
-      .text("Asylum");
   };
 
   const renderBar = (label: string, value: number | string) => {
-    // Ensure the value is a number, parse it if it's a string
     const numericValue = typeof value === "string" ? parseFloat(value) : value;
-  
+
     if (isNaN(numericValue)) {
       console.error(`Invalid value for ${label}:`, value);
       return null;
     }
-  
-    // Calculate the percentage (100 - value)
+
     const percentage = (100 - numericValue).toFixed(0);
-  
-    // Use d3 to interpolate the color from green (100%) to light yellow (0%)
-    const colorScale = d3.interpolate("lightgreen", "red");
-  
-    // Calculate the color based on the percentage (scaled from 0 to 1 for d3.interpolate)
-    const barColor = colorScale(numericValue / 100);
-  
+
     return (
-      <div style={{ display: "flex", flexDirection: "column", marginBottom: "20px" }}>
-        <span>{label}</span>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          marginBottom: "20px",
+        }}
+      >
+        {/* Description with emphasized information */}
+        <p style={{ margin: "0", textAlign: "left", fontSize: "18px" }}>
+          <span style={{ fontWeight: "medium", fontSize: "26px" }}>
+            {percentage}%
+          </span>{" "}
+          <span className="lead">of them are</span>{" "}
+          <span
+            style={{ fontWeight: "medium", color: "#333", fontSize: "26px" }}
+          >
+            {label}
+          </span>
+        </p>
+
+        {/* Thin bar to represent the percentage */}
         <div
           style={{
-            height: "30px",
+            height: "20px", // Thinner bar
             width: "100%",
-            backgroundColor: "#ddd",
+            backgroundColor: "#EAEBFF",
             borderRadius: "5px",
             overflow: "hidden",
             position: "relative",
+            marginTop: "8px", // Added space between text and bar
           }}
         >
           <div
             style={{
               height: "100%",
               width: `${percentage}%`,
-              backgroundColor: barColor, // Dynamic color based on value
+              backgroundColor: "#6366F1",
               transition: "width 0.5s ease, background-color 0.5s ease",
             }}
-          ></div>
-          <span style={{ position: "absolute", top: "5px", right: "10px" }}>{percentage}%</span>
+          />
         </div>
       </div>
     );
   };
-  
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "40px" }}>
-      <div>
-        <label>Select Country:</label>
-        <select onChange={(e) => setSelectedCountry(countries[parseInt(e.target.value)])}>
-          <option>Select a country</option>
-          {countries.map((country, index) => (
-            <option key={country.id} value={index}>
-              {country.name}
-            </option>
-          ))}
-        </select>
-        <div id="chart"></div>
-      </div>
+    <div>
+      <header className="m-5 pt-2">
+        <h1 style={{ fontWeight: "500", textAlign: "center" }}>
+          Every year Victoria welcomes over 4,000 refugees and <br />
+          many of them face challenges with malnutrition
+        </h1>
+        <p className="lead text-center" style={{ color: "" }}>
+          Discover the top countries they come from and learn about their
+          nutritional status below
+        </p>
 
-      <div style={{ fontSize: "24px", fontWeight: "bold", textAlign: "center" }}>
-        Total Asylum from 2010: {animatedSum}
-      </div>
+        <div className="d-flex justify-content-center">
+          <div className="d-flex border p-2 rounded-pill custom-select-wrapper">
+            <div className="me-4 p-1 d-flex justify-content-between align-items-center">
+              <span
+                className="custom-select-label"
+                style={{ paddingLeft: "10px" }}
+              >
+                Select Country:
+              </span>
+              <div className="custom-select-container">
+                <select
+                  className="custom-select"
+                  onChange={(e) =>
+                    setSelectedCountry(countries[parseInt(e.target.value)])
+                  }
+                >
+                  {countries.map((country, index) => (
+                    <option key={country.id} value={index}>
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
 
-      {/* Render visual bars for wasting, stunting, and underweight */}
-      {jsonData && (
-        <div style={{ width: "400px" }}>
-          {renderBar("Wasting", jsonData?.wasting)}
-          {renderBar("Stunting", jsonData?.stunting)}
-          {renderBar("Underweight", jsonData?.underweight)}
+      {/* Display loading component or chart */}
+      {loading ? (
+        <LoadingBar />
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "40px",
+          }}
+        >
+          <div id="chart"></div>
+
+          <div>
+            <h1 style={{ fontWeight: "medium", fontSize: "40px" }}>
+              {animatedSum}
+            </h1>
+            <p className="lead">
+              Total Number of Refugees from {selectedCountry?.name} since 2010
+            </p>
+
+            {/* Render visual bars for wastxing, stunting, and underweight */}
+            <div style={{ width: "400px", paddingTop: "10px" }}>
+              {renderBar("Too Thin", jsonData?.wasting)}
+              {renderBar("Too Short", jsonData?.stunting)}
+              {renderBar("Underweight", jsonData?.underweight)}
+            </div>
+          </div>
         </div>
       )}
-
-      {/* Display the corresponding image */}
-      <div>
-        {imagePath && <img src={imagePath} alt="Underweight status" style={{ width: "300px", height: "auto" }} />}
-      </div>
-
-      <div style={{ marginTop: "20px", fontSize: "14px", maxWidth: "600px", wordWrap: "break-word", backgroundColor: "#f9f9f9", padding: "10px", borderRadius: "8px" }}>
-        <h3>Fetched JSON Data:</h3>
-        <pre>{JSON.stringify(jsonData, null, 2)}</pre>
-      </div>
     </div>
   );
 };

@@ -1,0 +1,57 @@
+.custom-select-wrapper {
+  background-color: #f0f4ff;
+  border-radius: 50px;
+  padding: 4px;
+  margin: 20px 0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-select-label {
+  font-weight: medium;
+  font-size: 16px;
+  color: #333;
+}
+
+.custom-select-container {
+  position: relative;
+  margin-left: 10px;
+}
+
+.custom-select {
+  appearance: none; /* Removes default styling */
+  border: none;
+  background-color: #6366f1;
+  color: white;
+  padding: 10px 40px 10px 15px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: medium;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: auto; /* Ensure the select box width doesn't expand */
+}
+
+.custom-select::after {
+  content: "";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-top-color: white; /* Arrow color */
+  pointer-events: none;
+}
+
+.custom-select:hover {
+  background-color: #4f46e5; /* Darker hover effect */
+}
+
+.custom-select option {
+  background-color: white;
+  color: #333;
+}

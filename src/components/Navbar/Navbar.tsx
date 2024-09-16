@@ -57,7 +57,7 @@ function Navbar() {
                 }`}
                 to="/"
                 style={{
-                  color: location.pathname === "/" ? "#6366F1" : "inherit",
+                  color: location.pathname === "/" ? "#4b4ade" : "inherit",
                 }}
               >
                 {t("home")}
@@ -73,7 +73,7 @@ function Navbar() {
                 style={{
                   color:
                     location.pathname === "/information"
-                      ? "#6366F1"
+                      ? "#4b4ade"
                       : "inherit",
                 }}
                 onClick={() => navigate("/information")}
@@ -90,7 +90,9 @@ function Navbar() {
                 to="/nutrition-map"
                 style={{
                   color:
-                    location.pathname === "/nutrition-map" ? "#6366F1" : "inherit",
+                    location.pathname === "/nutrition-map"
+                      ? "#4b4ade"
+                      : "inherit",
                 }}
                 onClick={() => navigate("/nutrition-map")}
               >

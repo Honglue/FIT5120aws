@@ -24,10 +24,11 @@ function DetailsPage() {
 
       {/* Card Container */}
       <div className="row justify-content-center">
-        <div className="col-md-3 mb-4">
+        <div className="col-md-3 m-3">
           <div
             className="card card-custom text-dark h-100"
             style={{
+              border: "none",
               minHeight: "100px",
               textAlign: "left",
               cursor: "pointer",
@@ -51,7 +52,7 @@ function DetailsPage() {
                 </h5>
 
                 {/* Description */}
-                <p className="lead card-text" style={{ fontSize: "14px" }}>
+                <p className="lead card-text" style={{ fontSize: "16px" }}>
                   Check nutrition deficiencies from your origin country
                 </p>
               </div>
@@ -59,10 +60,11 @@ function DetailsPage() {
           </div>
         </div>
 
-        <div className="col-md-3 mb-4">
+        <div className="col-md-3 m-3">
           <div
             className="card card-custom text-dark h-100"
             style={{
+              border: "none",
               minHeight: "300px",
               textAlign: "left",
               cursor: "pointer",
@@ -88,7 +90,7 @@ function DetailsPage() {
                 {/* Description */}
                 <p
                   className="card-text text-muted"
-                  style={{ fontSize: "14px" }}
+                  style={{ fontSize: "16px" }}
                 >
                   Access important health-related info and support resources
                 </p>
@@ -97,10 +99,11 @@ function DetailsPage() {
           </div>
         </div>
 
-        <div className="col-md-3 mb-4">
+        <div className="col-md-3 m-3">
           <div
             className="card card-custom text-dark h-100"
             style={{
+              border: "none",
               minHeight: "300px",
               textAlign: "left",
               cursor: "pointer",
@@ -126,7 +129,7 @@ function DetailsPage() {
                 {/* Description */}
                 <p
                   className="card-text text-muted"
-                  style={{ fontSize: "14px" }}
+                  style={{ fontSize: "16px" }}
                 >
                   Find out how to improve your children's nutrition
                 </p>

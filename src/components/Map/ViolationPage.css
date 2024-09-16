@@ -1,0 +1,50 @@
+.nutrition-card-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.nutrition-card {
+  transition: filter 0.2s ease, border-color 0.2s ease;
+  border: 1px solid lightgray;
+  border-radius: 20px;
+}
+
+.hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: none;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  backdrop-filter: blur(10px);
+  transition: opacity 0.3s ease;
+}
+
+.example-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  transition: 0.3s ease;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.example-button:hover {
+  background-color: #4b4ade;
+  border-color: #4b4ade;
+}
+
+.nutrition-card-container:hover .nutrition-card {
+  filter: blur(2px);
+}
+
+.nutrition-card-container:hover .hover-overlay {
+  opacity: 1;
+}
