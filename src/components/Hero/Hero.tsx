@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import vegetables from "../../../public/images/vegetables.jpg";
-import help from "../../../public/images/help.png";
+import help from "../../../public/images/help.jpg";
 import "./Hero.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 

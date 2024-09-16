@@ -4,55 +4,55 @@ import "./Modal.css";
 const exampleImages: { [key: string]: { images: string[]; labels: string[] } } =
   {
     1: {
-      images: ["fruits1.png", "fruits2.png", "fruits3.png"],
+      images: ["fruits1.jpg", "fruits2.jpg", "fruits3.jpg"],
       labels: ["Apple", "Orange", "Banana"],
     },
     2: {
-      images: ["vegetables1.png", "vegetables2.png", "vegetables3.png"],
+      images: ["vegetables1.jpg", "vegetables2.jpg", "vegetables3.jpg"],
       labels: ["Broccoli", "Spinach", "Bell Pepper"],
     },
     3: {
-      images: ["legumes1.png", "legumes2.png", "legumes3.png"],
+      images: ["legumes1.jpg", "legumes2.jpg", "legumes3.jpg"],
       labels: ["Lentils", "Chickpeas", "Black Beans"],
     },
     4: {
-      images: ["nuts1.png", "nuts2.png", "nuts3.png"],
+      images: ["nuts1.jpg", "nuts2.jpg", "nuts3.jpg"],
       labels: ["Almonds", "Walnuts", "Cashews"],
     },
     5: {
-      images: ["refinedcarbs1.png", "refinedcarbs2.png", "refinedcarbs3.png"],
+      images: ["refinedcarbs1.jpg", "refinedcarbs2.jpg", "refinedcarbs3.jpg"],
       labels: ["White Bread", "Pastries", "Cookies"],
     },
     6: {
-      images: ["wholegrains1.png", "wholegrains2.png", "wholegrains3.png"],
+      images: ["wholegrains1.jpg", "wholegrains2.jpg", "wholegrains3.jpg"],
       labels: ["Brown Rice", "Oats", "Quinoa"],
     },
     7: {
       images: [
-        "processedmeats1.png",
-        "processedmeats2.png",
-        "processedmeats3.png",
+        "processedmeats1.jpg",
+        "processedmeats2.jpg",
+        "processedmeats3.jpg",
       ],
       labels: ["Bacon", "Sausage", "Hot Dogs"],
     },
     8: {
-      images: ["redmeats1.png", "redmeats2.png", "redmeats3.png"],
+      images: ["redmeats1.jpg", "redmeats2.jpg", "redmeats3.jpg"],
       labels: ["Beef", "Lamb", "Pork"],
     },
     9: {
-      images: ["saturatedfat1.png", "saturatedfat2.png", "saturatedfat3.png"],
+      images: ["saturatedfat1.jpg", "saturatedfat2.jpg", "saturatedfat3.jpg"],
       labels: ["Butter", "Cheese", "Cream"],
     },
     10: {
       images: [
-        "monounsaturated1.png",
-        "monounsaturated2.png",
-        "monounsaturated3.png",
+        "monounsaturated1.jpg",
+        "monounsaturated2.jpg",
+        "monounsaturated3.jpg",
       ],
       labels: ["Olive Oil", "Avocados", "Nuts"],
     },
     11: {
-      images: ["addedsugars1.png", "addedsugars2.png", "addedsugars3.png"],
+      images: ["addedsugars1.jpg", "addedsugars2.jpg", "addedsugars3.jpg"],
       labels: ["Soda", "Candy", "Ice Cream"],
     },
   };

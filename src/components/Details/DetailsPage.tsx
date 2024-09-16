@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./DetailsPage.css";
 import { useNavigate } from "react-router-dom";
-import earth from "../../../public/images/earth-icon.png";
-import info from "../../../public/images/info-icon.png";
-import indicator from "../../../public/images/indicator-icon.png";
+import earth from "../../../public/images/earth-icon.jpg";
+import info from "../../../public/images/info-icon.jpg";
+import indicator from "../../../public/images/indicator-icon.jpg";
 
 function DetailsPage() {
   const navigate = useNavigate();

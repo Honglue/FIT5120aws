@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../../../public/images/logo.png";
+import logo from "../../../public/images/logo.jpg";
 import "./Navbar.css";
 
 function Navbar() {
