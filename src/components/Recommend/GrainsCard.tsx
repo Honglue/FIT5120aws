@@ -21,37 +21,37 @@ const GrainsCard: React.FC<GrainsCardProps> = ({ data }) => {
       description: 'slice of bread',
       quantity: '1',
       kJ: '500',
-      image: 'https://via.placeholder.com/100?text=Slice+of+Bread',
+      image: '/images/recommend/grain1.jpg',
     },
     {
       description: 'medium roll bread',
       quantity: '0.5',
       kJ: '500',
-      image: 'https://via.placeholder.com/100?text=Medium+Roll',
+      image: '/images/recommend/grain2.jpg',
     },
     {
       description: 'cup cooked porridge',
       quantity: '0.5',
       kJ: '500',
-      image: 'https://via.placeholder.com/100?text=Porridge',
+      image: '/images/recommend/grain3.jpg',
     },
     {
       description: 'cup cooked rice, pasta, noodles, barley, buckwheat, semolina, polenta, bulgur or quinoa',
       quantity: '0.5',
       kJ: '500',
-      image: 'https://via.placeholder.com/100?text=Cooked+Rice+or+Pasta',
+      image: '/images/recommend/grain4.jpg',
     },
     {
       description: 'cup muesli',
       quantity: '0.25',
       kJ: '500',
-      image: 'https://via.placeholder.com/100?text=Muesli',
+      image: '/images/recommend/grain5.jpg',
     },
     {
       description: 'crispbreads',
       quantity: '3',
       kJ: '500',
-      image: 'https://via.placeholder.com/100?text=Crispbreads',
+      image: '/images/recommend/grain6.jpg',
     },
   ];
 
@@ -75,7 +75,7 @@ const GrainsCard: React.FC<GrainsCardProps> = ({ data }) => {
     : '0';
   const pageText = grainServes
     ? `${currentQuantity} ${grainPages[currentPage].description}`
-    : 'Placeholder text for grains.';
+    : 'input your age, gender, height and weight';
 
   return (
       <div className="card">

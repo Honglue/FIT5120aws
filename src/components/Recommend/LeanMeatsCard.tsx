@@ -21,25 +21,25 @@ const LeanMeatsCard: React.FC<LeanMeatsCardProps> = ({ data }) => {
       description: 'g cooked lean meat of beef, veal, lamb, pork, kangaroo or goat',
       quantity: '65',
       kJ: '600',
-      image: 'https://via.placeholder.com/100?text=Broccoli',
+      image: '/images/recommend/meat1.jpg',
     },
     {
       description: 'g cooked poultry of skinless chicken or turkey',
       quantity: '80',
       kJ: '600',
-      image: 'https://via.placeholder.com/100?text=Broccoli',
+      image: '/images/recommend/meat2.jpg',
     },
     {
       description: 'g cooked fish fillet or small can of fish',
       quantity: '100',
       kJ: '600',
-      image: 'https://via.placeholder.com/100?text=Broccoli',
+      image: '/images/recommend/meat3.jpg',
     },
     {
       description: 'large eggs',
       quantity: '2',
       kJ: '600',
-      image: 'https://via.placeholder.com/100?text=Broccoli',
+      image: '/images/recommend/meat4.jpg',
     },
   ];
 
@@ -61,7 +61,7 @@ const LeanMeatsCard: React.FC<LeanMeatsCardProps> = ({ data }) => {
   const currentQuantity = leanMeatServes * parseFloat(leanMeatPages[currentPage].quantity);
   const pageText = leanMeatServes
     ? `${currentQuantity} ${leanMeatPages[currentPage].description}`
-    : 'Placeholder text for lean meat.';
+    : 'input your age, gender, height and weight';
 
     return (
       <div className="card">

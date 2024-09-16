@@ -12,6 +12,7 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
   const [weight, setWeight] = useState<number | ''>(''); // State for weight
   const [closestPercentile, setClosestPercentile] = useState<string | null>(null); // To store API response
   const [bmi, setBmi] = useState<number | null>(null); // To store calculated BMI
+  const [bmiPercentage, setBmiPercentage] = useState<string | null>(null); // To store BMI percentile as a percentage
   const [error, setError] = useState<string | null>(null); // Error handling
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,8 +36,12 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
       });
 
       const data = await response.json();
+      console.log(data);
       if (response.ok) {
         setClosestPercentile(data.body);
+        // Convert 'P50' to '50%'
+        const percentileValue = data.body.replace('P', '') + '%';
+        setBmiPercentage(percentileValue); // Store the percentage value
         setError(null);
         onResult(data.body, gender, age, null); // Pass the data to the parent component
       } else {
@@ -71,14 +76,14 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
           <label>Weight (in kg):</label>
           <input type="number" value={weight} onChange={(e) => setWeight(Number(e.target.value))} required />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Get your BMI</button>
       </form>
 
       {error && <p className="error-message">{error}</p>}
-      {closestPercentile && bmi && (
+      {closestPercentile && bmi && bmiPercentage && (
         <div className="result">
           <h3>Your BMI: {bmi.toFixed(2)}</h3>
-          <h3>BMI Percentile: {closestPercentile}</h3>
+          <h3>Your BMI is larger than {bmiPercentage} of people in the same age and gender</h3>
         </div>
       )}
     </div>

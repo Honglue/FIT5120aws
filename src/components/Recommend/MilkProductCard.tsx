@@ -21,25 +21,25 @@ const MilkProductCard: React.FC<MilkProductCardProps> = ({ data }) => {
       description: 'cup milk',
       quantity: '1',
       kJ: '600',
-      image: 'https://via.placeholder.com/100?text=Broccoli',
+      image: '/images/recommend/milk1.jpg',
     },
     {
       description: 'slices hard cheese',
       quantity: '2',
       kJ: '600',
-      image: 'https://via.placeholder.com/100?text=Broccoli',
+      image: '/images/recommend/milk2.jpg',
     },
     {
       description: 'cup yoghurt',
       quantity: '0.5',
       kJ: '600',
-      image: 'https://via.placeholder.com/100?text=Broccoli',
+      image: '/images/recommend/milk3.jpg',
     },
     {
       description: 'cup soy beverage',
       quantity: '1',
       kJ: '600',
-      image: 'https://via.placeholder.com/100?text=Broccoli',
+      image: '/images/recommend/milk4.jpg',
     },
   ];
 
@@ -61,7 +61,7 @@ const MilkProductCard: React.FC<MilkProductCardProps> = ({ data }) => {
   const currentQuantity = milkServes * parseFloat(milkPages[currentPage].quantity);
   const pageText = milkServes
     ? `${currentQuantity} ${milkPages[currentPage].description}`
-    : 'Placeholder text for milk products.';
+    : 'input your age, gender, height and weight';
 
     return (
       <div className="card">

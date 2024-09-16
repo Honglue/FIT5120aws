@@ -21,37 +21,37 @@ const VegetablesCard: React.FC<VegetablesCardProps> = ({ data }) => {
       description: 'cup of cooked broccoli, spinach, carrots or pumpkin',
       quantity: '0.5',
       kJ: '300',
-      image: 'https://via.placeholder.com/100?text=Broccoli',
+      image: '/images/recommend/veg1.jpg',
     },
     {
       description: 'cup cooked beans, peas or lentils',
       quantity: '0.5',
       kJ: '300',
-      image: 'https://via.placeholder.com/100?text=Beans+or+Peas',
+      image: '/images/recommend/veg2.jpg',
     },
     {
       description: 'cup of green leafy or raw salad vegetables',
       quantity: '1',
       kJ: '300',
-      image: 'https://via.placeholder.com/100?text=Salad+Vegetables',
+      image: '/images/recommend/veg3.jpg',
     },
     {
       description: 'cup of sweetcorn',
       quantity: '0.5',
       kJ: '300',
-      image: 'https://via.placeholder.com/100?text=Sweetcorn',
+      image: '/images/recommend/veg4.jpg',
     },
     {
       description: 'medium potato, sweet potato, taro or cassava',
       quantity: '0.5',
       kJ: '300',
-      image: 'https://via.placeholder.com/100?text=Potato',
+      image: '/images/recommend/veg5.jpg',
     },
     {
       description: 'medium tomato',
       quantity: '1',
       kJ: '300',
-      image: 'https://via.placeholder.com/100?text=Tomato',
+      image: '/images/recommend/veg6.jpg',
     },
   ];
 
@@ -73,7 +73,7 @@ const VegetablesCard: React.FC<VegetablesCardProps> = ({ data }) => {
   const currentQuantity = vegetableServes * parseFloat(vegetablePages[currentPage].quantity);
   const pageText = vegetableServes
     ? `${currentQuantity} ${vegetablePages[currentPage].description}`
-    : 'Placeholder text for vegetables.';
+    : 'input your age, gender, height and weight';
 
     return (
       <div className="card">
