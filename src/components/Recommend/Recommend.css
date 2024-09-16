@@ -1,23 +1,40 @@
+.recommend-page-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  height: auto; /* Auto height to prevent scrolling */
+}
+
+.input-bar-container {
+  flex: 1; /* Take up 1/5 of the width */
+  padding: 20px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .recommend-page {
+  flex: 4; /* Take up 4/5 of the width */
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two cards per row */
-  gap: 20px; /* Space between cards */
-  justify-items: center; /* Center the cards */
-  padding: 20px; /* Padding around the entire container */
+  grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+  gap: 40px; /* Space between cards */
+  padding: 80px 80px 40px 40px; /* Padding for the right section (top, right, bottom, left) */
 }
 
 .card {
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* Ensure even spacing between content */
-  width: 300px; /* Fixed width for all cards */
-  height: 400px; /* Fixed height for all cards */
-  overflow: hidden;
+  width: 100%; /* Full width of grid column */
+  height: 400px; /* Fixed height for uniformity */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  justify-content: space-between; /* Ensure the button section stays at the bottom */
 }
 
 .title-bar {
@@ -38,23 +55,36 @@
   color: #888;
 }
 
-.content-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  text-align: center;
-}
-
+/* Description text section */
 .content-text {
-  margin-bottom: 10px;
+  flex-grow: 1; /* Take up available space in the middle */
   font-size: 1rem;
+  margin-bottom: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Image section */
+.content-image {
+  flex-grow: 1; /* Take up remaining space for image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+/* Button section */
 .card-buttons {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
@@ -68,6 +98,25 @@
   font-size: 18px;
 }
 
+.switch-button.left {
+  margin-right: auto; /* Aligns left button to the left */
+}
+
+.switch-button.right {
+  margin-left: auto; /* Aligns right button to the right */
+}
+
 .switch-button:hover {
   background-color: #0056b3;
+}
+
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #333;
 }

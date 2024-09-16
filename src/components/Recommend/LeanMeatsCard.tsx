@@ -21,21 +21,25 @@ const LeanMeatsCard: React.FC<LeanMeatsCardProps> = ({ data }) => {
       description: 'g cooked lean meat of beef, veal, lamb, pork, kangaroo or goat',
       quantity: '65',
       kJ: '600',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
     {
       description: 'g cooked poultry of skinless chicken or turkey',
       quantity: '80',
       kJ: '600',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
     {
       description: 'g cooked fish fillet or small can of fish',
       quantity: '100',
       kJ: '600',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
     {
       description: 'large eggs',
       quantity: '2',
       kJ: '600',
+      image: 'https://via.placeholder.com/100?text=Broccoli',
     },
   ];
 
@@ -47,41 +51,50 @@ const LeanMeatsCard: React.FC<LeanMeatsCardProps> = ({ data }) => {
     setCurrentPage((prev) => (prev < leanMeatPages.length - 1 ? prev + 1 : 0));
   };
 
-  // If data is not available yet, show loading or empty state
-  if (!data || !data['lean meat']) {
-    return <p>Loading lean meat data...</p>;
-  }
+  // Render placeholder content when data is not available
+  const leanMeatServes = data?.['lean meat'] ? parseFloat(data['lean meat']) : 0;
 
-  // Calculate total kJ (lean meat serves * 600 kJ per serve)
-  const totalKJ = parseFloat(data['lean meat']) * 600;
+  // Calculate total kJ (lean meat serves * 600 kJ per serve) or default to 0
+  const totalKJ = leanMeatServes * 600;
 
-  // Calculate the text for the current page
-  const currentQuantity = parseFloat(leanMeatPages[currentPage].quantity) * parseFloat(data['lean meat']);
-  const pageText = `${currentQuantity} ${leanMeatPages[currentPage].description}`;
+  // Calculate the text for the current page, or use placeholder
+  const currentQuantity = leanMeatServes * parseFloat(leanMeatPages[currentPage].quantity);
+  const pageText = leanMeatServes
+    ? `${currentQuantity} ${leanMeatPages[currentPage].description}`
+    : 'Placeholder text for lean meat.';
 
-  return (
-    <div className="card">
-      <div className="title-bar">
-        <h3>Lean Meat</h3>
-        {/* Display the calculated total kJ */}
-        <span>Total kJ: {totalKJ}</span>
-      </div>
-
-      {/* Content area with dynamically calculated text and placeholder image */}
-      <div className="content-area">
-        <button className="switch-button" onClick={handleSwitchLeft}>⮜</button>
+    return (
+      <div className="card">
+        {/* Title Bar */}
+        <div className="title-bar">
+          <h3>Lean Meat</h3>
+          {/* Display the calculated total kJ or 0 if no data */}
+          <span>Total kJ: {totalKJ || '0'}</span>
+        </div>
+    
+        {/* Content area */}
         <div className="content">
+          {/* Description text */}
           <div className="content-text">
             <p>{pageText}</p>
           </div>
+          {/* Image */}
           <div className="content-image">
-            <img src="https://via.placeholder.com/100" alt="Placeholder" className="card-image" />
+            <img
+              src={leanMeatPages[currentPage].image}
+              alt={leanMeatPages[currentPage].description}
+              className="card-image"
+            />
           </div>
         </div>
-        <button className="switch-button" onClick={handleSwitchRight}>⮞</button>
+    
+        {/* Button area at the bottom */}
+        <div className="card-buttons">
+          <button className="switch-button left" onClick={handleSwitchLeft}>⮜</button>
+          <button className="switch-button right" onClick={handleSwitchRight}>⮞</button>
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default LeanMeatsCard;

@@ -1,11 +1,11 @@
 /* Ensure the form is visible below the navigation bar */
 .input-bar {
   margin: 20px auto;
-  padding: 20px;
+  padding: 40px; /* Increased padding for a larger appearance */
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f9f9f9;
-  max-width: 500px; /* Limit the width for better appearance */
+  max-width: 600px; /* Increased width for a larger form */
   box-sizing: border-box;
   margin-top: 100px; /* Add space at the top for the navigation */
 }
@@ -14,20 +14,21 @@
 .input-bar .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  margin-bottom: 20px; /* Increased margin for better spacing between fields */
 }
 
 /* Labels for form fields */
 .input-bar .form-group label {
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 10px; /* Increased spacing below labels */
+  font-size: 18px; /* Increase label font size */
 }
 
 /* Input fields styling */
 .input-bar .form-group input[type="number"],
 .input-bar .form-group select {
-  padding: 10px;
-  font-size: 16px;
+  padding: 15px; /* Increased padding for larger input fields */
+  font-size: 18px; /* Larger font size for the input fields */
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
@@ -36,15 +37,15 @@
 
 /* Submit button styling scoped to InputBar */
 .input-bar button {
-  padding: 10px 15px;
-  font-size: 16px;
+  padding: 15px 20px; /* Increased padding for larger button */
+  font-size: 18px; /* Larger font size for button */
   color: #fff;
   background-color: #007bff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 15px; /* Increased margin for better spacing */
 }
 
 .input-bar button:hover {
@@ -54,16 +55,16 @@
 /* Error message styling */
 .input-bar .error-message {
   color: red;
-  margin-top: 10px;
-  font-size: 14px;
+  margin-top: 15px; /* Increased margin for better spacing */
+  font-size: 16px; /* Slightly larger font size for error message */
 }
 
 /* Result output */
 .input-bar .result {
-  margin-top: 20px;
+  margin-top: 25px; /* Increased margin for better spacing */
   color: green;
 }
 
 .input-bar .result h3 {
-  font-size: 18px;
+  font-size: 20px; /* Increased font size for result */
 }

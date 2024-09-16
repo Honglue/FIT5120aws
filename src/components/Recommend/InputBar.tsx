@@ -11,6 +11,7 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
   const [height, setHeight] = useState<number | ''>(''); // State for height
   const [weight, setWeight] = useState<number | ''>(''); // State for weight
   const [closestPercentile, setClosestPercentile] = useState<string | null>(null); // To store API response
+  const [bmi, setBmi] = useState<number | null>(null); // To store calculated BMI
   const [error, setError] = useState<string | null>(null); // Error handling
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,13 +24,14 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
     }
 
     const formattedGender = gender === 'male' ? 'boy' : 'girl';
-    const bmi = weight / ((height / 100) * (height / 100));
+    const calculatedBmi = weight / ((height / 100) * (height / 100));
+    setBmi(calculatedBmi); // Store the calculated BMI in the state
 
     try {
       const response = await fetch('https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/bmi', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bmi, age, gender: formattedGender }),
+        body: JSON.stringify({ bmi: calculatedBmi, age, gender: formattedGender }),
       });
 
       const data = await response.json();
@@ -73,9 +75,10 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
       </form>
 
       {error && <p className="error-message">{error}</p>}
-      {closestPercentile && (
+      {closestPercentile && bmi && (
         <div className="result">
-          <h3>Your BMI Percentile: {closestPercentile}</h3>
+          <h3>Your BMI: {bmi.toFixed(2)}</h3>
+          <h3>BMI Percentile: {closestPercentile}</h3>
         </div>
       )}
     </div>
