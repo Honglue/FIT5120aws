@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import vegetables from "../../../public/images/vegetables.png";
+import vegetables from "../../../public/images/vegetables.jpg";
 import help from "../../../public/images/help.png";
 import "./Hero.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,19 +14,19 @@ const CarouselComponent = () => {
     {
       id: 1,
       title: "Slide 1",
-      image: "../../../public/images/vegetables.png",
+      image: "../../../public/images/vegetables.jpg",
       description: "This is the description for Slide 1",
     },
     {
       id: 2,
       title: "Slide 2",
-      image: "../../../public/images/vegetables.png",
+      image: "../../../public/images/vegetables.jpg",
       description: "This is the description for Slide 2",
     },
     {
       id: 3,
       title: "Slide 3",
-      image: "../../../public/images/vegetables.png",
+      image: "../../../public/images/vegetables.jpg",
       description: "This is the description for Slide 3",
     },
   ];

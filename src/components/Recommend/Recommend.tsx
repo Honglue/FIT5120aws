@@ -122,7 +122,7 @@ const Recommend: React.FC = () => {
           }}
         />
         <img
-          src="/images/vegetables1.jpg"
+          src="/images/vegetables.jpg"
           alt="vegetable1"
           style={{
             width: "500px",
