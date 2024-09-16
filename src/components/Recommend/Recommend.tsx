@@ -7,14 +7,14 @@ import GrainsCard from "./GrainsCard";
 import LeanMeatsCard from "./LeanMeatsCard";
 import MilkProductCard from "./MilkProductCard";
 
-// 引入图片
-// import testImage from "/images/testimages.jpg";
-
 const Recommend: React.FC = () => {
-  const [closestPercentile, setClosestPercentile] = useState<string | null>(null);
+  const [closestPercentile, setClosestPercentile] = useState<string | null>(
+    null
+  );
   const [gender, setGender] = useState<string | null>(null);
   const [age, setAge] = useState<number | null>(null); // State for user's age
   const [error, setError] = useState<string | null>(null); // State for error handling
+  // eslint-disable-next-line
   const [nutritionData, setNutritionData] = useState<any | null>(null); // Fetched nutrition data
 
   // Fetch the JSON data based on age and gender
@@ -31,6 +31,7 @@ const Recommend: React.FC = () => {
 
         // Find the matching entry based on age and formatted gender
         const filtered = data.find(
+          // eslint-disable-next-line
           (item: any) =>
             item.gender === formattedGender && item.age === String(age)
         );
@@ -75,7 +76,17 @@ const Recommend: React.FC = () => {
 
       {closestPercentile && gender && nutritionData && (
         <div className="result">
-          {/* Result content */}
+          {/* <h3>Your BMI Percentile: {closestPercentile}</h3>
+          <p>Gender: {gender}</p>
+          <p>Age: {age}</p>
+          <h4>Recommended Nutrition:</h4>
+          <ul>
+            <li>Vegetables: {nutritionData.vegetable} serves</li>
+            <li>Fruits: {nutritionData.fruit} serves</li>
+            <li>Grain: {nutritionData.grain} serves</li>
+            <li>Lean Meat: {nutritionData["lean meat"]} serves</li>
+            <li>Milk: {nutritionData.milk} serves</li>
+          </ul> */}
         </div>
       )}
 
@@ -86,51 +97,6 @@ const Recommend: React.FC = () => {
         <GrainsCard data={nutritionData || {}} />
         <LeanMeatsCard data={nutritionData || {}} />
         <MilkProductCard data={nutritionData || {}} />
-      </div>
-
-      {/* 在页面中展示图片 */}
-      <div className="test-image-section">
-        <h2>Test Image</h2>
-        <img
-          src="/images/testimages.jpg"
-          alt="Test"
-          style={{
-            width: "500px",
-            height: "auto",
-            objectFit: "cover",
-            borderRadius: "10px",
-          }}
-        />
-        <img
-          src="/images/vegetables.png"
-          alt="vegetable"
-          style={{
-            width: "500px",
-            height: "auto",
-            objectFit: "cover",
-            borderRadius: "10px",
-          }}
-        />
-        <img
-          src="/images/veget.png"
-          alt="vegetable2"
-          style={{
-            width: "500px",
-            height: "auto",
-            objectFit: "cover",
-            borderRadius: "10px",
-          }}
-        />
-        <img
-          src="/images/vegetables.jpg"
-          alt="vegetable1"
-          style={{
-            width: "500px",
-            height: "auto",
-            objectFit: "cover",
-            borderRadius: "10px",
-          }}
-        />
       </div>
     </div>
   );
