@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import vegetables from "/images/vegetables.png";
+import help from "/images/help.png";
 import "./Hero.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const CarouselComponent = () => {
   const navigate = useNavigate();
@@ -12,19 +13,19 @@ const CarouselComponent = () => {
     {
       id: 1,
       title: "Slide 1",
-      image: "/images/vegetables.png", // 修改为从根路径引用
+      image: "/images/vegetables.png",
       description: "This is the description for Slide 1",
     },
     {
       id: 2,
       title: "Slide 2",
-      image: "/images/vegetables.png", // 修改为从根路径引用
+      image: "/images/vegetables.png",
       description: "This is the description for Slide 2",
     },
     {
       id: 3,
       title: "Slide 3",
-      image: "/images/vegetables.png", // 修改为从根路径引用
+      image: "/images/vegetables.png",
       description: "This is the description for Slide 3",
     },
   ];
@@ -41,14 +42,14 @@ const CarouselComponent = () => {
           transform: `translateX(-${currentIndex * 96}%)`,
         }}
       >
-        {Array.from({ length: 3 }, (_, i) => (
-          <div className="carousel-slide">
+        {carouselItems.map((_, i) => (
+          <div key={i} className="carousel-slide">
             {i === 0 && (
               <div className="glass-card p-4 rounded-4">
                 <div className="row align-items-center">
                   <div className="col-md-6 d-none d-md-block">
                     <img
-                      src="/images/vegetables.png" // 直接从 public/images 路径引用
+                      src={vegetables}
                       alt="Vegetables"
                       className="img-fluid"
                       style={{
@@ -60,18 +61,11 @@ const CarouselComponent = () => {
                   </div>
 
                   <div className="col-md-5 text-start">
-                    <h2
-                      className="display-4"
-                      style={{ color: "black", fontWeight: "500" }}
-                    >
+                    <h2 className="display-4" style={{ color: "black", fontWeight: "500" }}>
                       Nutrition Insights
                     </h2>
-                    <p
-                      className="lead"
-                      style={{ fontWeight: "100", color: "#A4A4A4" }}
-                    >
-                      Helping Refugee Families in Victoria Identify and Address
-                      Nutritional Gaps for a Healthier Future.
+                    <p className="lead" style={{ fontWeight: "100", color: "#A4A4A4" }}>
+                      Helping Refugee Families in Victoria Identify and Address Nutritional Gaps for a Healthier Future.
                     </p>
                     <button
                       className="btn btn-custom btn-primary"
@@ -93,7 +87,7 @@ const CarouselComponent = () => {
               <div
                 className="slide-content"
                 style={{
-                  backgroundImage: `url(/images/help.png)`, // 直接从 public/images 路径引用
+                  backgroundImage: `url(${help})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   height: "100%",
