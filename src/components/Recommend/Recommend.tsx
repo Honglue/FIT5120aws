@@ -8,7 +8,7 @@ import LeanMeatsCard from "./LeanMeatsCard";
 import MilkProductCard from "./MilkProductCard";
 
 // 引入图片
-import testImage from "/images/testimages.jpg";
+// import testImage from "/images/testimages.jpg";
 
 const Recommend: React.FC = () => {
   const [closestPercentile, setClosestPercentile] = useState<string | null>(null);
@@ -92,7 +92,7 @@ const Recommend: React.FC = () => {
       <div className="test-image-section">
         <h2>Test Image</h2>
         <img
-          src={testImage}
+          src="/images/testimages.jpg"
           alt="Test"
           style={{
             width: "500px",
