@@ -40,11 +40,3 @@
   background-color: #4b4ade;
   border-color: #4b4ade;
 }
-
-.nutrition-card-container:hover .nutrition-card {
-  filter: blur(2px);
-}
-
-.nutrition-card-container:hover .hover-overlay {
-  opacity: 1;
-}
