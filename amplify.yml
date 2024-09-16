@@ -14,6 +14,7 @@ frontend:
       commands:
         - npm run build
         - ls -lh dist/assets/
+        - file dist/assets/vegetables-B1iwWbc8.png
   artifacts:
     baseDirectory: dist
     files:
