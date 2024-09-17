@@ -15,7 +15,8 @@ import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import Recommend from "./components/Recommend/Recommend"; // 正确的导入路径
+import Recommend from "./components/Recommend/Recommend";
+import info from "../public/images/info.jpg";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -59,21 +60,58 @@ function App() {
             ) : (
               <div
                 className="password-popup d-flex justify-content-center align-items-center"
-                style={{ minHeight: "100vh" }}
+                style={{ minHeight: "100vh", backgroundColor: "#f0f2f5" }}
               >
-                <div className="card p-4" style={{ width: "300px" }}>
+                <div
+                  className="card p-4 text-center"
+                  style={{
+                    width: "400px",
+                    borderRadius: "15px",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                  }}
+                >
+                  {/* Welcome Message */}
+                  <h4 className="m-3">Welcome to Nutrition Bridge</h4>
+
+                  {/* Add an image with rounded borders */}
+                  <img
+                    src={info}
+                    alt="Login Icon"
+                    className="rounded-circle mb-3"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      objectFit: "cover",
+                    }}
+                  />
+
                   <h5 className="mb-3">Enter Password</h5>
+
                   <input
                     type="password"
                     className="form-control mb-3"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
                   />
+
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-block"
                     onClick={handlePasswordSubmit}
+                    style={{
+                      backgroundColor: "#6366f1",
+                      borderColor: "#6366f1",
+                      color: "#fff",
+                      transition: "background-color 0.3s ease",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#4f46e5")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#6366f1")
+                    }
                   >
-                    Submit
+                    Log in
                   </button>
                 </div>
               </div>

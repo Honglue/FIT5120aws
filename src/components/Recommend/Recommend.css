@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: 40px;
   min-height: 100vh;
   margin-top: 20px;
 }
@@ -20,8 +20,8 @@
   flex: 4; /* Take up 4/5 of the width */
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
-  gap: 40px; /* Space between cards */
-  padding: 80px 80px 40px 40px; /* Padding for the right section (top, right, bottom, left) */
+  gap: 40px;
+  padding-top: 20px;
 }
 
 .card {
@@ -46,7 +46,7 @@
   font-size: 1.2rem;
   /* font-weight: bold; */
   padding-bottom: 10px;
-  border-bottom: 2px solid #ccc;
+  /* border-bottom: 2px solid #ccc; */
 }
 
 .title-bar h3 {
@@ -55,6 +55,10 @@
 
 .title-bar span {
   color: #888;
+}
+
+.content {
+  padding: "20px";
 }
 
 /* Description text section */
@@ -94,10 +98,10 @@
   background-color: #6366f1;
   color: white;
   border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 18px;
+  width: 45px;
+  height: 45px;
 }
 
 .switch-button.left {
