@@ -1,70 +1,51 @@
-/* Ensure the form is visible below the navigation bar */
 .input-bar {
-  margin: 20px auto;
-  padding: 40px; /* Increased padding for a larger appearance */
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  max-width: 600px; /* Increased width for a larger form */
-  box-sizing: border-box;
-  margin-top: 100px; /* Add space at the top for the navigation */
-}
-
-/* Styling for individual form fields */
-.input-bar .form-group {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 20px; /* Increased margin for better spacing between fields */
-}
-
-/* Labels for form fields */
-.input-bar .form-group label {
-  font-weight: bold;
-  margin-bottom: 10px; /* Increased spacing below labels */
-  font-size: 18px; /* Increase label font size */
-}
-
-/* Input fields styling */
-.input-bar .form-group input[type="number"],
-.input-bar .form-group select {
-  padding: 15px; /* Increased padding for larger input fields */
-  font-size: 18px; /* Larger font size for the input fields */
+  justify-content: center;
+  align-items: center;
+  /* background-color: #f9f9f9; */
   border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
-  box-sizing: border-box; /* Ensures padding doesn't affect total width */
+  border-radius: 50px;
+  padding: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  max-width: 60vw;
+  margin: 20px auto;
 }
 
-/* Submit button styling scoped to InputBar */
-.input-bar button {
-  padding: 15px 20px; /* Increased padding for larger button */
-  font-size: 18px; /* Larger font size for button */
-  color: #fff;
-  background-color: #007bff;
+.input-bar .form-group {
+  margin: 0 10px; /* Space between the form groups */
+  flex-grow: 1; /* Ensure the inputs stretch equally */
+}
+
+.input-bar .form-group input,
+.input-bar .form-group select {
   border: none;
-  border-radius: 5px;
+  background-color: transparent;
+  /* border-bottom: 1px solid #ccc; */
+  /* border-radius: 0; */
+  font-size: 16px;
+  text-align: center; /* Center the text */
+  width: 100%; /* Ensure the input fills the space */
+  padding: 5px;
+  outline: none;
+}
+
+.input-bar .form-group input:focus,
+.input-bar .form-group select:focus {
+  border-bottom: 2px solid #007bff; /* Change border color on focus */
+}
+
+.input-bar button {
+  background-color: #6366f1; /* Button color from the image */
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-size: 14px;
   cursor: pointer;
-  width: 100%;
-  margin-top: 15px; /* Increased margin for better spacing */
+  transition: background-color 0.3s ease;
+  margin-left: 10px; /* Space between input fields and the button */
 }
 
 .input-bar button:hover {
-  background-color: #0056b3;
-}
-
-/* Error message styling */
-.input-bar .error-message {
-  color: red;
-  margin-top: 15px; /* Increased margin for better spacing */
-  font-size: 16px; /* Slightly larger font size for error message */
-}
-
-/* Result output */
-.input-bar .result {
-  margin-top: 25px; /* Increased margin for better spacing */
-  color: green;
-}
-
-.input-bar .result h3 {
-  font-size: 20px; /* Increased font size for result */
+  background-color: #4f46e5; /* Slightly darker on hover */
 }
