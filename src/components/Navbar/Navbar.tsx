@@ -85,6 +85,24 @@ function Navbar() {
             <li className="nav-item me-3">
               <Link
                 className={`nav-link ${
+                  location.pathname === "/recommend" ? "active" : ""
+                }`}
+                to="/recommend"
+                style={{
+                  color:
+                    location.pathname === "/recommend"
+                      ? "#4b4ade"
+                      : "inherit",
+                }}
+                onClick={() => navigate("/recommend")}
+              >
+                Nutrition Indicator
+              </Link>
+            </li>
+
+            <li className="nav-item me-3">
+              <Link
+                className={`nav-link ${
                   location.pathname === "/nutrition-map" ? "active" : ""
                 }`}
                 to="/nutrition-map"

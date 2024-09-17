@@ -70,7 +70,7 @@ function DetailsPage() {
               cursor: "pointer",
               padding: "20px",
             }}
-            onClick={() => navigate("/nutrition-map")}
+            onClick={() => navigate("/information")}
           >
             <div className="card-body d-flex flex-column align-items-center justify-content-center">
               {/* Icon or Image */}
@@ -84,7 +84,7 @@ function DetailsPage() {
               <div style={{ paddingTop: "20px" }}>
                 {/* Title */}
                 <h5 className="card-title mb-2" style={{ fontWeight: "500" }}>
-                  Nutrion Information
+                  Nutrition Information
                 </h5>
 
                 {/* Description */}

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import vegetables from "../../../public/images/vegetables.jpg";
 import help from "../../../public/images/help.jpg";
+import cooking from "../../../public/images/cooking.jpg";
 import "./Hero.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -169,18 +170,51 @@ const CarouselComponent = () => {
               </div>
             )}
 
-            {i === 2 && (
-              <div className="glass-card p-4 rounded-4">
-                {/* Third Slide Content */}
-                <div className="row align-items-center">
-                  {/* You can customize this slide content */}
-                  <div className="col-md-12 text-start">
-                    <h1 className="display-4">Children Health Indicator</h1>
-                    <p className="lead">Access your children health today</p>
-                  </div>
-                </div>
-              </div>
-            )}
+{i === 2 && (
+  <div
+    className="glass-card p-4 rounded-4"
+    style={{
+      backgroundImage: `url(${cooking})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      color: "white",
+      padding: "20px",
+    }}
+  >
+    
+    {/* Third Slide Content */}
+    <div className="row align-items-center">
+    <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "rgba(0, 0, 0, 0.1)",
+                    zIndex: 0,
+                  }}
+                ></div>
+      {/* You can customize this slide content */}
+      <div className="col-md-12 text-start">
+        <h1 className="display-4">Children Health Indicator</h1>
+        <p className="lead">Access your children health today</p>
+        <button
+          className="btn btn-custom btn-primary"
+          style={{
+            padding: "10px 20px",
+            borderRadius: "25px",
+            color: "white",
+          }}
+          onClick={() => navigate("/recommend")}
+        >
+          Explore indicator
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
           </div>
         ))}
       </div>
