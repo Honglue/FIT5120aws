@@ -8,9 +8,15 @@ interface InputBarProps {
     ageValue: number | null,
     errorMessage: string | null
   ) => void;
+  loading: boolean; // Pass loading state
+  setLoading: (loading: boolean) => void; // Setter for loading state
 }
 
-const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
+const InputBar: React.FC<InputBarProps> = ({
+  onResult,
+  loading,
+  setLoading,
+}) => {
   const [age, setAge] = useState<number | "">(""); // State for age
   const [gender, setGender] = useState<string>("male"); // Default gender value is male
   const [height, setHeight] = useState<number | "">(""); // State for height
@@ -38,6 +44,8 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
       return;
     }
 
+    setLoading(true); // Start loading when the form is submitted
+
     const formattedGender = gender === "male" ? "boy" : "girl";
     const calculatedBmi = weight / ((height / 100) * (height / 100));
     setBmi(calculatedBmi); // Store the calculated BMI in the state
@@ -60,8 +68,6 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
       console.log(data);
       if (response.ok) {
         setClosestPercentile(data.body);
-        console.log(data.body);
-        // Convert 'P50' to '50%'
         const percentileValue = data.body.replace("P", "") + "%";
         setBmiPercentage(percentileValue); // Store the percentage value
         setError(null);
@@ -73,6 +79,8 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
     } catch (err) {
       setError("Failed to fetch data. Please try again.");
       onResult(null, null, null, "Failed to fetch data. Please try again.");
+    } finally {
+      setLoading(false); // Stop loading after the API response is received
     }
   };
 
@@ -114,7 +122,9 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
             required
           />
         </div>
-        <button type="submit">Calculate</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Calculating..." : "Calculate"}
+        </button>
       </form>
 
       {error && <p className="error-message">{error}</p>}
@@ -127,10 +137,9 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
             padding: "20px",
             border: "1px solid #ccc",
             borderRadius: "15px",
-            // boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
             marginTop: "20px",
             textAlign: "center",
-            maxWidth: "500px",
+            maxWidth: "60vw",
             margin: "20px auto",
           }}
         >
@@ -159,7 +168,6 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
             >
               {bmiPercentage}
             </span>{" "}
-            <br />
             of people in the same age and gender
           </h3>
         </div>
