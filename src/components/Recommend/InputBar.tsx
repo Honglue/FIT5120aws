@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
-import './InputBar.css';
+import React, { useState } from "react";
+import "./InputBar.css";
 
 interface InputBarProps {
-  onResult: (percentile: string | null, genderValue: string | null, ageValue: number | null, errorMessage: string | null) => void;
+  onResult: (
+    percentile: string | null,
+    genderValue: string | null,
+    ageValue: number | null,
+    errorMessage: string | null
+  ) => void;
 }
 
 const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
-  const [age, setAge] = useState<number | ''>(''); // State for age
-  const [gender, setGender] = useState<string>('male'); // Default gender value is male
-  const [height, setHeight] = useState<number | ''>(''); // State for height
-  const [weight, setWeight] = useState<number | ''>(''); // State for weight
-  const [closestPercentile, setClosestPercentile] = useState<string | null>(null); // To store API response
+  const [age, setAge] = useState<number | "">(""); // State for age
+  const [gender, setGender] = useState<string>("male"); // Default gender value is male
+  const [height, setHeight] = useState<number | "">(""); // State for height
+  const [weight, setWeight] = useState<number | "">(""); // State for weight
+  const [closestPercentile, setClosestPercentile] = useState<string | null>(
+    null
+  ); // To store API response
   const [bmi, setBmi] = useState<number | null>(null); // To store calculated BMI
   const [bmiPercentage, setBmiPercentage] = useState<string | null>(null); // To store BMI percentile as a percentage
   const [error, setError] = useState<string | null>(null); // Error handling
@@ -19,71 +26,142 @@ const InputBar: React.FC<InputBarProps> = ({ onResult }) => {
     e.preventDefault();
 
     if (!age || age <= 0 || age >= 20 || !height || !weight) {
-      setError('Please fill in all fields, and ensure age is between 1 and 19.');
-      onResult(null, null, null, 'Please fill in all fields, and ensure age is between 1 and 19.');
+      setError(
+        "Please fill in all fields, and ensure age is between 1 and 19."
+      );
+      onResult(
+        null,
+        null,
+        null,
+        "Please fill in all fields, and ensure age is between 1 and 19."
+      );
       return;
     }
 
-    const formattedGender = gender === 'male' ? 'boy' : 'girl';
+    const formattedGender = gender === "male" ? "boy" : "girl";
     const calculatedBmi = weight / ((height / 100) * (height / 100));
     setBmi(calculatedBmi); // Store the calculated BMI in the state
 
     try {
-      const response = await fetch('https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/bmi', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bmi: calculatedBmi, age, gender: formattedGender }),
-      });
+      const response = await fetch(
+        "https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/bmi",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            bmi: calculatedBmi,
+            age,
+            gender: formattedGender,
+          }),
+        }
+      );
 
       const data = await response.json();
       console.log(data);
       if (response.ok) {
         setClosestPercentile(data.body);
+        console.log(data.body);
         // Convert 'P50' to '50%'
-        const percentileValue = data.body.replace('P', '') + '%';
+        const percentileValue = data.body.replace("P", "") + "%";
         setBmiPercentage(percentileValue); // Store the percentage value
         setError(null);
         onResult(data.body, gender, age, null); // Pass the data to the parent component
       } else {
-        setError('Failed to fetch data. Please try again.');
-        onResult(null, null, null, 'Failed to fetch data. Please try again.');
+        setError("Failed to fetch data. Please try again.");
+        onResult(null, null, null, "Failed to fetch data. Please try again.");
       }
     } catch (err) {
-      setError('Failed to fetch data. Please try again.');
-      onResult(null, null, null, 'Failed to fetch data. Please try again.');
+      setError("Failed to fetch data. Please try again.");
+      onResult(null, null, null, "Failed to fetch data. Please try again.");
     }
   };
 
   return (
-    <div className="input-bar">
-      <form onSubmit={handleSubmit}>
+    <div>
+      <form onSubmit={handleSubmit} className="input-bar">
         <div className="form-group">
-          <label>Age (between 1 and 19):</label>
-          <input type="number" value={age} onChange={(e) => setAge(Number(e.target.value))} min="1" max="19" required />
+          <input
+            type="number"
+            value={age}
+            onChange={(e) => setAge(Number(e.target.value))}
+            placeholder="Add age"
+            min="1"
+            max="19"
+            required
+          />
         </div>
         <div className="form-group">
-          <label>Gender:</label>
           <select value={gender} onChange={(e) => setGender(e.target.value)}>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
         </div>
         <div className="form-group">
-          <label>Height (in cm):</label>
-          <input type="number" value={height} onChange={(e) => setHeight(Number(e.target.value))} required />
+          <input
+            type="number"
+            value={weight}
+            onChange={(e) => setWeight(Number(e.target.value))}
+            placeholder="Add weight"
+            required
+          />
         </div>
         <div className="form-group">
-          <label>Weight (in kg):</label>
-          <input type="number" value={weight} onChange={(e) => setWeight(Number(e.target.value))} required />
+          <input
+            type="number"
+            value={height}
+            onChange={(e) => setHeight(Number(e.target.value))}
+            placeholder="Add height"
+            required
+          />
         </div>
-        <button type="submit">Get your BMI</button>
+        <button type="submit">Calculate</button>
       </form>
 
       {error && <p className="error-message">{error}</p>}
+
       {closestPercentile && bmi && bmiPercentage && (
-        <div className="result">
-          <h3>Your BMI: {bmi.toFixed(2)}</h3>
-          <h3>Your BMI is larger than {bmiPercentage} of people in the same age and gender</h3>
+        <div
+          className="result"
+          style={{
+            backgroundColor: "#fff",
+            padding: "20px",
+            border: "1px solid #ccc",
+            borderRadius: "15px",
+            // boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+            marginTop: "20px",
+            textAlign: "center",
+            maxWidth: "500px",
+            margin: "20px auto",
+          }}
+        >
+          <h3
+            style={{
+              textAlign: "left",
+              fontSize: "18px",
+              fontWeight: "400",
+              marginBottom: "8px",
+            }}
+          >
+            Your BMI:{" "}
+            <span
+              style={{ fontWeight: "bold", fontSize: "24px", color: "#6366f1" }}
+            >
+              {bmi.toFixed(2)}
+            </span>
+          </h3>
+
+          <h3
+            style={{ fontSize: "18px", fontWeight: "400", textAlign: "left" }}
+          >
+            Your BMI is larger than{" "}
+            <span
+              style={{ fontWeight: "bold", fontSize: "24px", color: "#6366f1" }}
+            >
+              {bmiPercentage}
+            </span>{" "}
+            <br />
+            of people in the same age and gender
+          </h3>
         </div>
       )}
     </div>
