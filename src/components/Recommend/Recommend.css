@@ -1,7 +1,7 @@
 .recommend-page-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 40px;
   min-height: 100vh;
   margin-top: 20px;
@@ -81,9 +81,11 @@
 }
 
 .card-image {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
+  width: 150px; /* Set a fixed width for all images */
+  height: 150px; /* Set a fixed height for all images */
+  object-fit: cover; /* Fill the container while maintaining the aspect ratio, cropping if necessary */
+  border-radius: 8px; /* Optional: add rounded corners */
+  overflow: hidden; /* Ensure any overflow from the image is hidden */
 }
 
 /* Button section */

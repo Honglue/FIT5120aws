@@ -74,7 +74,6 @@ const Recommend: React.FC = () => {
         loading={loading}
         setLoading={setLoading}
       />
-
       {!nutritionData && (
         <p className="lead">Get started by calculating your BMI.</p>
       )}

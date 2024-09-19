@@ -31,16 +31,41 @@ const InputBar: React.FC<InputBarProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!age || age <= 0 || age >= 20 || !height || !weight) {
+    if (!age || age <= 0 || age >= 19) {
       setError(
-        "Please fill in all fields, and ensure age is between 1 and 19."
+        "Please input age between 1 and 18."
       );
-      onResult(
-        null,
-        null,
-        null,
-        "Please fill in all fields, and ensure age is between 1 and 19."
+      // onResult(
+      //   null,
+      //   null,
+      //   null,
+      //   "Please fill in all fields, and ensure age is between 1 and 19."
+      // );
+      return;
+    }
+
+    if (!height || !weight) {
+      setError(
+        "Please fill in all fields"
       );
+      // onResult(
+      //   null,
+      //   null,
+      //   null,
+      //   "Please fill in all fields, and ensure age is between 1 and 19."
+      // );
+      return;
+    }
+
+    if (weight > 200) {
+      setError("Please enter a weight less than 200 kg.");
+      // onResult(null, null, null, "Weight must be less than 200 kg.");
+      return;
+    }
+  
+    if (height > 200) {
+      setError("Please enter a height less than 200 cm.");
+      // onResult(null, null, null, "Height must be less than 200 cm.");
       return;
     }
 
@@ -88,47 +113,70 @@ const InputBar: React.FC<InputBarProps> = ({
     <div>
       <form onSubmit={handleSubmit} className="input-bar">
         <div className="form-group">
+          <label htmlFor="age">Age:</label>
           <input
+            id="age"
             type="number"
             value={age}
             onChange={(e) => setAge(Number(e.target.value))}
-            placeholder="Add age"
-            min="1"
-            max="19"
-            required
+            placeholder="Enter age 1-18"
+            // min="1"
+            // max="18"
+            // required
           />
         </div>
+  
         <div className="form-group">
-          <select value={gender} onChange={(e) => setGender(e.target.value)}>
+          <label htmlFor="gender">Gender:</label>
+          <select
+            id="gender"
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+          >
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
         </div>
+  
         <div className="form-group">
-          <input
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(Number(e.target.value))}
-            placeholder="Add weight"
-            required
-          />
+          <label htmlFor="weight">Weight:</label>
+          <div className="input-with-label">
+            <input
+              id="weight"
+              type="number"
+              value={weight}
+              onChange={(e) => setWeight(Number(e.target.value))}
+              placeholder="Enter weight in kg"
+              required
+            />
+          </div>
         </div>
+  
         <div className="form-group">
-          <input
-            type="number"
-            value={height}
-            onChange={(e) => setHeight(Number(e.target.value))}
-            placeholder="Add height"
-            required
-          />
+          <label htmlFor="height">Height:</label>
+          <div className="input-with-label">
+            <input
+              id="height"
+              type="number"
+              value={height}
+              onChange={(e) => setHeight(Number(e.target.value))}
+              placeholder="Enter height in cm"
+              required
+            />
+          </div>
         </div>
+  
         <button type="submit" disabled={loading}>
           {loading ? "Calculating..." : "Calculate"}
         </button>
       </form>
-
-      {error && <p className="error-message">{error}</p>}
-
+  
+      {error && (
+        <p className="error-message" style={{ color: "red", marginTop: "10px" }}>
+          {error}
+        </p>
+      )}
+  
       {closestPercentile && bmi && bmiPercentage && (
         <div
           className="result"
@@ -158,22 +206,21 @@ const InputBar: React.FC<InputBarProps> = ({
               {bmi.toFixed(2)}
             </span>
           </h3>
-
-          <h3
-            style={{ fontSize: "18px", fontWeight: "400", textAlign: "left" }}
-          >
+  
+          <h3 style={{ fontSize: "18px", fontWeight: "400", textAlign: "left" }}>
             Your BMI is larger than{" "}
             <span
               style={{ fontWeight: "bold", fontSize: "24px", color: "#6366f1" }}
             >
               {bmiPercentage}
             </span>{" "}
-            of people in the same age and gender
+            of people in the same age and gender.
           </h3>
         </div>
       )}
     </div>
   );
+  
 };
 
 export default InputBar;
