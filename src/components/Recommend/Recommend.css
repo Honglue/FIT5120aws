@@ -32,7 +32,7 @@
   align-items: center;
   width: 100%; /* Full width of grid column */
   height: 400px; /* Fixed height for uniformity */
-  padding: 20px;
+  padding: 10px;
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
   background-color: white;
   box-sizing: border-box;
@@ -81,9 +81,9 @@
 }
 
 .card-image {
-  width: 150px; /* Set a fixed width for all images */
-  height: 150px; /* Set a fixed height for all images */
-  object-fit: cover; /* Fill the container while maintaining the aspect ratio, cropping if necessary */
+  width: 250px; /* Set a fixed width for all images */
+  height: 250x; /* Set a fixed height for all images */
+  object-fit: fill; /* Fill the container while maintaining the aspect ratio, cropping if necessary */
   border-radius: 8px; /* Optional: add rounded corners */
   overflow: hidden; /* Ensure any overflow from the image is hidden */
 }

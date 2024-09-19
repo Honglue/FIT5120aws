@@ -90,22 +90,22 @@ const VegetablesCard: React.FC<VegetablesCardProps> = ({ data }) => {
         <p className="lead" style={{ textAlign: "left" }}>
           {pageText}
         </p>
+        </div>
 
         {/* Image container */}
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <div style={{ textAlign: "center", marginTop: "10px" }}>
           <img
             className="card-image"
             src={vegetablePages[currentPage].image}
             alt={vegetablePages[currentPage].description}
             style={{
-              width: "60%",
-              height: "auto",
+              // width: "60%",
+              maxHeight: "150px",
               maxWidth: "500px",
               borderRadius: "10px",
             }}
           />
         </div>
-      </div>
 
       {/* Button area */}
       <div className="card-buttons">

@@ -81,22 +81,22 @@ const LeanMeatsCard: React.FC<LeanMeatsCardProps> = ({ data }) => {
         <p className="lead" style={{ textAlign: "left" }}>
           {pageText}
         </p>
+        </div>
 
         {/* Image container */}
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <div style={{ textAlign: "center", marginTop: "10px" }}>
           <img
             className="card-image"
             src={leanMeatPages[currentPage].image}
             alt={leanMeatPages[currentPage].description}
             style={{
-              width: "60%",
+              // width: "60%",
               maxHeight: "150px",
               maxWidth: "500px",
               borderRadius: "10px",
             }}
           />
         </div>
-      </div>
 
       {/* Button area at the bottom */}
       <div className="card-buttons">

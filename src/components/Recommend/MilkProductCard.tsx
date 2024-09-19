@@ -78,22 +78,22 @@ const MilkProductCard: React.FC<MilkProductCardProps> = ({ data }) => {
         <p className="lead" style={{ textAlign: "left" }}>
           {pageText}
         </p>
+        </div>
 
         {/* Image container */}
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <div style={{ textAlign: "center", marginTop: "10px" }}>
           <img
             className="card-image"
             src={milkPages[currentPage].image}
             alt={milkPages[currentPage].description}
             style={{
-              width: "60%",
+              // width: "60%",
               maxHeight: "150px",
               maxWidth: "500px",
               borderRadius: "10px",
             }}
           />
         </div>
-      </div>
 
       {/* Buttons aligned horizontally at the bottom */}
       <div className="card-buttons">
