@@ -101,7 +101,7 @@ const TimeSeriesChart: React.FC = () => {
       } else {
         clearInterval(interval);
       }
-    }, 50);
+    }, 90);
     return interval;
   };
 
@@ -325,7 +325,13 @@ const TimeSeriesChart: React.FC = () => {
           <div id="chart"></div>
 
           <div>
-            <h1 style={{ fontWeight: "medium", fontSize: "40px" }}>
+            <h1 style={{
+              fontWeight: "bold",
+              fontSize: "60px",
+              color: "#1E3A8A",
+              textShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)",
+              letterSpacing: "1.5px",
+            }}>
               {animatedSum}
             </h1>
             <p className="lead">
