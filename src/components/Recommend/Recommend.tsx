@@ -85,7 +85,7 @@ const Recommend: React.FC = () => {
       {!loading && nutritionData && (
         <div style={{ padding: "40px" }}>
           <h4 style={{ textAlign: "left", fontWeight: "bold" }}>
-            Recommended Dietary for a Day
+            Daily Recommended Dietary Intake According to Australian Standards
           </h4>
 
           <div className="recommend-page">
