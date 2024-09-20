@@ -221,8 +221,8 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
           margin: "30px 10px",
         }}
       >
-        Comparing dieatary from {selectedCountryName} with the Australia average
-        intake.
+        This page compares the dietary intake patterns from{" "}
+        {selectedCountryName} with the Australian standards.
       </div>
 
       <div className="d-flex align-items-center justify-content-between mb-4">
@@ -267,7 +267,7 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
           {/* Nutrition type filter (Good or Bad) */}
           <div className="me-4 p-1">
             <span className="me-2" style={{ paddingLeft: "10px" }}>
-              Nutrition Type:
+              Food Type:
             </span>
             <select
               id="nutrition-type-select"
@@ -283,8 +283,8 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
                 transition: "box-shadow 0.2s ease-in-out",
               }}
             >
-              <option value="good">Good Nutrition</option>
-              <option value="bad">Bad Nutrition</option>
+              <option value="good">Healthy Foods</option>
+              <option value="bad">Unhealthy Foods</option>
             </select>
           </div>
         </div>
@@ -296,10 +296,10 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
       ) : selectedNutritionType === "good" ? (
         <div className="nutrition-section mt-4">
           <h5 className="mb-2" style={{ textAlign: "left", fontWeight: 500 }}>
-            Good Nutrition
+            Health Foods
           </h5>
           <p style={{ textAlign: "left" }}>
-            Good nutrition provides essential nutrients for energy, growth, and
+            Healthy foods provide essential nutrients for energy, growth, and
             overall health, helping to prevent chronic diseases.{" "}
             <a
               href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
@@ -318,10 +318,10 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
       ) : (
         <div className="nutrition-section mt-4">
           <h5 className="mb-2" style={{ textAlign: "left" }}>
-            Bad Nutrition
+            Unhealthy Foods
           </h5>
           <p style={{ textAlign: "left" }}>
-            Bad nutrition, including overeating or undereating, leads to
+            Unhealthy foods, including overeating or undereating, leads to
             nutrient deficiencies or excesses, causing health issues such as
             obesity, diabetes.{" "}
             <a

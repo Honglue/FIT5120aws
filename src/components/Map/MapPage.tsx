@@ -99,8 +99,9 @@ const NutritionMapInfo = () => {
           Nutritional Map
         </h2>
         <p className="lead" style={{ fontSize: "16px" }}>
-          Explore your countries dieatary patterns by selecting from the map.
-          Click on your country for detailed insights.
+          Explore your countries dietary patterns comparing to Australian
+          standards by selecting from the map. Click on your country for
+          detailed insights.
         </p>
       </div>
 
