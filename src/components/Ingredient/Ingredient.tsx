@@ -65,7 +65,6 @@ const Ingredient: React.FC = () => {
                 <p>vitaminC: {recipe.nutrition.vitaminC?.toFixed(2)} g</p>
                 <p>calcium: {recipe.nutrition.calcium?.toFixed(2)} g</p>
                 <p>Sodium: {recipe.nutrition.sodium?.toFixed(2)} mg</p>
-                <p>iron: {recipe.nutrition.iron?.toFixed(2)} mg</p>
                 <h4>Health Labels</h4>
                 <p>{recipe.healthLabels.join(', ')}</p>
                 <p>Cuisine Type: {recipe.cuisineType.join(', ')}</p>
