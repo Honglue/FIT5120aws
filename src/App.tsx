@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
+import Ingredient from "./components/Ingredient/Ingredient";
 import AwarenessSection from "./components/Awareness/AwarenessSection";
 import DetailsPage from "./components/Details/DetailsPage";
 import StatsSource from "./components/StatsSource/StatsSource";
@@ -54,6 +55,7 @@ function App() {
                   <Route path="/nutrition-map" element={<NutritionMap />} />
                   <Route path="/information" element={<Information />} />
                   <Route path="/recommend" element={<Recommend />} />
+                  <Route path="/ingredient" element={<Ingredient />} />
                 </Routes>
                 <Footer />
               </>
