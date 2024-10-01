@@ -15,21 +15,20 @@ function DetailsPage() {
     >
       {/* Header Section */}
       <header className="mb-5">
-        <h1 style={{ fontWeight: "500" }}>A platform to Empower You</h1>
-        <p className="lead" style={{ color: "" }}>
+        <h2 style={{ fontWeight: "500" }}>A platform to Empower You</h2>
+        <p className="lead" style={{ fontSize: "18px" }}>
           We are here to empower refugee families with the necessary tools. Here
           is how.
         </p>
       </header>
 
-      {/* Card Container */}
-      <div className="row justify-content-center">
-        <div className="col-md-3 m-3">
+      {/* First Row: 3 Cards */}
+      <div className="row justify-content-center mb-4">
+        <div className="col-md-3 mx-2">
           <div
             className="card card-custom text-dark h-100"
             style={{
               border: "none",
-              minHeight: "100px",
               textAlign: "left",
               cursor: "pointer",
               padding: "20px",
@@ -37,22 +36,20 @@ function DetailsPage() {
             onClick={() => navigate("/nutrition-map")}
           >
             <div className="card-body d-flex flex-column align-items-center justify-content-center">
-              {/* Icon or Image */}
               <img
                 src={earth}
                 alt="earth"
                 className="img-fluid mb-3"
-                style={{ width: "80px", height: "80px" }}
+                style={{ width: "70px", height: "70px" }}
               />
-
-              {/* Title */}
-              <div style={{ paddingTop: "20px" }}>
+              <div>
                 <h5 className="card-title mb-2" style={{ fontWeight: "500" }}>
-                  Nutrition Mapping Tool
+                  Nutrition Map
                 </h5>
-
-                {/* Description */}
-                <p className="lead card-text" style={{ fontSize: "16px" }}>
+                <p
+                  className="card-text text-muted"
+                  style={{ fontSize: "14px" }}
+                >
                   Check nutrition deficiencies from your origin country
                 </p>
               </div>
@@ -60,12 +57,11 @@ function DetailsPage() {
           </div>
         </div>
 
-        <div className="col-md-3 m-3">
+        <div className="col-md-3 mx-2">
           <div
             className="card card-custom text-dark h-100"
             style={{
               border: "none",
-              minHeight: "300px",
               textAlign: "left",
               cursor: "pointer",
               padding: "20px",
@@ -73,24 +69,19 @@ function DetailsPage() {
             onClick={() => navigate("/information")}
           >
             <div className="card-body d-flex flex-column align-items-center justify-content-center">
-              {/* Icon or Image */}
               <img
                 src={info}
                 alt="info"
                 className="img-fluid mb-3"
-                style={{ width: "80px", height: "80px" }}
+                style={{ width: "70px", height: "70px" }}
               />
-
-              <div style={{ paddingTop: "20px" }}>
-                {/* Title */}
+              <div>
                 <h5 className="card-title mb-2" style={{ fontWeight: "500" }}>
-                  Nutrition Information
+                  Nutrition Indicator
                 </h5>
-
-                {/* Description */}
                 <p
                   className="card-text text-muted"
-                  style={{ fontSize: "16px" }}
+                  style={{ fontSize: "14px" }}
                 >
                   Access important health-related info and support resources
                 </p>
@@ -99,12 +90,11 @@ function DetailsPage() {
           </div>
         </div>
 
-        <div className="col-md-3 m-3">
+        <div className="col-md-3 mx-2">
           <div
             className="card card-custom text-dark h-100"
             style={{
               border: "none",
-              minHeight: "300px",
               textAlign: "left",
               cursor: "pointer",
               padding: "20px",
@@ -112,26 +102,90 @@ function DetailsPage() {
             onClick={() => navigate("/recommend")}
           >
             <div className="card-body d-flex flex-column align-items-center justify-content-center">
-              {/* Icon or Image */}
               <img
                 src={indicator}
                 alt="indicator"
                 className="img-fluid mb-3"
-                style={{ width: "80px", height: "80px" }}
+                style={{ width: "70px", height: "70px" }}
               />
-
-              <div style={{ paddingTop: "20px" }}>
-                {/* Title */}
+              <div>
                 <h5 className="card-title mb-2" style={{ fontWeight: "500" }}>
-                  Nutrition Indicator
+                  Dish Recommender
                 </h5>
-
-                {/* Description */}
                 <p
                   className="card-text text-muted"
-                  style={{ fontSize: "16px" }}
+                  style={{ fontSize: "14px" }}
                 >
                   Find out how to improve your children's nutrition
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Second Row: 2 Cards */}
+      <div className="row justify-content-center">
+        <div className="col-md-3 mx-2">
+          <div
+            className="card card-custom text-dark h-100"
+            style={{
+              border: "none",
+              textAlign: "left",
+              cursor: "pointer",
+              padding: "20px",
+            }}
+            onClick={() => navigate("/recommend")}
+          >
+            <div className="card-body d-flex flex-column align-items-center justify-content-center">
+              <img
+                src={indicator}
+                alt="indicator"
+                className="img-fluid mb-3"
+                style={{ width: "70px", height: "70px" }}
+              />
+              <div>
+                <h5 className="card-title mb-2" style={{ fontWeight: "500" }}>
+                  Nutrition Info
+                </h5>
+                <p
+                  className="card-text text-muted"
+                  style={{ fontSize: "14px" }}
+                >
+                  Access important health-related info and support resources
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 mx-2">
+          <div
+            className="card card-custom text-dark h-100"
+            style={{
+              border: "none",
+              textAlign: "left",
+              cursor: "pointer",
+              padding: "20px",
+            }}
+            onClick={() => navigate("/recommend")}
+          >
+            <div className="card-body d-flex flex-column align-items-center justify-content-center">
+              <img
+                src={indicator}
+                alt="indicator"
+                className="img-fluid mb-3"
+                style={{ width: "70px", height: "70px" }}
+              />
+              <div>
+                <h5 className="card-title mb-2" style={{ fontWeight: "500" }}>
+                  Nutrition Quiz
+                </h5>
+                <p
+                  className="card-text text-muted"
+                  style={{ fontSize: "14px" }}
+                >
+                  Assess your nutrition knowledge to learn more
                 </p>
               </div>
             </div>

@@ -18,7 +18,7 @@ const InputBar: React.FC<InputBarProps> = ({
   setLoading,
 }) => {
   const [age, setAge] = useState<number | "">(""); // State for age
-  const [gender, setGender] = useState<string>("male"); // Default gender value is male
+  const [gender, setGender] = useState<string>("Select"); // Default gender value is male
   const [height, setHeight] = useState<number | "">(""); // State for height
   const [weight, setWeight] = useState<number | "">(""); // State for weight
   const [closestPercentile, setClosestPercentile] = useState<string | null>(
@@ -32,9 +32,7 @@ const InputBar: React.FC<InputBarProps> = ({
     e.preventDefault();
 
     if (!age || age <= 0 || age >= 19) {
-      setError(
-        "Please input age between 1 and 18."
-      );
+      setError("Please input age between 1 and 18.");
       // onResult(
       //   null,
       //   null,
@@ -45,9 +43,7 @@ const InputBar: React.FC<InputBarProps> = ({
     }
 
     if (!height || !weight) {
-      setError(
-        "Please fill in all fields"
-      );
+      setError("Please fill in all fields");
       // onResult(
       //   null,
       //   null,
@@ -62,7 +58,7 @@ const InputBar: React.FC<InputBarProps> = ({
       // onResult(null, null, null, "Weight must be less than 200 kg.");
       return;
     }
-  
+
     if (height > 200) {
       setError("Please enter a height less than 200 cm.");
       // onResult(null, null, null, "Height must be less than 200 cm.");
@@ -111,9 +107,9 @@ const InputBar: React.FC<InputBarProps> = ({
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="input-bar">
+      <form onSubmit={handleSubmit} className="recommend-input-bar">
         <div className="form-group">
-          <label htmlFor="age">Age:</label>
+          <label htmlFor="age">Age</label>
           <input
             id="age"
             type="number"
@@ -125,21 +121,24 @@ const InputBar: React.FC<InputBarProps> = ({
             // required
           />
         </div>
-  
+
         <div className="form-group">
-          <label htmlFor="gender">Gender:</label>
+          <label htmlFor="gender">Gender</label>
           <select
             id="gender"
             value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
+            <option value="">Select</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
         </div>
-  
+
         <div className="form-group">
-          <label htmlFor="weight">Weight:</label>
+          <label style={{ textAlign: "left", fontWeight: "medium" }}>
+            Weight
+          </label>
           <div className="input-with-label">
             <input
               id="weight"
@@ -151,9 +150,9 @@ const InputBar: React.FC<InputBarProps> = ({
             />
           </div>
         </div>
-  
+
         <div className="form-group">
-          <label htmlFor="height">Height:</label>
+          <label htmlFor="height">Height</label>
           <div className="input-with-label">
             <input
               id="height"
@@ -165,18 +164,21 @@ const InputBar: React.FC<InputBarProps> = ({
             />
           </div>
         </div>
-  
+
         <button type="submit" disabled={loading}>
-          {loading ? "Calculating..." : "Calculate"}
+          Calculate
         </button>
       </form>
-  
+
       {error && (
-        <p className="error-message" style={{ color: "red", marginTop: "10px" }}>
+        <p
+          className="error-message"
+          style={{ color: "red", marginTop: "10px" }}
+        >
           {error}
         </p>
       )}
-  
+
       {closestPercentile && bmi && bmiPercentage && (
         <div
           className="result"
@@ -206,8 +208,10 @@ const InputBar: React.FC<InputBarProps> = ({
               {bmi.toFixed(2)}
             </span>
           </h3>
-  
-          <h3 style={{ fontSize: "18px", fontWeight: "400", textAlign: "left" }}>
+
+          <h3
+            style={{ fontSize: "18px", fontWeight: "400", textAlign: "left" }}
+          >
             Your BMI is larger than{" "}
             <span
               style={{ fontWeight: "bold", fontSize: "24px", color: "#6366f1" }}
@@ -220,7 +224,6 @@ const InputBar: React.FC<InputBarProps> = ({
       )}
     </div>
   );
-  
 };
 
 export default InputBar;

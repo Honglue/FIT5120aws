@@ -231,7 +231,7 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
           className="d-flex border p-2 rounded-pill ms-auto"
           style={{
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            backgroundColor: "#f9f9f9", // Light background to make the filter more prominent
+            backgroundColor: "#f9f9f9",
             padding: "10px",
           }}
         >
@@ -247,11 +247,11 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
               className="border-0 bg-light rounded-pill"
               style={{
                 padding: "8px 20px",
-                backgroundColor: "#ffffff",
-                boxShadow: "0 1px 6px rgba(0, 0, 0, 0.1)",
+                // backgroundColor: "#ffffff",
+                // boxShadow: "0 1px 6px rgba(0, 0, 0, 0.1)",
                 border: "1px solid #d3d3d3",
                 cursor: "pointer",
-                transition: "box-shadow 0.2s ease-in-out",
+                // transition: "box-shadow 0.2s ease-in-out",
               }}
             >
               <option value="7">All ages</option>
@@ -276,8 +276,8 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
               className="border-0 bg-light rounded-pill"
               style={{
                 padding: "8px 20px",
-                backgroundColor: "#ffffff",
-                boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)",
+                // backgroundColor: "#ffffff",
+                // boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)",
                 border: "1px solid #d3d3d3",
                 cursor: "pointer",
                 transition: "box-shadow 0.2s ease-in-out",

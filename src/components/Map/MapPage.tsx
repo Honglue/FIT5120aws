@@ -53,18 +53,25 @@ const CountrySearch: React.FC<MapPageProps> = ({ onCountrySelect }) => {
             width: "300px",
             margin: "10px",
             padding: "5px 20px",
+            backgroundColor: "f9f9f9",
+            borderColor: "#ccc",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           }),
           placeholder: (baseStyles) => ({
             ...baseStyles,
+            color: "#999",
           }),
           option: (baseStyles, state) => ({
             ...baseStyles,
-            backgroundColor: state.isSelected ? "#6366F1" : "#fff",
+            backgroundColor: state.isSelected ? "#6366F1" : "f9f9f9",
             color: state.isSelected ? "#fff" : "#000",
             "&:hover": {
               backgroundColor: "#e0e7ff",
             },
+          }),
+          menu: (baseStyles) => ({
+            ...baseStyles,
+            // backgroundColor: "transparent",
           }),
         }}
       />

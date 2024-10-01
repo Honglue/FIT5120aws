@@ -228,17 +228,17 @@ const TimeSeriesChart: React.FC = () => {
         style={{
           display: "flex",
           flexDirection: "column",
-          marginBottom: "20px",
+          marginTop: "20px",
         }}
       >
         {/* Description with emphasized information */}
-        <p style={{ margin: "0", textAlign: "left", fontSize: "18px" }}>
-          <span style={{ fontWeight: "medium", fontSize: "24px" }}>
+        <p style={{ margin: "0", textAlign: "left", fontSize: "16px" }}>
+          <span style={{ fontWeight: "medium", fontSize: "22px" }}>
             {percentage}%
           </span>{" "}
           <span className="lead">of them are</span>{" "}
           <span
-            style={{ fontWeight: "medium", color: "#333", fontSize: "24px" }}
+            style={{ fontWeight: "medium", color: "#333", fontSize: "22px" }}
           >
             {label}
           </span>
@@ -247,13 +247,13 @@ const TimeSeriesChart: React.FC = () => {
         {/* Thin bar to represent the percentage */}
         <div
           style={{
-            height: "20px", // Thinner bar
+            height: "20px",
             width: "100%",
             backgroundColor: "#EAEBFF",
             borderRadius: "5px",
             overflow: "hidden",
             position: "relative",
-            marginTop: "8px", // Added space between text and bar
+            marginTop: "8px",
           }}
         >
           <div
@@ -270,25 +270,25 @@ const TimeSeriesChart: React.FC = () => {
   };
 
   return (
-    <div>
+    <div style={{ paddingBottom: "40px" }}>
       <header className="m-5 pt-2">
-        <h1 style={{ fontWeight: "500", textAlign: "center" }}>
+        <h2 style={{ fontWeight: "500", textAlign: "center" }}>
           Every year Victoria welcomes over 4,000 refugees and <br />
           many of them face challenges with malnutrition
-        </h1>
-        <p className="lead text-center" style={{ color: "" }}>
+        </h2>
+        <p className="lead text-center" style={{ fontSize: "18px" }}>
           Discover the top countries they come from and learn about their
           nutritional status below
         </p>
 
         <div className="d-flex justify-content-center">
           <div className="d-flex border p-2 rounded-pill custom-select-wrapper">
-            <div className="p-1 d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center">
               <span
                 className="custom-select-label"
                 style={{ paddingLeft: "10px" }}
               >
-                Select Country:
+                Select Country
               </span>
               <div className="custom-select-container">
                 <select
@@ -325,21 +325,23 @@ const TimeSeriesChart: React.FC = () => {
           <div id="chart"></div>
 
           <div>
-            <h1 style={{
-              fontWeight: "bold",
-              fontSize: "60px",
-              color: "#1E3A8A",
-              textShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)",
-              letterSpacing: "1.5px",
-            }}>
+            <h1
+              style={{
+                fontWeight: "bold",
+                fontSize: "56px",
+                color: "#4f46e5",
+                // textShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)",
+                letterSpacing: "1.5px",
+              }}
+            >
               {animatedSum}
             </h1>
-            <p className="lead">
-              Total Number of Refugees from {selectedCountry?.name} since 2010
+            <p className="lead" style={{ fontSize: "18px" }}>
+              Total number of refugees from {selectedCountry?.name} since 2010
             </p>
 
             {/* Render visual bars for wastxing, stunting, and underweight */}
-            <div style={{ width: "400px", paddingTop: "10px" }}>
+            <div style={{ width: "400px" }}>
               {renderBar("Too Thin", jsonData?.wasting)}
               {renderBar("Too Short", jsonData?.stunting)}
               {renderBar("Underweight", jsonData?.underweight)}

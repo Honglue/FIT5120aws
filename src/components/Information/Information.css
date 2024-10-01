@@ -1,6 +1,5 @@
 .container {
   margin: 0 auto;
-  background-color: #fff;
   font-family: "Poppins", sans-serif;
 }
 
@@ -11,7 +10,6 @@
 }
 
 .hero {
-  background-color: #f6f7fd;
   padding: 20px;
   text-align: left;
 }
@@ -24,13 +22,13 @@
 
 .info {
   text-align: left;
-  background-color: #fff;
   /* margin-bottom: 40px; */
 }
 
 .info-block {
   text-align: left;
   padding: 20px 0;
+  background: transparent;
   border-bottom: 1px solid #e0e0e0;
 }
 
