@@ -24,6 +24,10 @@
   padding-top: 20px;
 }
 
+.recommend-content {
+  min-height: 100vh;
+}
+
 .card {
   border: 1px solid #ccc;
   border-radius: 8px;

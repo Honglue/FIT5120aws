@@ -1,27 +1,40 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../../public/images/logo.jpg";
 import "./Navbar.css";
 
 function Navbar() {
-  const navigate = useNavigate();
   const location = useLocation();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
-  const handleLanguageChange = (lang: string) => {
-    i18n.changeLanguage(lang);
-  };
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      // Navbar will disappear if scrolling down, reappear when scrolling up
+      setIsVisible(scrollPosition > currentScrollPos || currentScrollPos < 300);
+      setScrollPosition(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrollPosition]);
 
   return (
     <nav
       className="navbar navbar-expand-lg navbar-light fixed-top"
       style={{
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backgroundColor: "rgba(250, 250, 250, 0.8)",
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
         padding: "10px",
         zIndex: 1000,
+        top: isVisible ? "0" : "-80px",
+        transition: "top 0.3s ease-in-out",
       }}
     >
       <div className="container-fluid">
@@ -33,7 +46,9 @@ function Navbar() {
             height="30"
             className="d-inline-block align-top"
           />
-          <span style={{ paddingLeft: "10px" }}>{t("Nutrition Bridge")}</span>
+          <span style={{ paddingLeft: "10px", fontSize: "16px" }}>
+            {t("Nutrition Bridge")}
+          </span>
         </Link>
 
         <button
@@ -50,164 +65,127 @@ function Navbar() {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item me-3">
+            {/* Identify Gaps Dropdown */}
+            <li className="nav-item dropdown me-4">
               <Link
-                className={`nav-link ${
+                className={`nav-link dropdown-toggle ${
                   location.pathname === "/" ? "active" : ""
                 }`}
-                to="/"
+                to="#"
+                id="identifyGapsDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style={{ fontSize: "15px" }}
+              >
+                {t("Identify Gaps")}
+              </Link>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="identifyGapsDropdown"
                 style={{
-                  color: location.pathname === "/" ? "#4b4ade" : "inherit",
+                  backgroundColor: "#ffffff",
+                  borderRadius: "4px",
                 }}
               >
-                {t("home")}
-              </Link>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    to="/nutrition-map"
+                    style={{ color: "black" }}
+                  >
+                    Nutrition Map
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    to="/recommend"
+                    style={{ color: "black" }}
+                  >
+                    Nutrition Indicator
+                  </Link>
+                </li>
+              </ul>
             </li>
 
-            <li className="nav-item me-3">
+            {/* Education Dropdown */}
+            <li className="nav-item dropdown me-4">
               <Link
-                className={`nav-link ${
+                className={`nav-link dropdown-toggle ${
                   location.pathname === "/information" ? "active" : ""
                 }`}
-                to="/information"
-                style={{
-                  color:
-                    location.pathname === "/information"
-                      ? "#4b4ade"
-                      : "inherit",
-                }}
-                onClick={() => navigate("/information")}
+                to="#"
+                id="educationDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style={{ fontSize: "15px" }}
               >
-                {t("more_info")}
+                {t("Education")}
               </Link>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="educationDropdown"
+                style={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: "4px",
+                }}
+              >
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    to="/information"
+                    style={{ color: "black" }}
+                  >
+                    Nutrition Info
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    to="/quiz"
+                    style={{ color: "black" }}
+                  >
+                    Nutrition Quiz
+                  </Link>
+                </li>
+              </ul>
             </li>
 
-            <li className="nav-item me-3">
+            {/* Recommendations Dropdown */}
+            <li className="nav-item dropdown me-4">
               <Link
-                className={`nav-link ${
+                className={`nav-link dropdown-toggle ${
                   location.pathname === "/recommend" ? "active" : ""
                 }`}
-                to="/recommend"
-                style={{
-                  color:
-                    location.pathname === "/recommend"
-                      ? "#4b4ade"
-                      : "inherit",
-                }}
-                onClick={() => navigate("/recommend")}
+                to="#"
+                id="recommendationDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style={{ fontSize: "15px" }}
               >
-                Nutrition Indicator
+                {t("Recommendations")}
               </Link>
-            </li>
-
-            <li className="nav-item me-3">
-              <Link
-                className={`nav-link ${
-                  location.pathname === "/nutrition-map" ? "active" : ""
-                }`}
-                to="/nutrition-map"
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="recommendationDropdown"
                 style={{
-                  color:
-                    location.pathname === "/nutrition-map"
-                      ? "#4b4ade"
-                      : "inherit",
+                  backgroundColor: "#ffffff",
+                  borderRadius: "4px",
                 }}
-                onClick={() => navigate("/nutrition-map")}
               >
-                {t("nutrition_map")}
-              </Link>
-            </li>
-
-            {/* <li className="nav-item me-3">
-              <button
-                className="btn nav-btn-custom"
-                onClick={() => navigate("/nutrition-map")}
-              >
-                {t("nutrition_map")}
-              </button>
-            </li> */}
-
-            <li className="nav-item">
-              <div className="dropdown">
-                <button
-                  className="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="languageDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  {t("language")}
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="languageDropdown"
-                >
-                  <li>
-                    <button
-                      className="dropdown-item"
-                      onClick={() => handleLanguageChange("en")}
-                    >
-                      English
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="dropdown-item"
-                      onClick={() => handleLanguageChange("ar")}
-                    >
-                      العربية
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="dropdown-item"
-                      onClick={() => handleLanguageChange("es")}
-                    >
-                      Español
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="dropdown-item"
-                      onClick={() => handleLanguageChange("zh")}
-                    >
-                      中文
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="dropdown-item"
-                      onClick={() => handleLanguageChange("ja")}
-                    >
-                      日本語
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="dropdown-item"
-                      onClick={() => handleLanguageChange("ko")}
-                    >
-                      한국어
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="dropdown-item"
-                      onClick={() => handleLanguageChange("ru")}
-                    >
-                      Русский
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="dropdown-item"
-                      onClick={() => handleLanguageChange("fr")}
-                    >
-                      Français
-                    </button>
-                  </li>
-                </ul>
-              </div>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    to="/recommendations"
+                    style={{ color: "black" }}
+                  >
+                    Dish Recommender
+                  </Link>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>

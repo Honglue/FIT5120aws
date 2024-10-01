@@ -10,12 +10,11 @@ const Legend: React.FC<LegendProps> = ({ isGoodNutrition }) => {
       style={{
         margin: "30px",
         padding: "10px",
-        backgroundColor: "#ffffff",
         display: "flex",
-        alignItems: "center", // Align items vertically in the center
-        justifyContent: "space-around", // Distribute items evenly with space between
+        alignItems: "center",
+        justifyContent: "space-around",
         maxWidth: "100%",
-        gap: "20px", // Add padding between the items
+        gap: "20px",
       }}
     >
       {isGoodNutrition ? (

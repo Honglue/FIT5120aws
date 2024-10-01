@@ -1,0 +1,135 @@
+.recommend-page-container {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin-top: 20px;
+}
+
+.sticky-input-bar {
+  width: 100%;
+  text-align: center;
+}
+
+.results-container {
+  width: 100%;
+  min-height: 100vh;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+}
+
+.results-content {
+  width: 100%;
+  max-width: 1500px; /* Reduced max width */
+  padding: 20px;
+  margin: 0 auto; /* Center horizontally */
+}
+
+.recommend-page {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  justify-content: center; /* Ensure grid items are centered */
+}
+
+.error-message {
+  color: red;
+  text-align: center; /* Center the error message */
+}
+
+.recommendations-card {
+  border: 1px solid #ccc;
+  padding: 25px;
+  border-radius: 20px;
+  height: 500px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for the read-more button */
+.read-more {
+  cursor: pointer; /* Makes it look clickable */
+  text-decoration: underline; /* Adds underline */
+  color: #6366f1; /* Optional: you can make it blue to resemble a link */
+}
+
+.read-more:hover {
+  color: #575ad8; /* Optional: Changes color on hover */
+  text-decoration: underline; /* Ensure underline remains on hover */
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  position: relative;
+  z-index: 1001;
+  margin: 0 auto; /* Center modal content */
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Modal Body */
+.modal-body {
+  text-align: left;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Enlarge image */
+.card-image {
+  width: 60%; /* Enlarge image to fit width */
+  height: 200px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* Add section borders */
+hr {
+  border: 0;
+  height: 1px;
+  background-color: #ccc; /* Light gray line */
+  margin: 20px 0; /* Add spacing around the lines */
+}
+
+/* Bold section titles */
+h3,
+h4 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}

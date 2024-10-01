@@ -74,29 +74,35 @@ const Recommend: React.FC = () => {
         loading={loading}
         setLoading={setLoading}
       />
-      {!nutritionData && (
-        <p className="lead">Get started by calculating your BMI.</p>
-      )}
-      {/* Show loading spinner or message */}
-      {loading && <Loading />}
+      <div className="recommend-content">
+        {!nutritionData && (
+          <p>
+            Check how your children is doing compared to other children.
+            <br />
+            Get started by calculating your child's BMI.
+          </p>
+        )}
+        {/* Show loading spinner or message */}
+        {loading && <Loading />}
 
-      {error && !loading && <p className="error-message">{error}</p>}
+        {error && !loading && <p className="error-message">{error}</p>}
 
-      {!loading && nutritionData && (
-        <div style={{ padding: "40px" }}>
-          <h4 style={{ textAlign: "left", fontWeight: "bold" }}>
-            Daily Recommended Dietary Intake According to Australian Standards
-          </h4>
+        {!loading && nutritionData && (
+          <div style={{ padding: "40px" }}>
+            <h4 style={{ textAlign: "left", fontWeight: "bold" }}>
+              Daily Recommended Dietary Intake According to Australian Standards
+            </h4>
 
-          <div className="recommend-page">
-            <VegetablesCard data={nutritionData || {}} />
-            <FruitsCard data={nutritionData || {}} />
-            <GrainsCard data={nutritionData || {}} />
-            <LeanMeatsCard data={nutritionData || {}} />
-            <MilkProductCard data={nutritionData || {}} />
+            <div className="recommend-page">
+              <VegetablesCard data={nutritionData || {}} />
+              <FruitsCard data={nutritionData || {}} />
+              <GrainsCard data={nutritionData || {}} />
+              <LeanMeatsCard data={nutritionData || {}} />
+              <MilkProductCard data={nutritionData || {}} />
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

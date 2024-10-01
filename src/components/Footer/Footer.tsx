@@ -1,11 +1,15 @@
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../../public/images/logo.jpg";
 import "./Footer.css";
 
 function Footer() {
   return (
-    <footer className="footer mt-auto p-3 w-100 bg-light">
-      <div className="container bg-light">
+    <footer
+      className="footer mt-auto w-100 "
+      style={{ padding: "20px", borderTop: "1px solid #ddd" }}
+    >
+      <div className="container ">
         <div
           style={{
             display: "flex",
@@ -35,21 +39,51 @@ function Footer() {
             <div className="row">
               {/* Quick Links Section */}
               <div className="col-md-6 mb-3">
-                <h5 className="fw-bold">Quick Links</h5>
-                <ul className="list-unstyled" style={{ paddingTop: "10px" }}>
-                  <li style={{ color: "#666" }}>Nutrition Info</li>
-                  <li style={{ color: "#666" }}>Nutrition Map</li>
-                  <li style={{ color: "#666" }}>Nutrition Indicator</li>
+                <h5 style={{ fontSize: "16px", color: "#888" }}>
+                  Identify Gaps
+                </h5>
+                <ul className="list-unstyled" style={{ paddingTop: "5px" }}>
+                  <li>
+                    <Link to="/nutrition-map" style={{ fontSize: "15px" }}>
+                      Nutrition Map
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/recommend" style={{ fontSize: "15px" }}>
+                      Nutrition Indicator
+                    </Link>
+                  </li>
                 </ul>
               </div>
 
-              {/* Policies Section */}
-              <div className="col-md-6">
-                {/* <h5 className="fw-bold">Policies</h5> */}
-                <ul className="list-unstyled" style={{ paddingTop: "46px" }}>
-                  <li style={{ color: "#666" }}>Nutrition Quiz</li>
-                  <li style={{ color: "#666" }}>Food Nutiriton Detector</li>
-                  {/* <li style={{ color: "#666" }}>Cookies Policy</li> */}
+              {/* Education Section */}
+              <div className="col-md-6 mb-3">
+                <h5 style={{ fontSize: "16px", color: "#888" }}>Education</h5>
+                <ul className="list-unstyled" style={{ paddingTop: "5px" }}>
+                  <li>
+                    <Link to="/information" style={{ fontSize: "15px" }}>
+                      Nutrition Info
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/quiz" style={{ fontSize: "15px" }}>
+                      Nutrition Quiz
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Recommendations Section */}
+              <div className="col-md-6 mt-3">
+                <h5 style={{ fontSize: "16px", color: "#888" }}>
+                  Recommendations
+                </h5>
+                <ul className="list-unstyled" style={{ paddingTop: "5px" }}>
+                  <li>
+                    <Link to="/recommendations" style={{ fontSize: "15px" }}>
+                      Nutritional Dish Recommender
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </div>

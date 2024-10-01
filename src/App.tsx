@@ -17,6 +17,8 @@ import i18n from "./i18n";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Recommend from "./components/Recommend/Recommend";
+import Recommendations from "./components/Recommendations/Recommendations";
+import Quiz from "./components/Quiz/Quiz";
 import info from "../public/images/info.jpg";
 
 function App() {
@@ -36,7 +38,7 @@ function App() {
     <I18nextProvider i18n={i18n}>
       <ThemeProvider theme={theme}>
         <Router>
-          <div className="App">
+          <div className="App" style={{ backgroundColor: "#fcfcfc" }}>
             {isAuthenticated ? (
               <>
                 <Navbar />
@@ -56,6 +58,11 @@ function App() {
                   <Route path="/information" element={<Information />} />
                   <Route path="/recommend" element={<Recommend />} />
                   <Route path="/ingredient" element={<Ingredient />} />
+                  <Route
+                    path="/recommendations"
+                    element={<Recommendations />}
+                  />{" "}
+                  <Route path="/quiz" element={<Quiz />} />
                 </Routes>
                 <Footer />
               </>
@@ -73,7 +80,9 @@ function App() {
                   }}
                 >
                   {/* Welcome Message */}
-                  <h4 className="m-3">Welcome to Nutrition Bridge</h4>
+                  <h4 className="m-3">
+                    Welcome to <br /> Nutrition Bridge
+                  </h4>
 
                   {/* Add an image with rounded borders */}
                   <img
@@ -87,11 +96,11 @@ function App() {
                     }}
                   />
 
-                  <h5 className="mb-3">Enter Password</h5>
+                  <h5 className="mb-1">Enter Password</h5>
 
                   <input
                     type="password"
-                    className="form-control mb-3"
+                    className="form-control"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
@@ -101,6 +110,7 @@ function App() {
                     className="btn btn-primary btn-block"
                     onClick={handlePasswordSubmit}
                     style={{
+                      width: "100%",
                       backgroundColor: "#6366f1",
                       borderColor: "#6366f1",
                       color: "#fff",

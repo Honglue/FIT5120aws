@@ -23,7 +23,7 @@
   width: auto;
   height: 300px;
   display: flex;
-  background-color: #f8f8f8;
+  background-color: #f8f8ff;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
@@ -33,25 +33,9 @@
   cursor: pointer;
 }
 
-.map {
-  background-color: #e0f7ea;
-}
-
-.info {
-  background-color: #f8f8f8;
-}
-
 .analyser {
-  background-color: #6c63ff;
+  background-color: #f8f8ff;
   color: #fff;
-}
-
-.details-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #e0f7ea;
 }
 
 .footer-logo {
@@ -105,15 +89,15 @@
 }
 
 .card-custom {
-  background-color: #f9f9f9; /* Light grey background to match design */
+  background-color: #f8f8ff; /* Light grey background to match design */
   border: none; /* Remove border for cleaner look */
-  border-radius: 8px; /* Rounded corners */
+  border-radius: 4px; /* Rounded corners */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s; /* Smooth scaling effect */
 }
 
 .card-custom:hover {
-  transform: scale(1.05); /* Slightly enlarges card on hover */
+  transform: scale(1.02); /* Slightly enlarges card on hover */
 }
 
 .card-title {
