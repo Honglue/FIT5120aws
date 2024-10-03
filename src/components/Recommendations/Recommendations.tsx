@@ -3,6 +3,7 @@ import "./Recommendations.css";
 import InputBar from "./InputBar";
 import Card from "./Card";
 import Loading from "../Loading/loading";
+import Image from "./Image"; // Import the Image component
 
 const Recommendations: React.FC = () => {
   const [recipes, setRecipes] = useState<any[]>([]);
@@ -43,6 +44,10 @@ const Recommendations: React.FC = () => {
 
   return (
     <div className="recommend-page-container">
+      {/* Image Upload and Recognition Component */}
+      <Image />
+
+      {/* Search by Ingredients Input Bar */}
       <InputBar
         onSearch={handleSearch}
         loading={loading}
@@ -72,9 +77,10 @@ const Recommendations: React.FC = () => {
 
         {!loading && recipes.length === 0 && !error && (
           <p>
-            The recommended dishes helps you to achieve your required nutrition
+            The recommended dishes help you to achieve your required nutrition
             intake a day. <br />
-            Get started by searching different ingredients.
+            Get started by searching different ingredients or uploading an
+            image of an ingredient.
           </p>
         )}
       </div>
