@@ -14,37 +14,25 @@ const Recommendations: React.FC = () => {
     setLoading(true);
 
     try {
-      // Log the values being used in the query
-      console.log("Ingredients:", ingredients);
-      console.log("Cuisine Type:", filters.cuisineType);
-      console.log("Health Labels:", filters.healthLabels);
-
-      const queryParams = new URLSearchParams({
-        ingredients: ingredients
-          .split(",")
-          .map((item) => item.trim())
-          .filter(Boolean) // Remove any empty values
-          .join(","),
-        cuisineType: filters.cuisine || "", // Use empty string if undefined
-        health: filters.healthLabels?.join(",") || "", // Use empty string if undefined
-      }).toString();
-
-      console.log("Query Params:", queryParams); // Log the query parameters
-
       const response = await fetch(
-        `https://cors-anywhere.herokuapp.com/https://api.edamam.com/search?${queryParams}`, // Add CORS proxy for dev
+        "https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/recipes",
         {
-          method: "GET",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            ingredients: ingredients.split(",").map((item) => item.trim()),
+            cuisineType: filters.cuisineType || [],
+            healthLabels: filters.healthLabels || [],
+          }),
         }
       );
 
       const result = await response.json();
-      setRecipes(result.hits || []);
+      const parsedData = JSON.parse(result.body);
+      setRecipes(parsedData.dishes || []);
     } catch (err: any) {
-      console.error(err); // Log the error
       setError("Failed to fetch recipes. Please try again.");
     } finally {
       setLoading(false);

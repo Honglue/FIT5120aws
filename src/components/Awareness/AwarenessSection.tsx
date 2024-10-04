@@ -57,7 +57,7 @@ function AwarenessSection() {
               {/* Subheading with lighter font weight and lighter color */}
               <p className="lead">The {activeSection}</p>
               <h4
-                className="display-4"
+                className="display-5"
                 style={{ color: "black", fontWeight: "500" }}
               >
                 {title}

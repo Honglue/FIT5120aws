@@ -98,6 +98,7 @@ const ImageRecognition: React.FC<ImageRecognitionProps> = ({
       const result = await response.json();
       const allLabel = JSON.parse(result.body);
       setAllLabels(result);
+      console.log(result);
 
       // Filter relevant labels
       const ingredientLabel = (allLabel.labels || []).filter((label: string) =>
