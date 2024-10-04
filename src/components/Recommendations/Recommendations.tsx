@@ -32,6 +32,7 @@ const Recommendations: React.FC = () => {
       const result = await response.json();
       const parsedData = JSON.parse(result.body);
       setRecipes(parsedData.dishes || []);
+      console.log(recipes);
     } catch (err: any) {
       setError("Failed to fetch recipes. Please try again.");
     } finally {

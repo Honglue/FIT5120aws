@@ -5,7 +5,9 @@ import "./Recommendations.css";
 interface RecipeCardProps {
   data: {
     name: string;
+    url: string;
     image: string;
+    source: string;
     ingredients: string[];
     nutrition: {
       calories?: number;
@@ -20,6 +22,7 @@ interface RecipeCardProps {
       sodium?: number;
     };
     healthLabels: string[];
+    dietLabels: string[];
     cuisineType: string[];
     mealType: string[];
     totalTime: number;
@@ -71,7 +74,6 @@ const Card: React.FC<RecipeCardProps> = ({ data }) => {
         }}
       >
         {/* <p>Ingredients: {data.ingredients.join(", ")}</p> */}
-
         <p>Calories: {data.nutrition.calories?.toFixed(2)} kcal</p>
         <p>Proteins: {data.nutrition.proteins?.toFixed(2)} g</p>
         <p>Carbs: {data.nutrition.carbs?.toFixed(2)} g</p>
@@ -157,7 +159,10 @@ const Card: React.FC<RecipeCardProps> = ({ data }) => {
 
               <hr />
               <h4>Additional Info</h4>
+              <p>Sources: {data.source}</p>
+              <p>Url: {data.url}</p>
               <p>Cuisine Type: {data.cuisineType.join(", ")}</p>
+              <p>Diet Type: {data.dietLabels.join(", ")}</p>
               <p>Meal Type: {data.mealType.join(", ")}</p>
               <p>Total Time: {data.totalTime} minutes</p>
               <p>Yield: {data.yield} servings</p>
