@@ -17,6 +17,7 @@ const NutritionMap: React.FC = () => {
     setSelectedCountry(countryId);
     setSelectedCountryName(countryName);
     setIsMapVisible(false);
+    console.log(countryId);
   };
 
   const handleAgeGroupChange = (

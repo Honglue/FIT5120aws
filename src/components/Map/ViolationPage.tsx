@@ -58,6 +58,7 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
           }
         );
         const data = await response.json();
+        console.log(data)
         const parsedData = JSON.parse(data.body);
         setFilteredData(parsedData);
 

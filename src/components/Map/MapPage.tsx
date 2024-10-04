@@ -27,7 +27,6 @@ const CountrySearch: React.FC<MapPageProps> = ({ onCountrySelect }) => {
   }));
 
   const [selectedCountry, setSelectedCountry] = useState(null);
-
   // eslint-disable-next-line
   const handleCountrySelect = (selectedOption: any) => {
     setSelectedCountry(selectedOption);
