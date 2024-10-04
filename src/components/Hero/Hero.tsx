@@ -42,7 +42,7 @@ const CarouselComponent = () => {
       <div
         className="carousel-slide-wrapper"
         style={{
-          transform: `translateX(-${currentIndex * 98}%)`,
+          transform: `translateX(-${currentIndex * 100}%)`,
         }}
       >
         {Array.from({ length: 4 }, (_, i) => (
@@ -335,6 +335,7 @@ const CarouselComponent = () => {
             left: "60px",
             transform: "translateY(-50%)",
             zIndex: 2,
+            // transition: "transform 0.5s ease",
             backgroundColor: "rgba(128, 128, 128, 0.5)",
             border: "none",
             borderRadius: "50%",
@@ -359,7 +360,7 @@ const CarouselComponent = () => {
           style={{
             position: "absolute",
             top: "50%",
-            right: "80px",
+            right: "60px",
             transform: "translateY(-50%)",
             zIndex: 2,
             backgroundColor: "rgba(128, 128, 128, 0.5)",

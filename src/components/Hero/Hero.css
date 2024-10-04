@@ -1,13 +1,95 @@
+/* Global box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Carousel container */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 50px;
+  padding: 10px 0;
+}
+
+/* Carousel slide wrapper */
+.carousel-slide-wrapper {
+  display: flex;
+  transition: transform 0.5s ease;
+  width: 100%;
+}
+
+/* Each slide */
+.carousel-slide {
+  flex-shrink: 0;
+  width: 100%;
+  position: relative;
+  padding-left: 20px;
+}
+
+.carousel-slide:hover {
+  /* transform: scale(1.008); */
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  /* box-shadow: 5px 0 15px 0 rgba(141, 142, 157, 0.2); */
+}
+
+/* Slide content */
+.slide-content {
+  width: 95vw;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.slide-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  /* z-index: 0; */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+}
+
+.slide-text {
+  z-index: 1;
+  color: white;
+  padding: 100px;
+}
+
+/* Button Center */
+.slide-button-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Glass Card */
 .glass-card {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(175, 160, 160, 0.2);
   backdrop-filter: blur(10px);
   border-radius: 5px;
   box-shadow: 5px 0 15px 2px rgba(141, 142, 157, 0.1);
   width: 100%;
   max-width: 95vw;
   min-height: 500px;
-  position: relative;
-  overflow: hidden;
   margin: auto;
   padding: 20px;
   display: flex;
@@ -18,95 +100,25 @@
 }
 
 .glass-card:hover {
-  transform: scale(1.008);
-  box-shadow: 5px 0 15px 0 rgba(141, 142, 157, 0.2);
+  /* transform: scale(1.008); */
+  /* box-shadow: 5px 0 15px 0 rgba(141, 142, 157, 0.2); */
 }
 
-.slide-content:hover {
-  transform: scale(1.008);
-  box-shadow: 5px 0 15px 0 rgba(141, 142, 157, 0.2);
-}
-
-.glass-card::before {
-  content: "";
-  position: absolute;
-  top: -50px;
-  left: -50px;
-  width: 100px;
-  height: 100px;
-  background: rgba(99, 102, 241, 0.35);
-  border-radius: 50%;
-  filter: blur(80px);
-}
-
-.glass-card::after {
-  content: "";
-  position: absolute;
-  bottom: -50px;
-  right: -50px;
-  width: 120px;
-  height: 200px;
-  background: rgba(99, 102, 241, 0.35);
-  border-radius: 50%;
-  filter: blur(80px);
-}
-
+/* Custom Button */
 .btn-custom {
   background-color: #6366f1;
   border-color: #6366f1;
+  border-radius: 25px;
 }
 
 .btn-custom:hover {
   background-color: #4b4ade;
-  border-color: #4b4ade;
 }
 
-.carousel-container {
-  position: relative;
-  width: 100%;
-  /* padding: 20px; */
-  padding: 10px 0;
-  margin: auto;
-  overflow: hidden;
-}
-
-.carousel-slide-wrapper {
-  margin-top: 50px;
-  display: flex;
-  transition: transform 0.5s ease; /* Smooth transition for sliding effect */
-}
-
-.carousel-slide {
-  padding-top: 10px;
-  min-width: 98%;
-  height: auto;
-  position: relative;
-}
-
-.carousel-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 8px; /* Optional: Rounded corners */
-}
-
-.carousel-caption {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #333;
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.7);
-  padding: 10px;
-  border-radius: 5px;
-}
-
+/* Carousel Dots */
 .carousel-dots {
   text-align: center;
   padding: 20px 0;
-  bottom: 10px;
-  left: 50%;
 }
 
 .dot {
@@ -121,9 +133,10 @@
 }
 
 .dot.active {
-  background-color: #6366f1; /* Active dot color */
+  background-color: #6366f1;
 }
 
+/* Navigation Buttons */
 .carousel-button {
   position: absolute;
   top: 50%;
@@ -148,22 +161,10 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.slide-content {
-  margin-left: 40px;
-  max-width: 95vw;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
+body {
+  overflow-x: hidden;
 }
 
-.slide-content::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 15px;
-  /* z-index: 0; */
+html {
+  scroll-behavior: smooth;
 }

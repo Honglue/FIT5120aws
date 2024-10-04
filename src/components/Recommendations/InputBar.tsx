@@ -1,54 +1,158 @@
 import React, { useState } from "react";
 import "./InputBar.css";
-import { FaCamera, FaUpload } from "react-icons/fa";
+import FilterDropdown from "./FilterDropdown";
+import { FaUpload } from "react-icons/fa";
+import ImageRecognition from "./Image";
 
 interface InputBarProps {
-  onSearch: (ingredients: string) => void; // Pass ingredients to parent
-  loading: boolean; // Pass loading state
-  setLoading: (loading: boolean) => void; // Setter for loading state
+  onSearch: (ingredients: string, filters: any) => void;
+  loading: boolean;
 }
 
-const InputBar: React.FC<InputBarProps> = ({
-  onSearch,
-  loading,
-  // setLoading,
-}) => {
-  const [input, setInput] = useState<string>(""); // State for input value
+const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
+  const [input, setInput] = useState<string>(""); // Text input from user
+  const [image, setImage] = useState<File | null>(null); // Selected image
+  const [highlightedLabels, setHighlightedLabels] = useState<string[]>([]); // Highlighted labels from the image recognition
+  const [identifiedLabels, setIdentifiedLabels] = useState<string[]>([]); // Identified labels from image recognition
+
+  const [selectedHealthLabels, setSelectedHealthLabels] = useState<string[]>(
+    []
+  );
+  const [selectedCuisineType, setSelectedCuisineType] = useState<string[]>([]);
+
+  const healthLabels = [
+    "Pork-Free",
+    "Alcohol-Free",
+    "Vegan",
+    "Gluten-Free",
+    "Low-Sugar",
+  ];
+  const cuisineTypes = [
+    "American",
+    "Asian",
+    "British",
+    "Caribbean",
+    "Central Europe",
+    "Chinese",
+    "Eastern Europe",
+    "French",
+    "Greek",
+    "Indian",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Kosher",
+    "Mediterranean",
+    "Mexican",
+    "Middle Eastern",
+    "Nordic",
+    "South American",
+    "South East Asian",
+    "World",
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (input.trim()) {
-      onSearch(input); // Pass input to parent component
+
+    // Concatenate identified labels with input
+    const combinedInput = `${input} ${identifiedLabels.join(", ")}`.trim();
+
+    const lowerCaseHealthLabels = selectedHealthLabels.map((label) =>
+      label.toLowerCase()
+    );
+    const lowerCaseCuisineType = selectedCuisineType.map((cuisine) =>
+      cuisine.toLowerCase()
+    );
+
+    onSearch(combinedInput, {
+      healthLabels: lowerCaseHealthLabels,
+      cuisineType: lowerCaseCuisineType,
+    });
+  };
+
+  // Handle the identified labels from image recognition and store them separately
+  const handleLabelsFromImage = (labels: string[]) => {
+    setIdentifiedLabels(labels); // Store the identified labels separately
+    setHighlightedLabels(labels); // If you want to show the labels in some highlighted format
+  };
+
+  // Handle file input change
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      console.log("File selected:", event.target.files[0]); // Debugging line
+      setImage(event.target.files[0]);
     }
+  };
+
+  // Remove image and reset the identified labels
+  const handleRemoveImage = () => {
+    setImage(null);
+    setIdentifiedLabels([]);
   };
 
   return (
     <div className="input-bar-container">
+      <div className="filters">
+        {/* Health Labels Filter */}
+        <FilterDropdown
+          label="Dietary"
+          options={healthLabels}
+          selectedOptions={selectedHealthLabels}
+          setSelectedOptions={setSelectedHealthLabels}
+        />
+
+        {/* Cuisine Type Filter */}
+        <FilterDropdown
+          label="Cuisine"
+          options={cuisineTypes}
+          selectedOptions={selectedCuisineType}
+          setSelectedOptions={setSelectedCuisineType}
+        />
+      </div>
+
       <form onSubmit={handleSubmit} className="input-bar-form">
         <div className="icon-buttons">
-          <button type="button" className="icon-button">
-            <FaCamera size={18} />
-          </button>
-          <button type="button" className="icon-button">
-            <FaUpload size={18} />
+          <button
+            type="button"
+            className="icon-button"
+            onClick={() => document.getElementById("file-input")?.click()}
+          >
+            <input
+              type="file"
+              id="file-input"
+              accept="image/*"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
+            <FaUpload size={16} />
           </button>
         </div>
+
+        {/* User text input */}
         <input
           type="text"
           className="input-bar"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type here to add ingredients"
+          placeholder="Type ingredients here"
         />
-        <button
-          type="submit"
-          className="search-button"
-          style={{ fontSize: "14px" }}
-          disabled={loading}
-        >
-          {loading ? "Searching..." : "Search"}
+
+        <button type="submit" className="search-button" disabled={loading}>
+          Search
         </button>
       </form>
+
+      <div className="images-container">
+        {/* Image Upload and Recognition Component */}
+        {image && (
+          <ImageRecognition
+            image={image}
+            onLabelsExtracted={handleLabelsFromImage}
+            onRemoveImage={handleRemoveImage}
+            label={identifiedLabels[0] || ""} // Display first identified label
+          />
+        )}
+      </div>
     </div>
   );
 };
