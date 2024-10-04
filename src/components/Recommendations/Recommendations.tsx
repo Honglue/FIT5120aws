@@ -3,55 +3,66 @@ import "./Recommendations.css";
 import InputBar from "./InputBar";
 import Card from "./Card";
 import Loading from "../Loading/loading";
-import Image from "./Image"; // Import the Image component
 
 const Recommendations: React.FC = () => {
   const [recipes, setRecipes] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Function to fetch recipes based on ingredients
-  const fetchRecipes = async (ingredients: string) => {
+  const fetchRecipes = async (ingredients: string, filters: any) => {
     setError(null);
     setLoading(true);
+
     try {
+      // Log the values being used in the query
+      console.log("Ingredients:", ingredients);
+      console.log("Cuisine Type:", filters.cuisineType);
+      console.log("Health Labels:", filters.healthLabels);
+
+      const queryParams = new URLSearchParams({
+        ingredients: ingredients
+          .split(",")
+          .map((item) => item.trim())
+          .filter(Boolean) // Remove any empty values
+          .join(","),
+        cuisineType: filters.cuisine || "", // Use empty string if undefined
+        health: filters.healthLabels?.join(",") || "", // Use empty string if undefined
+      }).toString();
+
+      console.log("Query Params:", queryParams); // Log the query parameters
+
       const response = await fetch(
-        "https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/recipes",
+        `https://cors-anywhere.herokuapp.com/https://api.edamam.com/search?${queryParams}`, // Add CORS proxy for dev
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            ingredients: ingredients.split(",").map((item) => item.trim()),
-          }),
         }
       );
+
       const result = await response.json();
-      const parsedData = JSON.parse(result.body);
-      setRecipes(parsedData.dishes || []);
+      setRecipes(result.hits || []);
     } catch (err: any) {
+      console.error(err); // Log the error
       setError("Failed to fetch recipes. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle the result from InputBar (ingredients)
-  const handleSearch = (ingredients: string) => {
-    fetchRecipes(ingredients);
+  // Handle the result from InputBar (ingredients and filters)
+  const handleSearch = (ingredients: string, filters: any) => {
+    fetchRecipes(ingredients, filters);
   };
 
   return (
     <div className="recommend-page-container">
-      {/* Image Upload and Recognition Component */}
-      <Image />
-
       {/* Search by Ingredients Input Bar */}
       <InputBar
         onSearch={handleSearch}
         loading={loading}
-        setLoading={setLoading}
+        // setLoading={setLoading}
       />
 
       {/* Show loading spinner or message */}
@@ -77,10 +88,14 @@ const Recommendations: React.FC = () => {
 
         {!loading && recipes.length === 0 && !error && (
           <p>
+            <span style={{ color: "#6366f1" }}>
+              Uploaded images will be included in the search
+            </span>
+            <br />
             The recommended dishes help you to achieve your required nutrition
             intake a day. <br />
-            Get started by searching different ingredients or uploading an
-            image of an ingredient.
+            Get started by searching different ingredients or uploading an image
+            of an ingredient.
           </p>
         )}
       </div>

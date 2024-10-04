@@ -9,15 +9,35 @@
 .input-bar-form {
   display: flex;
   align-items: center;
-  /* background-color: #f4f4f4; */
-  padding: 10px;
+  padding: 8px;
+  background: white;
   border: 1px solid #c9cbcc;
   height: "20px";
   border-radius: 35px;
-  height: 70px;
   width: 100%;
   max-width: 600px;
-  /* box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.filters {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 600px;
+  gap: 10px;
+}
+
+.images-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 600px;
+  gap: 10px;
 }
 
 .icon-buttons {
@@ -26,10 +46,10 @@
 }
 
 .icon-button {
-  background-color: #e0e0e0;
+  background-color: #6366f1;
   border: none;
   border-radius: 50%;
-  padding: 15px;
+  padding: 10px;
   margin-right: 10px;
   display: flex;
   justify-content: center;
@@ -45,7 +65,6 @@
   flex: 1;
   border: none;
   outline: none;
-  border-radius: 30px;
   font-size: 16px;
   color: #333;
   background-color: transparent;
@@ -55,7 +74,7 @@
 .search-button {
   background-color: #6366f1;
   border: none;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border-radius: 25px;
   color: #fff;
   font-size: 16px;
@@ -70,4 +89,23 @@
 .search-button:disabled {
   background-color: #a3a3f1;
   cursor: not-allowed;
+}
+
+.input-with-labels-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.input-with-labels {
+  display: inline-block;
+  margin-left: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.highlighted-label {
+  color: purple;
+  font-weight: bold;
 }

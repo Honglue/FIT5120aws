@@ -108,23 +108,42 @@ const InputBar: React.FC<InputBarProps> = ({
   return (
     <div>
       <form onSubmit={handleSubmit} className="recommend-input-bar">
-        <div className="form-group">
-          <label htmlFor="age">Age</label>
+        <div className="form-group" style={{ marginLeft: "20px" }}>
+          <label
+            style={{
+              textAlign: "left",
+              fontWeight: "bold",
+            }}
+            htmlFor="age"
+          >
+            Age
+          </label>
           <input
+            style={{ width: "150px" }}
             id="age"
             type="number"
             value={age}
             onChange={(e) => setAge(Number(e.target.value))}
             placeholder="Enter age 1-18"
-            // min="1"
-            // max="18"
+            min="1"
+            max="18"
             // required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="gender">Gender</label>
+          <label
+            style={{
+              textAlign: "left",
+              fontWeight: "bold",
+              paddingRight: "20px",
+            }}
+            htmlFor="gender"
+          >
+            Gender
+          </label>
           <select
+            style={{ width: "100px" }}
             id="gender"
             value={gender}
             onChange={(e) => setGender(e.target.value)}
@@ -136,30 +155,37 @@ const InputBar: React.FC<InputBarProps> = ({
         </div>
 
         <div className="form-group">
-          <label style={{ textAlign: "left", fontWeight: "medium" }}>
+          <label style={{ textAlign: "left", fontWeight: "bold" }}>
             Weight
           </label>
-          <div className="input-with-label">
+          <div className="input-with-label" style={{ width: "150px" }}>
             <input
               id="weight"
               type="number"
               value={weight}
               onChange={(e) => setWeight(Number(e.target.value))}
               placeholder="Enter weight in kg"
+              min={1}
               required
             />
           </div>
         </div>
 
         <div className="form-group">
-          <label htmlFor="height">Height</label>
-          <div className="input-with-label">
+          <label
+            style={{ textAlign: "left", fontWeight: "bold" }}
+            htmlFor="height"
+          >
+            Height
+          </label>
+          <div className="input-with-label" style={{ width: "150px" }}>
             <input
               id="height"
               type="number"
               value={height}
               onChange={(e) => setHeight(Number(e.target.value))}
               placeholder="Enter height in cm"
+              min={1}
               required
             />
           </div>
