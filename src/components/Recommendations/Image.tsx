@@ -1,6 +1,198 @@
+const relevantLabels = [
+  // Fruits
+  "Apple",
+  "Banana",
+  "Pear",
+  "Orange",
+  "Grapes",
+  "Mango",
+  "Pineapple",
+  "Strawberry",
+  "Blueberry",
+  "Raspberry",
+  "Blackberry",
+  "Peach",
+  "Plum",
+  "Cherry",
+  "Watermelon",
+  "Cantaloupe",
+  "Kiwi",
+  "Papaya",
+  "Lemon",
+  "Lime",
+  "Avocado",
+
+  // Vegetables
+  "Tomato",
+  "Cucumber",
+  "Lettuce",
+  "Carrot",
+  "Spinach",
+  "Broccoli",
+  "Cauliflower",
+  "Potato",
+  "Sweet Potato",
+  "Bell Pepper",
+  "Zucchini",
+  "Eggplant",
+  "Mushroom",
+  "Garlic",
+  "Onion",
+  "Chili Pepper",
+  "Cabbage",
+  "Kale",
+  "Radish",
+  "Asparagus",
+  "Celery",
+  "Peas",
+  "Corn",
+  "Beetroot",
+  "Brussels Sprouts",
+
+  // Proteins (Meat, Fish, Plant-based)
+  "Chicken",
+  "Beef",
+  "Pork",
+  "Fish",
+  "Salmon",
+  "Tuna",
+  "Shrimp",
+  "Turkey",
+  "Lamb",
+  "Duck",
+  "Tofu",
+  "Egg",
+  "Tempeh",
+  "Lentils",
+  "Chickpeas",
+  "Black Beans",
+  "Kidney Beans",
+  "Quinoa",
+  "Soybeans",
+  "Peanuts",
+
+  // Dairy
+  "Milk",
+  "Cheese",
+  "Yogurt",
+  "Butter",
+  "Cream",
+  "Cottage Cheese",
+  "Feta",
+  "Mozzarella",
+  "Goat Cheese",
+
+  // Grains, Starches, Noodles, and Pasta
+  "Rice",
+  "Brown Rice",
+  "White Rice",
+  "Barley",
+  "Oats",
+  "Quinoa",
+  "Couscous",
+  "Wheat",
+  "Pasta",
+  "Bread",
+  "Tortilla",
+  "Corn",
+  "Popcorn",
+  "Millet",
+  "Buckwheat",
+  "Spaghetti",
+  "Noodles",
+  "Ramen",
+  "Udon",
+  "Soba",
+  "Rice Noodles",
+  "Lasagna",
+  "Macaroni",
+  "Fettuccine",
+  "Vermicelli",
+  "Angel Hair",
+  "Penne",
+
+  // Nuts and Seeds
+  "Almonds",
+  "Cashews",
+  "Peanuts",
+  "Walnuts",
+  "Pecans",
+  "Pistachios",
+  "Sunflower Seeds",
+  "Chia Seeds",
+  "Flax Seeds",
+  "Sesame Seeds",
+  "Pumpkin Seeds",
+  "Hazelnuts",
+
+  // Herbs and Spices
+  "Basil",
+  "Cilantro",
+  "Parsley",
+  "Mint",
+  "Oregano",
+  "Thyme",
+  "Rosemary",
+  "Dill",
+  "Sage",
+  "Cumin",
+  "Turmeric",
+  "Ginger",
+  "Cinnamon",
+  "Paprika",
+  "Pepper",
+  "Cardamom",
+  "Clove",
+  "Saffron",
+  "Vanilla",
+
+  // Oils and Fats
+  "Olive Oil",
+  "Coconut Oil",
+  "Butter",
+  "Canola Oil",
+  "Sunflower Oil",
+  "Vegetable Oil",
+  "Avocado Oil",
+
+  // Sweeteners
+  "Honey",
+  "Sugar",
+  "Maple Syrup",
+  "Agave Syrup",
+  "Brown Sugar",
+
+  // Beverages
+  "Coffee",
+  "Tea",
+  "Juice",
+  "Milk",
+  "Smoothie",
+  "Soda",
+  "Wine",
+  "Beer",
+
+  // Other Common Ingredients
+  "Salt",
+  "Pepper",
+  "Vinegar",
+  "Soy Sauce",
+  "Mustard",
+  "Ketchup",
+  "Mayonnaise",
+  "Hot Sauce",
+  "BBQ Sauce",
+  "Sour Cream",
+  "Whipped Cream",
+  "Coconut Milk",
+  "Tomato Sauce",
+  "Chocolate",
+  "Peanut Butter",
+  "Jelly",
+];
+
 import React, { useState, useEffect } from "react";
 import "./Image.css";
-import LoadingBar from "../Loading/loading";
 interface ImageRecognitionProps {
   image: File | null;
   onLabelsExtracted: (labels: string[]) => void;
@@ -14,51 +206,6 @@ const ImageRecognition: React.FC<ImageRecognitionProps> = ({
   onRemoveImage,
   label,
 }) => {
-  const relevantLabels = [
-    // Fruits
-    'Apple', 'Banana', 'Pear', 'Orange', 'Grapes', 'Mango', 'Pineapple', 'Strawberry', 'Blueberry', 'Raspberry', 
-    'Blackberry', 'Peach', 'Plum', 'Cherry', 'Watermelon', 'Cantaloupe', 'Kiwi', 'Papaya', 'Lemon', 'Lime', 
-    'Avocado',
-  
-    // Vegetables
-    'Tomato', 'Cucumber', 'Lettuce', 'Carrot', 'Spinach', 'Broccoli', 'Cauliflower', 'Potato', 'Sweet Potato',
-    'Bell Pepper', 'Zucchini', 'Eggplant', 'Mushroom', 'Garlic', 'Onion', 'Chili Pepper', 'Cabbage', 'Kale',
-    'Radish', 'Asparagus', 'Celery', 'Peas', 'Corn', 'Beetroot', 'Brussels Sprouts',
-  
-    // Proteins (Meat, Fish, Plant-based)
-    'Chicken', 'Beef', 'Pork', 'Fish', 'Salmon', 'Tuna', 'Shrimp', 'Turkey', 'Lamb', 'Duck', 'Tofu', 'Egg',
-    'Tempeh', 'Lentils', 'Chickpeas', 'Black Beans', 'Kidney Beans', 'Quinoa', 'Soybeans', 'Peanuts',
-  
-    // Dairy
-    'Milk', 'Cheese', 'Yogurt', 'Butter', 'Cream', 'Cottage Cheese', 'Feta', 'Mozzarella', 'Goat Cheese',
-  
-    // Grains, Starches, Noodles, and Pasta
-    'Rice', 'Brown Rice', 'White Rice', 'Barley', 'Oats', 'Quinoa', 'Couscous', 'Wheat', 'Pasta', 'Bread',
-    'Tortilla', 'Corn', 'Popcorn', 'Millet', 'Buckwheat', 'Spaghetti', 'Noodles', 'Ramen', 'Udon', 'Soba', 
-    'Rice Noodles', 'Lasagna', 'Macaroni', 'Fettuccine', 'Vermicelli', 'Angel Hair', 'Penne',
-  
-    // Nuts and Seeds
-    'Almonds', 'Cashews', 'Peanuts', 'Walnuts', 'Pecans', 'Pistachios', 'Sunflower Seeds', 'Chia Seeds', 
-    'Flax Seeds', 'Sesame Seeds', 'Pumpkin Seeds', 'Hazelnuts',
-  
-    // Herbs and Spices
-    'Basil', 'Cilantro', 'Parsley', 'Mint', 'Oregano', 'Thyme', 'Rosemary', 'Dill', 'Sage', 'Cumin', 'Turmeric',
-    'Ginger', 'Cinnamon', 'Paprika', 'Pepper', 'Cardamom', 'Clove', 'Saffron', 'Vanilla',
-  
-    // Oils and Fats
-    'Olive Oil', 'Coconut Oil', 'Butter', 'Canola Oil', 'Sunflower Oil', 'Vegetable Oil', 'Avocado Oil',
-  
-    // Sweeteners
-    'Honey', 'Sugar', 'Maple Syrup', 'Agave Syrup', 'Brown Sugar',
-  
-    // Beverages
-    'Coffee', 'Tea', 'Juice', 'Milk', 'Smoothie', 'Soda', 'Wine', 'Beer',
-  
-    // Other Common Ingredients
-    'Salt', 'Pepper', 'Vinegar', 'Soy Sauce', 'Mustard', 'Ketchup', 'Mayonnaise', 'Hot Sauce', 'BBQ Sauce', 
-    'Sour Cream', 'Whipped Cream', 'Coconut Milk', 'Tomato Sauce', 'Chocolate', 'Peanut Butter', 'Jelly'
-  ];
-
   // const [allLabels, setAllLabels] = useState<any>(null);
   const [labels, setLabels] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -146,7 +293,7 @@ const ImageRecognition: React.FC<ImageRecognitionProps> = ({
         <>
           <div className="image-preview">
             <img
-              src={image? URL.createObjectURL(image) : ""}
+              src={image ? URL.createObjectURL(image) : ""}
               alt="Uploaded"
               className="uploaded-image"
             />

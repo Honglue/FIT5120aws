@@ -26,12 +26,13 @@ function Navbar() {
 
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-light fixed-top"
+      className="navbar navbar-expand-lg  fixed-top"
       style={{
         backgroundColor: "rgba(250, 250, 250, 0.8)",
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
         padding: "10px",
+        marginRight: "20px",
         zIndex: 1000,
         top: isVisible ? "0" : "-80px",
         transition: "top 0.3s ease-in-out",
@@ -66,10 +67,14 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             {/* Identify Gaps Dropdown */}
-            <li className="nav-item dropdown me-4">
+            <li className="nav-item dropdown" style={{ marginRight: "40px" }}>
               <Link
                 className={`nav-link dropdown-toggle ${
-                  location.pathname === "/" ? "active" : ""
+                  location.pathname === "/" ||
+                  location.pathname === "/nutrition-map" ||
+                  location.pathname === "/recommend"
+                    ? "active"
+                    : ""
                 }`}
                 to="#"
                 id="identifyGapsDropdown"
@@ -83,26 +88,14 @@ function Navbar() {
               <ul
                 className="dropdown-menu"
                 aria-labelledby="identifyGapsDropdown"
-                style={{
-                  backgroundColor: "#ffffff",
-                  borderRadius: "4px",
-                }}
               >
                 <li>
-                  <Link
-                    className="dropdown-item"
-                    to="/nutrition-map"
-                    style={{ color: "black" }}
-                  >
+                  <Link className="dropdown-item" to="/nutrition-map">
                     Nutrition Map
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    className="dropdown-item"
-                    to="/recommend"
-                    style={{ color: "black" }}
-                  >
+                  <Link className="dropdown-item" to="/recommend">
                     Nutrition Indicator
                   </Link>
                 </li>
@@ -110,10 +103,13 @@ function Navbar() {
             </li>
 
             {/* Education Dropdown */}
-            <li className="nav-item dropdown me-4">
+            <li className="nav-item dropdown" style={{ marginRight: "40px" }}>
               <Link
                 className={`nav-link dropdown-toggle ${
-                  location.pathname === "/information" ? "active" : ""
+                  location.pathname === "/information" ||
+                  location.pathname === "/quiz"
+                    ? "active"
+                    : ""
                 }`}
                 to="#"
                 id="educationDropdown"
@@ -124,29 +120,14 @@ function Navbar() {
               >
                 {t("Education")}
               </Link>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="educationDropdown"
-                style={{
-                  backgroundColor: "#ffffff",
-                  borderRadius: "4px",
-                }}
-              >
+              <ul className="dropdown-menu" aria-labelledby="educationDropdown">
                 <li>
-                  <Link
-                    className="dropdown-item"
-                    to="/information"
-                    style={{ color: "black" }}
-                  >
+                  <Link className="dropdown-item" to="/information">
                     Nutrition Info
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    className="dropdown-item"
-                    to="/quiz"
-                    style={{ color: "black" }}
-                  >
+                  <Link className="dropdown-item" to="/quiz">
                     Nutrition Quiz
                   </Link>
                 </li>
@@ -157,7 +138,7 @@ function Navbar() {
             <li className="nav-item dropdown me-4">
               <Link
                 className={`nav-link dropdown-toggle ${
-                  location.pathname === "/recommend" ? "active" : ""
+                  location.pathname === "/recommendations" ? "active" : ""
                 }`}
                 to="#"
                 id="recommendationDropdown"
@@ -171,17 +152,9 @@ function Navbar() {
               <ul
                 className="dropdown-menu"
                 aria-labelledby="recommendationDropdown"
-                style={{
-                  backgroundColor: "#ffffff",
-                  borderRadius: "4px",
-                }}
               >
                 <li>
-                  <Link
-                    className="dropdown-item"
-                    to="/recommendations"
-                    style={{ color: "black" }}
-                  >
+                  <Link className="dropdown-item" to="/recommendations">
                     Dish Recommender
                   </Link>
                 </li>

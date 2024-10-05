@@ -327,27 +327,8 @@ const CarouselComponent = () => {
       {/* Navigation Arrows */}
       {isHovered && currentIndex !== 0 && (
         <button
-          className="carousel-arrow left-arrow"
+          className={`carousel-button prev ${isHovered ? "show" : ""}`}
           onClick={goPrev}
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "60px",
-            transform: "translateY(-50%)",
-            zIndex: 2,
-            // transition: "transform 0.5s ease",
-            backgroundColor: "rgba(128, 128, 128, 0.5)",
-            border: "none",
-            borderRadius: "50%",
-            height: "50px",
-            width: "50px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            fontSize: "36px",
-            cursor: "pointer",
-          }}
         >
           &#8249;
         </button>
@@ -355,26 +336,8 @@ const CarouselComponent = () => {
 
       {isHovered && currentIndex !== 3 && (
         <button
-          className="carousel-arrow right-arrow"
+          className={`carousel-button next ${isHovered ? "show" : ""}`}
           onClick={goNext}
-          style={{
-            position: "absolute",
-            top: "50%",
-            right: "60px",
-            transform: "translateY(-50%)",
-            zIndex: 2,
-            backgroundColor: "rgba(128, 128, 128, 0.5)",
-            border: "none",
-            borderRadius: "50%",
-            height: "50px",
-            width: "50px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            fontSize: "36px",
-            cursor: "pointer",
-          }}
         >
           &#8250;
         </button>

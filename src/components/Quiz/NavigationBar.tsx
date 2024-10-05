@@ -12,7 +12,6 @@ interface NavigationBarProps {
   questions: Question[];
   currentQuestion: number;
   goToWelcome: () => void;
-  goToSummary: () => void;
   goToQuestion: (index: number) => void;
 }
 
@@ -20,15 +19,10 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
   questions,
   currentQuestion,
   goToWelcome,
-  goToSummary,
   goToQuestion,
 }) => {
   return (
     <div className="navigation-bar">
-      <button className="nav-btn-home" onClick={goToWelcome}>
-        Welcome Page
-      </button>
-
       <div className="nav-questions">
         {questions.map((_, index) => (
           <button
@@ -41,8 +35,8 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
         ))}
       </div>
 
-      <button className="nav-btn-summary" onClick={goToSummary}>
-        Summary
+      <button className="nav-btn-home" onClick={goToWelcome}>
+        End Quiz
       </button>
     </div>
   );

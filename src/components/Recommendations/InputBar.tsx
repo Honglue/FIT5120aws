@@ -11,16 +11,16 @@ interface InputBarProps {
 }
 
 const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
-  const [input, setInput] = useState<string>(""); // Text input from user
-  const [image, setImage] = useState<File | null>(null); // Selected image
-  const [highlightedLabels, setHighlightedLabels] = useState<string[]>([]); // Highlighted labels from the image recognition
-  const [identifiedLabels, setIdentifiedLabels] = useState<string[]>([]); // Identified labels from image recognition
+  const [input, setInput] = useState<string>("");
+  const [images, setImages] = useState<File[]>([]);
+  const [labelsForImages, setLabelsForImages] = useState<string[][]>([]); // Store labels for each image
 
   const [selectedHealthLabels, setSelectedHealthLabels] = useState<string[]>(
     []
   );
   const [selectedCuisineType, setSelectedCuisineType] = useState<string[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null); // State for selected country
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null); // Keep track of the open dropdown
 
   const healthLabels = [
     "Pork-Free",
@@ -29,6 +29,7 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
     "Gluten-Free",
     "Low-Sugar",
   ];
+
   const cuisineTypes = [
     "American",
     "Asian",
@@ -53,21 +54,18 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
     "World",
   ];
 
-  // Handle country selection and convert to numeric code
   const handleCountrySelect = (selectedCountry: string | null) => {
     const numericCode = selectedCountry
       ? iso31661.whereAlpha2(selectedCountry)?.numeric
       : null;
     setSelectedCountry(numericCode ? String(numericCode) : null);
-    console.log(selectedCountry);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Concatenate identified labels with input
-    const combinedInput = `${input} ${identifiedLabels.join(", ")}`.trim();
-
+    const combinedInput = `${input} ${labelsForImages
+      .flat()
+      .join(", ")}`.trim(); // Combine all labels for all images
     const lowerCaseHealthLabels = selectedHealthLabels.map((label) =>
       label.toLowerCase()
     );
@@ -78,59 +76,77 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
     onSearch(combinedInput, {
       healthLabels: lowerCaseHealthLabels,
       cuisineType: lowerCaseCuisineType,
-      country_id: selectedCountry, // Pass selected country to onSearch
+      country_id: selectedCountry,
     });
-    console.log(selectedCountry);
   };
 
-  // Handle the identified labels from image recognition and store them separately
-  const handleLabelsFromImage = (labels: string[]) => {
-    setIdentifiedLabels(labels); // Store the identified labels separately
-    setHighlightedLabels(labels); // If you want to show the labels in some highlighted format
+  const handleLabelsFromImage = (labels: string[], index: number) => {
+    setLabelsForImages((prevLabels) => {
+      const newLabels = [...prevLabels];
+      newLabels[index] = labels; // Set labels for the current image
+      return newLabels;
+    });
   };
 
-  // Handle file input change
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      console.log("File selected:", event.target.files[0]); // Debugging line
-      setImage(event.target.files[0]);
+      const newImages = Array.from(event.target.files);
+
+      // Only allow if total number of images is less than or equal to 3
+      if (images.length + newImages.length > 3) {
+        alert("You can only upload up to 3 images.");
+        return;
+      }
+
+      setImages((prevImages) => [...prevImages, ...newImages]);
+      setLabelsForImages((prevLabels) => [
+        ...prevLabels,
+        ...newImages.map(() => []),
+      ]); // Add empty labels for new images
     }
   };
 
-  // Remove image and reset the identified labels
-  const handleRemoveImage = () => {
-    setImage(null);
-    setIdentifiedLabels([]);
+  const handleRemoveImage = (index: number) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setLabelsForImages((prevLabels) =>
+      prevLabels.filter((_, i) => i !== index)
+    ); // Remove corresponding labels
   };
 
   return (
     <div className="input-bar-container">
       <div className="filters">
-        {/* Health Labels Filter */}
         <FilterDropdown
           label="Dietary"
           options={healthLabels}
           selectedOptions={selectedHealthLabels}
           setSelectedOptions={setSelectedHealthLabels}
+          isOpen={openDropdown === "health"} // Open if the dropdown is the health one
+          onOpen={() => setOpenDropdown("health")} // Set open dropdown to health
+          onClose={() => setOpenDropdown(null)} // Close dropdown
         />
 
-        {/* Cuisine Type Filter */}
         <FilterDropdown
           label="Cuisine"
           options={cuisineTypes}
           selectedOptions={selectedCuisineType}
           setSelectedOptions={setSelectedCuisineType}
+          isOpen={openDropdown === "cuisine"} // Open if the dropdown is the cuisine one
+          onOpen={() => setOpenDropdown("cuisine")} // Set open dropdown to cuisine
+          onClose={() => setOpenDropdown(null)} // Close dropdown
         />
 
-        {/* Country Filter Dropdown */}
         <FilterDropdown
           label="Country"
-          options={[]} // Pass empty array since country select logic is handled internally
-          selectedOptions={[]} // No external options handling needed for country
-          setSelectedOptions={() => {}} // No need for external state management
+          options={[]}
+          selectedOptions={[]}
+          setSelectedOptions={() => {}}
           isMultiSelect={false}
-          isCountrySelect={true} // Pass the isCountrySelect prop to true
-          onCountrySelect={handleCountrySelect} // Pass the handleCountrySelect method
+          isCountrySelect={true}
+          onCountrySelect={handleCountrySelect}
+          isOpen={openDropdown === "country"} // Open if the dropdown is the country one
+          onOpen={() => setOpenDropdown("country")} // Set open dropdown to country
+          onClose={() => setOpenDropdown(null)} // Close dropdown
         />
       </div>
 
@@ -140,19 +156,21 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
             type="button"
             className="icon-button"
             onClick={() => document.getElementById("file-input")?.click()}
+            disabled={images.length >= 3}
           >
             <input
               type="file"
               id="file-input"
               accept="image/*"
               onChange={handleFileChange}
+              multiple // Allow multiple images
               style={{ display: "none" }}
+              disabled={images.length >= 3}
             />
             <FaUpload size={16} />
           </button>
         </div>
 
-        {/* User text input */}
         <input
           type="text"
           className="input-bar"
@@ -167,16 +185,22 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
       </form>
 
       <div className="images-container">
-        {/* Image Upload and Recognition Component */}
-        {image && (
+        {images.map((image, index) => (
           <ImageRecognition
+            key={index}
             image={image}
-            onLabelsExtracted={handleLabelsFromImage}
-            onRemoveImage={handleRemoveImage}
-            label={identifiedLabels[0] || ""} // Display first identified label
+            onLabelsExtracted={(labels) => handleLabelsFromImage(labels, index)} // Pass the index to handle labels for the correct image
+            onRemoveImage={() => handleRemoveImage(index)}
+            label={labelsForImages[index]?.join(", ") || ""} // Display the labels for each image
           />
-        )}
+        ))}
       </div>
+
+      {images.length <= 0 && (
+        <p style={{ width: "580px", textAlign: "left" }}>
+          You can only upload only up to 3 images
+        </p>
+      )}
     </div>
   );
 };

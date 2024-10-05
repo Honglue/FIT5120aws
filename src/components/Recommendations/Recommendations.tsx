@@ -8,9 +8,9 @@ const Recommendations: React.FC = () => {
   const [recipes, setRecipes] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [filteredData, setFilteredData] = useState<any[]>([]); // State for country nutrition data
+  const [filteredData, setFilteredData] = useState<any[]>([]);
 
-  // State for labels
+  // State for diet labels
   const [dietLabels, setDietLabels] = useState({
     "High-Fiber": 0,
     "High-Protein": 0,
@@ -33,15 +33,18 @@ const Recommendations: React.FC = () => {
     11: "Added Sugars",
   };
 
-  // Deviation Calculation function
-  const calculateDeviation = (countryValue: number, globalValue: number): number => {
+  // Deviation calculation function
+  const calculateDeviation = (
+    countryValue: number,
+    globalValue: number
+  ): number => {
     if (globalValue === 0) return 0;
     return ((globalValue - countryValue) / countryValue) * 100;
   };
 
   // Update diet labels based on the deviation
   const updateDietLabels = (processedData: any[]) => {
-    let newDietLabels = {
+    const newDietLabels = {
       "High-Fiber": 0,
       "High-Protein": 0,
       "Low-Fat": 0,
@@ -53,7 +56,12 @@ const Recommendations: React.FC = () => {
 
       // High-Fiber check
       if (
-        ["Beans & Legumes", "Whole Grains", "Fruits", "Non-starchy Vegetables"].includes(variableName) &&
+        [
+          "Beans & Legumes",
+          "Whole Grains",
+          "Fruits",
+          "Non-starchy Vegetables",
+        ].includes(variableName) &&
         deviation > 50
       ) {
         newDietLabels["High-Fiber"] = 1;
@@ -61,7 +69,12 @@ const Recommendations: React.FC = () => {
 
       // High-Protein check
       if (
-        ["Nuts & Seeds", "Beans & Legumes", "Unprocessed Red Meats", "Total Processed Meats"].includes(variableName) &&
+        [
+          "Nuts & Seeds",
+          "Beans & Legumes",
+          "Unprocessed Red Meats",
+          "Total Processed Meats",
+        ].includes(variableName) &&
         deviation > 50
       ) {
         newDietLabels["High-Protein"] = 1;
@@ -69,9 +82,13 @@ const Recommendations: React.FC = () => {
 
       // Low-Fat check
       if (
-        ["Nuts & Seeds", "Total Processed Meats", "Unprocessed Red Meats", "Saturated Fat", "Monounsaturated Fatty Acids"].includes(
-          variableName
-        ) &&
+        [
+          "Nuts & Seeds",
+          "Total Processed Meats",
+          "Unprocessed Red Meats",
+          "Saturated Fat",
+          "Monounsaturated Fatty Acids",
+        ].includes(variableName) &&
         deviation < -50
       ) {
         newDietLabels["Low-Fat"] = 1;
@@ -86,10 +103,10 @@ const Recommendations: React.FC = () => {
       }
     });
 
-    setDietLabels(newDietLabels); // Update state with the new values
+    setDietLabels(newDietLabels);
   };
 
-  // Fetch data from the nutrition API using the selected country
+  // Fetch country nutrition data and process it
   const fetchNutritionData = async (country_id: string | null) => {
     if (!country_id) {
       setError("Please select a country.");
@@ -106,7 +123,7 @@ const Recommendations: React.FC = () => {
           },
           body: JSON.stringify({
             country_id: country_id,
-            age_id: 7, // Static age_id
+            age_id: 7,
           }),
         }
       );
@@ -124,11 +141,28 @@ const Recommendations: React.FC = () => {
     }
   };
 
+  // Fetch recipes by combining user-provided health labels and country-specific diet labels
   const fetchRecipes = async (ingredients: string, filters: any) => {
     setError(null);
     setLoading(true);
-
+    console.log(dietLabels);
     try {
+      const finalDietLabels = [
+        dietLabels["High-Fiber"] ? "High-Fiber" : null,
+        dietLabels["High-Protein"] ? "High-Protein" : null,
+        dietLabels["Low-Fat"] ? "Low-Fat" : null,
+        dietLabels["Low-Sodium"] ? "Low-Sodium" : null,
+      ].filter((label) => label !== null);
+
+      console.log(
+        JSON.stringify({
+          ingredients: ingredients.split(",").map((item) => item.trim()),
+          cuisineType: filters.cuisineType || [],
+          healthLabels: filters.healthLabels || [],
+          dietLabels: finalDietLabels,
+        })
+      );
+
       const response = await fetch(
         "https://cykcougbc2.execute-api.us-east-1.amazonaws.com/prod/recipes",
         {
@@ -140,7 +174,7 @@ const Recommendations: React.FC = () => {
             ingredients: ingredients.split(",").map((item) => item.trim()),
             cuisineType: filters.cuisineType || [],
             healthLabels: filters.healthLabels || [],
-            country_id: filters.country_id || null, // Include the selected country ID from filters
+            dietLabels: finalDietLabels,
           }),
         }
       );
@@ -155,13 +189,7 @@ const Recommendations: React.FC = () => {
     }
   };
 
-  // Handle the result from InputBar (ingredients and filters)
-  const handleSearch = (ingredients: string, filters: any) => {
-    fetchRecipes(ingredients, filters);
-    fetchNutritionData(filters.country_id); // Fetch nutrition data using the country_id from filters
-  };
-
-  // Process the nutrition data (country + Australia) and calculate deviation
+  // Process the fetched nutrition data for calculating deviations
   const processNutritionData = (data: any[]) => {
     const countryData = data.filter((item) => item.country_ID !== 36);
     const globalData = data.filter((item) => item.country_ID === 36);
@@ -173,7 +201,10 @@ const Recommendations: React.FC = () => {
       );
 
       const globalMedian = globalDataItem ? globalDataItem.median : 0;
-      const deviation = calculateDeviation(foodVariableData.median, globalMedian);
+      const deviation = calculateDeviation(
+        foodVariableData.median,
+        globalMedian
+      );
 
       return {
         variableName,
@@ -182,6 +213,12 @@ const Recommendations: React.FC = () => {
         deviation,
       };
     });
+  };
+
+  // Handle the result from InputBar (ingredients and filters)
+  const handleSearch = async (ingredients: string, filters: any) => {
+    await fetchNutritionData(filters.country_id); // Fetch nutrition data using the country_id from filters
+    await fetchRecipes(ingredients, filters); // Fetch recipes after fetching and updating diet labels
   };
 
   return (
@@ -199,7 +236,9 @@ const Recommendations: React.FC = () => {
       <div className="results-container">
         {!loading && recipes.length > 0 && (
           <div className="results-content">
-            <h4 style={{ textAlign: "left", fontWeight: "bold" }}>Dishes Results</h4>
+            <h4 style={{ textAlign: "left", fontWeight: "bold" }}>
+              Dishes Results
+            </h4>
             <div className="recommend-page">
               {recipes.map((recipe, index) => (
                 <Card key={index} data={recipe} />
@@ -210,10 +249,14 @@ const Recommendations: React.FC = () => {
 
         {!loading && recipes.length === 0 && !error && (
           <p>
-            <span style={{ color: "#6366f1" }}>Uploaded images will be included in the search</span>
+            <span style={{ color: "#6366f1" }}>
+              Uploaded images will be included in the search
+            </span>
             <br />
-            The recommended dishes help you to achieve your required nutrition intake a day. <br />
-            Get started by searching different ingredients or uploading an image of an ingredient.
+            The recommended dishes help you to achieve your required nutrition
+            intake a day. <br />
+            Get started by searching different ingredients or uploading an image
+            of an ingredient.
           </p>
         )}
       </div>
@@ -226,7 +269,9 @@ const Recommendations: React.FC = () => {
             <ul>
               {processNutritionData(filteredData).map((item: any, index) => (
                 <li key={index}>
-                  {item.variableName}: {item.countryMedian} (Country), {item.globalMedian} (Australia), Deviation: {item.deviation.toFixed(2)}%
+                  {item.variableName}: {item.countryMedian} (Country),{" "}
+                  {item.globalMedian} (Australia), Deviation:{" "}
+                  {item.deviation.toFixed(2)}%
                 </li>
               ))}
             </ul>

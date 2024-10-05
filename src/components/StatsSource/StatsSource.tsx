@@ -17,7 +17,7 @@ const TimeSeriesChart: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<{
     id: number;
     name: string;
-  } | null>(countries[0]);
+  } | null>(null); // Changed to null for the default
   const [chartData, setChartData] = useState<
     { pop_year: number; refugee: number }[]
   >([]);
@@ -101,7 +101,7 @@ const TimeSeriesChart: React.FC = () => {
       } else {
         clearInterval(interval);
       }
-    }, 90);
+    }, 30);
     return interval;
   };
 
@@ -297,6 +297,7 @@ const TimeSeriesChart: React.FC = () => {
                     setSelectedCountry(countries[parseInt(e.target.value)])
                   }
                 >
+                  <option value={-1}>Select</option>
                   {countries.map((country, index) => (
                     <option key={country.id} value={index}>
                       {country.name}
@@ -309,8 +310,32 @@ const TimeSeriesChart: React.FC = () => {
         </div>
       </header>
 
-      {/* Display loading component or chart */}
-      {loading ? (
+      {/* Display message if no country is selected */}
+      {!selectedCountry ? (
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "20px",
+            paddingTop: "20px",
+            paddingBottom: "6px",
+            backgroundColor: "#f0f4ff", // Light background color for contrast
+            borderRadius: "10px", // Rounded corners for aesthetics
+            border: "1px solid #4f46e5",
+            maxWidth: "400px",
+            margin: "40px auto",
+          }}
+        >
+          <p
+            className="lead"
+            style={{
+              fontSize: "16px", // Larger font size
+              color: "#4f46e5", // Color to match your theme
+            }}
+          >
+            Please select a country to get started
+          </p>
+        </div>
+      ) : loading ? (
         <LoadingBar />
       ) : (
         <div
@@ -340,7 +365,7 @@ const TimeSeriesChart: React.FC = () => {
               Total number of refugees from {selectedCountry?.name} since 2010
             </p>
 
-            {/* Render visual bars for wastxing, stunting, and underweight */}
+            {/* Render visual bars for wasting, stunting, and underweight */}
             <div style={{ width: "400px" }}>
               {renderBar("Too Thin", jsonData?.wasting)}
               {renderBar("Too Short", jsonData?.stunting)}
