@@ -210,13 +210,13 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
       <div
         // className="bg-light"
         style={{
-          // backgroundColor: "#f0f0f0",
-          borderRadius: "10px",
-          padding: "20px",
-          border: "1px solid #ccc",
+          backgroundColor: "#f0f4ff",
+          color: "#4f46e5",
+          borderRadius: "6px",
+          border: "1px solid #4f46e5",
+          padding: "16px",
           width: "100%",
           boxSizing: "border-box",
-          color: "#333",
           textAlign: "left",
           margin: "30px 10px",
         }}
@@ -231,7 +231,7 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
           className="d-flex border p-2 rounded-pill ms-auto"
           style={{
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            backgroundColor: "#f9f9f9",
+            // backgroundColor: "#f9f9f9",
             padding: "10px",
           }}
         >
@@ -249,7 +249,7 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
                 padding: "8px 20px",
                 // backgroundColor: "#ffffff",
                 // boxShadow: "0 1px 6px rgba(0, 0, 0, 0.1)",
-                border: "1px solid #d3d3d3",
+                border: "2px solid #d3d3d3",
                 cursor: "pointer",
                 // transition: "box-shadow 0.2s ease-in-out",
               }}
@@ -295,8 +295,11 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
         <Loading />
       ) : selectedNutritionType === "good" ? (
         <div className="nutrition-section mt-4">
-          <h5 className="mb-2" style={{ textAlign: "left", fontWeight: 500 }}>
-            Health Foods
+          <h5
+            className="mb-2"
+            style={{ textAlign: "left", fontWeight: "bold" }}
+          >
+            Healthy Foods
           </h5>
           <p style={{ textAlign: "left" }}>
             Healthy foods provide essential nutrients for energy, growth, and
