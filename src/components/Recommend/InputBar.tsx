@@ -27,7 +27,8 @@ const InputBar: React.FC<InputBarProps> = ({
   const [bmi, setBmi] = useState<number | null>(null); // To store calculated BMI
   const [bmiPercentage, setBmiPercentage] = useState<string | null>(null); // To store BMI percentile as a percentage
   const [error, setError] = useState<string | null>(null); // Error handling
-
+  
+  const [bmiC, setBmiC] = useState<number | null>(null);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -87,9 +88,12 @@ const InputBar: React.FC<InputBarProps> = ({
 
       const data = await response.json();
       console.log(data);
+      console.log('gender', gender);
       if (response.ok) {
         setClosestPercentile(data.body);
         const percentileValue = data.body.replace("P", "") + "%";
+        setBmiC(parseFloat(data.body.replace("P", "")));
+        
         setBmiPercentage(percentileValue); // Store the percentage value
         setError(null);
         onResult(data.body, gender, age, null); // Pass the data to the parent component
@@ -205,7 +209,7 @@ const InputBar: React.FC<InputBarProps> = ({
         </p>
       )}
 
-      {closestPercentile && bmi && bmiPercentage && (
+      {closestPercentile && bmi && bmiPercentage && bmiC &&(
         <div
           className="result"
           style={{
@@ -234,6 +238,29 @@ const InputBar: React.FC<InputBarProps> = ({
               {bmi.toFixed(2)}
             </span>
           </h3>
+          
+          {gender === 'male' && (
+            <p style={{ fontSize: "18px", fontWeight: "400", textAlign: "left" }}>
+            {bmiC < 1.2
+              ? "Your child is underweight."
+              : bmiC < 29
+              ? "Your child is normal weight."
+              : bmiC < 72
+              ? "Your child is overweight."
+              : "Your child is obese."}
+          </p>
+          )}
+          {gender === 'female' && (
+            <p style={{ fontSize: "18px", fontWeight: "400", textAlign: "left" }}>
+            {bmiC < 2.1
+              ? "Your child is underweight."
+              : bmiC < 43
+              ? "Your child is normal weight."
+              : bmiC < 73
+              ? "Your child is overweight."
+              : "Your child is obese."}
+          </p>
+          )}
 
           <h3
             style={{ fontSize: "18px", fontWeight: "400", textAlign: "left" }}
