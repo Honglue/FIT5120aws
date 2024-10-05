@@ -3,6 +3,7 @@ import "./InputBar.css";
 import FilterDropdown from "./FilterDropdown";
 import { FaUpload } from "react-icons/fa";
 import ImageRecognition from "./Image";
+import iso31661 from "iso-3166-1";
 
 interface InputBarProps {
   onSearch: (ingredients: string, filters: any) => void;
@@ -19,6 +20,7 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
     []
   );
   const [selectedCuisineType, setSelectedCuisineType] = useState<string[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null); // State for selected country
 
   const healthLabels = [
     "Pork-Free",
@@ -51,6 +53,15 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
     "World",
   ];
 
+  // Handle country selection and convert to numeric code
+  const handleCountrySelect = (selectedCountry: string | null) => {
+    const numericCode = selectedCountry
+      ? iso31661.whereAlpha2(selectedCountry)?.numeric
+      : null;
+    setSelectedCountry(numericCode ? String(numericCode) : null);
+    console.log(selectedCountry);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -67,7 +78,9 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
     onSearch(combinedInput, {
       healthLabels: lowerCaseHealthLabels,
       cuisineType: lowerCaseCuisineType,
+      country_id: selectedCountry, // Pass selected country to onSearch
     });
+    console.log(selectedCountry);
   };
 
   // Handle the identified labels from image recognition and store them separately
@@ -107,6 +120,17 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
           options={cuisineTypes}
           selectedOptions={selectedCuisineType}
           setSelectedOptions={setSelectedCuisineType}
+        />
+
+        {/* Country Filter Dropdown */}
+        <FilterDropdown
+          label="Country"
+          options={[]} // Pass empty array since country select logic is handled internally
+          selectedOptions={[]} // No external options handling needed for country
+          setSelectedOptions={() => {}} // No need for external state management
+          isMultiSelect={false}
+          isCountrySelect={true} // Pass the isCountrySelect prop to true
+          onCountrySelect={handleCountrySelect} // Pass the handleCountrySelect method
         />
       </div>
 
