@@ -1,4 +1,6 @@
 import React from "react";
+import "./SummaryPage.css";
+import { useNavigate } from "react-router-dom";
 
 interface SummaryPageProps {
   score: number;
@@ -6,13 +8,19 @@ interface SummaryPageProps {
 }
 
 const SummaryPage: React.FC<SummaryPageProps> = ({ score, totalQuestions }) => {
+  const navigate = useNavigate();
+
+  const handleRetakeQuiz = () => {
+    navigate("/quiz");
+  };
+
   return (
     <div className="summary-page">
       <h2>Quiz Summary</h2>
       <p>
         Your Score: {score} / {totalQuestions}
       </p>
-      <button onClick={() => window.location.reload()}>Retake Quiz</button>
+      <button onClick={handleRetakeQuiz}>Retake Quiz</button>
     </div>
   );
 };

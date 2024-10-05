@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Select, { SingleValue } from "react-select";
 import { getNames, getCode } from "country-list";
 import "./FilterDropdown.css";
@@ -10,7 +10,13 @@ interface FilterDropdownProps {
   setSelectedOptions: (selected: string[]) => void;
   isMultiSelect?: boolean;
   isCountrySelect?: boolean;
-  onCountrySelect?: (selectedCountry: string | null, selectedCountryName: string | null) => void;
+  onCountrySelect?: (
+    selectedCountry: string | null,
+    selectedCountryName: string | null
+  ) => void;
+  isOpen: boolean; // Add prop to track if the dropdown is open
+  onOpen: () => void; // Callback to open the dropdown
+  onClose: () => void; // Callback to close the dropdown
 }
 
 const FilterDropdown: React.FC<FilterDropdownProps> = ({
@@ -21,10 +27,10 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   isMultiSelect = true,
   isCountrySelect = false,
   onCountrySelect,
+  isOpen,
+  onOpen,
+  onClose,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedCountryName, setSelectedCountryName] = useState<string | null>(null); // State to store selected country name
-
   const toggleOption = (option: string) => {
     if (isMultiSelect) {
       if (selectedOptions.includes(option)) {
@@ -39,18 +45,22 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
     }
   };
 
-  const handleCountryChange = (selectedOption: SingleValue<{ label: string; value: string | undefined }>) => {
+  const handleCountryChange = (
+    selectedOption: SingleValue<{ label: string; value: string | undefined }>
+  ) => {
     const selectedCountry = selectedOption?.value || null;
     const countryName = selectedOption?.label || null;
-    setSelectedCountryName(countryName); // Update the selected country name
     onCountrySelect?.(selectedCountry, countryName);
   };
 
   const countries = getNames();
   const countryOptions = countries.map((country) => ({
     label: country,
-    value: getCode(country) || undefined, // Adjusted to allow undefined
+    value: getCode(country) || undefined,
   }));
+
+  // Calculate how many filters are applied
+  const filterCount = selectedOptions.length;
 
   return (
     <div className="filter-dropdown">
@@ -59,16 +69,16 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
         type="button"
         onClick={(e) => {
           e.stopPropagation();
-          setIsOpen(!isOpen);
+          isOpen ? onClose() : onOpen(); // Open/close logic
         }}
       >
-        {/* Display selected country name if selected, otherwise default label */}
-        {selectedCountryName ? selectedCountryName : label}
+        {/* Show label with the applied filter count */}
+        {label} {filterCount > 0 ? `(${filterCount})` : ""}
       </button>
 
       {isOpen && !isCountrySelect && (
         <div className="filter-dropdown-menu">
-          <div className="close-button" onClick={() => setIsOpen(false)}>
+          <div className="close-button" onClick={onClose}>
             &times;
           </div>
           <div className="dropdown-options-container">
@@ -86,10 +96,9 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
         </div>
       )}
 
-      {/* If it's country selection, show the Select component */}
       {isOpen && isCountrySelect && (
         <div className="filter-dropdown-menu">
-          <div className="close-button" onClick={() => setIsOpen(false)}>
+          <div className="close-button" onClick={onClose}>
             &times;
           </div>
           <Select

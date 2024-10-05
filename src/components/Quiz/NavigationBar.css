@@ -1,0 +1,42 @@
+.navigation-bar {
+  display: flex;
+  justify-content: space-between; /* Keep home and summary buttons on opposite ends */
+  align-items: center; /* Aligns the content vertically in the center */
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+.nav-questions {
+  display: flex;
+  gap: 5px;
+  justify-content: center; /* Centers the question navigation buttons */
+  flex-grow: 1; /* Allows this section to take up the space between home and summary */
+}
+
+.nav-btn-home,
+.nav-btn-summary {
+  background-color: #ccc;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 5px;
+}
+
+.nav-btn {
+  background-color: #ccc;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-btn.active {
+  background-color: #3b40ce;
+}
+
+.nav-btn:hover {
+  background-color: #4f46e5;
+}

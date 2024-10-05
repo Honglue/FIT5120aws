@@ -2,11 +2,6 @@
   min-height: 100vh;
 }
 
-.welcome-page {
-  padding-top: 100px;
-  min-height: 100vh;
-}
-
 .quiz-container {
   width: 100%;
   min-height: 80vh;
@@ -53,26 +48,6 @@
 .disabled-option {
   cursor: not-allowed;
   background-color: #f8f8f8;
-}
-
-.check-btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #6366f1;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.check-btn:hover {
-  background-color: #4f46e5;
-}
-
-.check-btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
 }
 
 .solution-section h3 {
@@ -159,38 +134,6 @@ button:hover {
 
 .btn-custom:hover {
   background-color: #4f46e5;
-}
-
-/* Banner Section */
-.download-content {
-  background-image: url("../../../public/images/nutrition.jpg");
-  background-size: cover;
-  background-position: center;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  margin: 40px 0;
-  height: 300px;
-  text-align: "left";
-}
-
-.download-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-}
-
-.download-content-text {
-  color: white;
-  position: relative;
-  z-index: 2;
-  padding: 20px;
 }
 
 .button-container {

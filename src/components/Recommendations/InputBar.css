@@ -36,7 +36,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   gap: 10px;
 }
 
@@ -59,6 +59,11 @@
 
 .icon-button:hover {
   background-color: #cccccc;
+}
+
+.icon-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
 .input-bar {
