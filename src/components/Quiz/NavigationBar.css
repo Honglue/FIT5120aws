@@ -9,13 +9,18 @@
 .nav-questions {
   display: flex;
   gap: 5px;
-  justify-content: center; /* Centers the question navigation buttons */
-  flex-grow: 1; /* Allows this section to take up the space between home and summary */
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 10px; /* Space between buttons */
 }
 
 .nav-btn-home,
 .nav-btn-summary {
-  background-color: #ccc;
+  background-color: #6366f1;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -24,17 +29,8 @@
   margin: 0 5px;
 }
 
-.nav-btn {
-  background-color: #ccc;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
 .nav-btn.active {
-  background-color: #3b40ce;
+  background-color: #6366f1;
 }
 
 .nav-btn:hover {

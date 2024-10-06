@@ -1,6 +1,4 @@
 import React from "react";
-import Select, { SingleValue } from "react-select";
-import { getNames, getCode } from "country-list";
 import "./FilterDropdown.css";
 
 interface FilterDropdownProps {
@@ -9,14 +7,9 @@ interface FilterDropdownProps {
   selectedOptions: string[];
   setSelectedOptions: (selected: string[]) => void;
   isMultiSelect?: boolean;
-  isCountrySelect?: boolean;
-  onCountrySelect?: (
-    selectedCountry: string | null,
-    selectedCountryName: string | null
-  ) => void;
-  isOpen: boolean; // Add prop to track if the dropdown is open
-  onOpen: () => void; // Callback to open the dropdown
-  onClose: () => void; // Callback to close the dropdown
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
 }
 
 const FilterDropdown: React.FC<FilterDropdownProps> = ({
@@ -25,8 +18,6 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   selectedOptions,
   setSelectedOptions,
   isMultiSelect = true,
-  isCountrySelect = false,
-  onCountrySelect,
   isOpen,
   onOpen,
   onClose,
@@ -45,20 +36,6 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
     }
   };
 
-  const handleCountryChange = (
-    selectedOption: SingleValue<{ label: string; value: string | undefined }>
-  ) => {
-    const selectedCountry = selectedOption?.value || null;
-    const countryName = selectedOption?.label || null;
-    onCountrySelect?.(selectedCountry, countryName);
-  };
-
-  const countries = getNames();
-  const countryOptions = countries.map((country) => ({
-    label: country,
-    value: getCode(country) || undefined,
-  }));
-
   // Calculate how many filters are applied
   const filterCount = selectedOptions.length;
 
@@ -73,10 +50,10 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
         }}
       >
         {/* Show label with the applied filter count */}
-        {label} {filterCount > 0 ? `(${filterCount})` : ""}
+        {`${label} ${filterCount > 0 ? `(${filterCount})` : ""}`}
       </button>
 
-      {isOpen && !isCountrySelect && (
+      {isOpen && (
         <div className="filter-dropdown-menu">
           <div className="close-button" onClick={onClose}>
             &times;
@@ -93,19 +70,6 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
               </label>
             ))}
           </div>
-        </div>
-      )}
-
-      {isOpen && isCountrySelect && (
-        <div className="filter-dropdown-menu">
-          <div className="close-button" onClick={onClose}>
-            &times;
-          </div>
-          <Select
-            options={countryOptions}
-            onChange={handleCountryChange}
-            placeholder="Select a country"
-          />
         </div>
       )}
     </div>

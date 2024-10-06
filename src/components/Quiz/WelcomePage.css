@@ -1,11 +1,11 @@
 .welcome-page {
   display: flex;
-  flex-direction: row; /* Split the page into two columns */
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   min-height: 90vh;
   width: 100%;
-  background-color: #fafafa; /* Light background color */
+  background-color: #fafafa;
 }
 
 .left-section {
@@ -30,7 +30,7 @@
   color: #555;
 }
 
-.download-content {
+.quiz-content {
   margin-left: 40px;
   background-image: url("../../../public/images/nutrition.jpg");
   background-size: cover;
@@ -40,17 +40,17 @@
   height: 400px; /* Adjust the height */
   position: relative;
   text-align: left;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Add a subtle shadow */
   margin-bottom: 20px;
 }
 
-.download-overlay {
+.quiz-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  /* background-color: rgba(0, 0, 0, 0.3); */
   border-radius: 10px;
 }
 
@@ -76,7 +76,7 @@
 .btn-custom:hover {
   background-color: #4f46e5;
   transform: translateY(-2px); /* Subtle lift effect */
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+  /* box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); Increase shadow on hover */
 }
 
 .btn-custom:active {
@@ -98,14 +98,13 @@
     margin-right: 0;
   }
 
-  .download-content {
+  .quiz-content {
     height: 250px; /* Smaller height on mobile */
   }
 
   .button-container {
+    text-align: left; /* Ensure the button remains left-aligned on mobile */
     width: 100%;
-    display: flex;
-    justify-content: center;
     margin-top: 20px;
   }
 }

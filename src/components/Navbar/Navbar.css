@@ -1,31 +1,33 @@
-/* Ensuring the dropdown opens on hover */
-.nav-item.dropdown:hover .dropdown-menu {
+/* Only trigger dropdown when hovering directly on the nav-link */
+.nav-item.dropdown:hover > .nav-link {
+  background-color: transparent;
+}
+
+/* Show dropdown when hovering on the nav-link inside nav-item */
+.nav-item.dropdown:hover > .nav-link + .dropdown-menu {
   display: block;
   animation: fadeIn 0.3s ease-in-out;
-  /* min-width: 100vw; */
   justify-content: center;
 }
 
 /* Styling the dropdown */
 .dropdown-menu {
-  /* border: none; */
-  /* width: 400px; */
   border-radius: 5px;
   margin-top: 0;
   background-color: rgba(250, 250, 250, 0.98);
-  backdrop-filter: blur(10px);
-  webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 10px 15px;
   transition: all 0.3s ease-in-out;
   transform: translateY(-10px);
   opacity: 0;
-  display: block;
+  display: none; /* Hide the dropdown by default */
 }
 
-.nav-item:hover .dropdown-menu {
+/* Ensure the dropdown shows when the parent nav-item is hovered */
+.nav-item.dropdown:hover .dropdown-menu {
   transform: translateY(0);
   opacity: 1;
+  display: block;
 }
 
 /* Styling the dropdown items */

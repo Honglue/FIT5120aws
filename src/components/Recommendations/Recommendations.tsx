@@ -215,10 +215,23 @@ const Recommendations: React.FC = () => {
     });
   };
 
-  // Handle the result from InputBar (ingredients and filters)
   const handleSearch = async (ingredients: string, filters: any) => {
-    await fetchNutritionData(filters.country_id); // Fetch nutrition data using the country_id from filters
-    await fetchRecipes(ingredients, filters); // Fetch recipes after fetching and updating diet labels
+    // Reset the error and recipes
+    setError(null);
+    setRecipes([]);
+
+    // Show loading spinner while fetching
+    setLoading(true);
+
+    // Fetch nutrition data and recipes based on user input
+    try {
+      await fetchNutritionData(filters.country_id);
+      await fetchRecipes(ingredients, filters);
+    } catch (err) {
+      setError("Failed to fetch results. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -227,7 +240,10 @@ const Recommendations: React.FC = () => {
       <InputBar onSearch={handleSearch} loading={loading} />
 
       {/* Show loading spinner or message */}
-      {loading && <Loading />}
+
+      <div style={{ height: "40vh", width: "100%" }}>
+        {loading && <Loading />}
+      </div>
 
       {/* Display error message */}
       {error && !loading && <p className="error-message">{error}</p>}
@@ -236,6 +252,47 @@ const Recommendations: React.FC = () => {
       <div className="results-container">
         {!loading && recipes.length > 0 && (
           <div className="results-content">
+            <div className="diet-summary-box">
+              <h4 style={{ fontSize: "20px" }}>Recommended Dietary</h4>
+              <p>
+                The following dishes are recommended based on your selected
+                country, as your country has:
+              </p>
+              {dietLabels["High-Fiber"] === 1 && (
+                <p>
+                  • A low intake of fiber. We have suggested increasing
+                  consumption of fiber-rich foods such as beans, legumes, and
+                  whole grains.
+                </p>
+              )}
+              {dietLabels["High-Protein"] === 1 && (
+                <p>
+                  • A low intake of protein. We have recommended incorporating
+                  more protein-rich foods like nuts, seeds, and unprocessed
+                  meats.
+                </p>
+              )}
+              {dietLabels["Low-Fat"] === 1 && (
+                <p>
+                  • A high intake of fats. We have recommended low-fat foods and
+                  reducing saturated fats and processed meats.
+                </p>
+              )}
+              {dietLabels["Low-Sodium"] === 1 && (
+                <p>
+                  • A high intake of sodium. Limiting processed meats and added
+                  sugars will help lower sodium levels.
+                </p>
+              )}
+              {/* If none of the labels are 1 */}
+              {Object.values(dietLabels).every((label) => label === 0) && (
+                <p>
+                  Your country meets the recommended intake levels for fiber,
+                  protein, fat, and sodium. Keep up the balanced diet!
+                </p>
+              )}
+            </div>
+
             <h4 style={{ textAlign: "left", fontWeight: "bold" }}>
               Dishes Results
             </h4>
@@ -247,45 +304,48 @@ const Recommendations: React.FC = () => {
           </div>
         )}
 
-        {!loading && recipes.length === 0 && !error && (
-          <p>
-            <span style={{ color: "#6366f1" }}>
-              Uploaded images will be included in the search
-            </span>
-            <br />
-            The recommended dishes help you to achieve your required nutrition
-            intake a day. <br />
-            Get started by searching different ingredients or uploading an image
-            of an ingredient.
-          </p>
-        )}
-      </div>
+        {/* Display no results message when recipes are empty */}
+        {/* {!loading && recipes.length === 0 && !error && (
+          <div className="no-results">
+            <h4>No results found.</h4>
+            <p>
+              Please try again with different ingredients or remove some of the
+              filters.
+            </p>
+          </div>
+        )} */}
 
-      {/* Display fetched nutrition data */}
-      <div className="nutrition-data-container">
-        {!loading && filteredData.length > 0 && (
-          <div>
-            <h4>Nutrition Data for Selected Country</h4>
-            <ul>
-              {processNutritionData(filteredData).map((item: any, index) => (
-                <li key={index}>
-                  {item.variableName}: {item.countryMedian} (Country),{" "}
-                  {item.globalMedian} (Australia), Deviation:{" "}
-                  {item.deviation.toFixed(2)}%
-                </li>
-              ))}
-            </ul>
+        {/* Show placeholder boxes when no search has been made */}
+        {!loading && recipes.length === 0 && !error && (
+          <div className="recommendations-container">
+            <div className="recommendation-box">
+              <span>Get Dish Recommendations</span>
+              <p>
+                Receive dishes tailored to your country's nutritional needs.
+              </p>
+            </div>
+
+            <div className="recommendation-box">
+              <span>Search Ingredients</span>
+              <p>Search different ingredients to meet your nutrition goals.</p>
+            </div>
+
+            <div className="recommendation-box">
+              <span>Upload images</span>
+              <p>
+                Upload an image of an ingredient and we will help identify it
+                and include in search.
+              </p>
+            </div>
+
+            <div className="recommendation-box">
+              <span>Track Nutrition</span>
+              <p>
+                We help you track missing nutrients and suggest the best dishes.
+              </p>
+            </div>
           </div>
         )}
-      </div>
-
-      {/* Display the updated diet labels */}
-      <div className="diet-labels-container">
-        <h4>Diet Labels</h4>
-        <p>High-Fiber: {dietLabels["High-Fiber"]}</p>
-        <p>High-Protein: {dietLabels["High-Protein"]}</p>
-        <p>Low-Fat: {dietLabels["Low-Fat"]}</p>
-        <p>Low-Sodium: {dietLabels["Low-Sodium"]}</p>
       </div>
     </div>
   );

@@ -91,11 +91,6 @@
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
-.glass-card:hover {
-  transform: scale(1.005); /* Enlarge the card smoothly */
-  box-shadow: 5px 0 15px 0 rgba(141, 142, 157, 0.2); /* Add shadow on hover */
-}
-
 /* Custom Button */
 .btn-custom {
   background-color: #6366f1;

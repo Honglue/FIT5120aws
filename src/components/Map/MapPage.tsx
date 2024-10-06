@@ -6,6 +6,7 @@ import Select from "react-select";
 // eslint-disable-next-line
 import { getNames, getCode } from "country-list";
 import "./MapPage.css";
+
 interface MapPageProps {
   onCountrySelect: (countryId: string, countryName: string | null) => void;
 }
@@ -49,12 +50,13 @@ const CountrySearch: React.FC<MapPageProps> = ({ onCountrySelect }) => {
           control: (baseStyles) => ({
             ...baseStyles,
             borderRadius: "50px",
+            textAlign: "left",
             width: "300px",
-            margin: "10px",
+            margin: "10px auto", // Centered the select box
             padding: "5px 20px",
             backgroundColor: "f9f9f9",
-            borderColor: "#ccc",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            border: "1px solid #ddd",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.05)",
           }),
           placeholder: (baseStyles) => ({
             ...baseStyles,
@@ -70,7 +72,6 @@ const CountrySearch: React.FC<MapPageProps> = ({ onCountrySelect }) => {
           }),
           menu: (baseStyles) => ({
             ...baseStyles,
-            // backgroundColor: "transparent",
           }),
         }}
       />
@@ -101,10 +102,10 @@ const NutritionMapInfo = () => {
           borderRadius: "10px",
         }}
       >
-        <h2 style={{ fontWeight: "bold", marginBottom: "10px" }}>
+        <h2 style={{ fontWeight: "normal", marginBottom: "10px" }}>
           Nutritional Map
         </h2>
-        <p className="lead" style={{ fontSize: "16px" }}>
+        <p style={{ fontSize: "16px" }}>
           Explore your countries dietary patterns comparing to Australian
           standards by selecting from the map. Click on your country for
           detailed insights.
@@ -120,7 +121,7 @@ const NutritionMapInfo = () => {
         ))}
       </div>
 
-      <p className="lead" style={{ fontSize: "16px", paddingTop: "20px" }}>
+      <p style={{ fontSize: "16px", paddingTop: "20px" }}>
         Note: The highlighted countries represent the{" "}
         <span style={{ color: "#6366f1" }}>top refugee origins</span> in
         Australia.
@@ -137,8 +138,8 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
     if (!svgRef.current || !tooltipRef.current) return;
 
     const svg = d3.select(svgRef.current);
-    const width = 800;
-    const height = 500;
+    const width = 700; // Reduced map size
+    const height = 400; // Reduced map size
 
     const projection = d3
       .geoMercator()
@@ -175,7 +176,6 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
         .attr("stroke", "#ffffff")
         .on("mouseover", function (event, d) {
           const countryName = d.properties?.name;
-          // Change hover color to theme's purple
           d3.select(this).attr("fill", "#6366f1");
           tooltip
             .style("opacity", 1)
@@ -185,7 +185,7 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
         })
         .on("mouseout", function (d) {
           const countryName = d.properties?.name;
-          // Reset to original color after mouseout
+          // Always keep refugee countries highlighted
           d3.select(this).attr(
             "fill",
             highlightedCountries.includes(countryName) ? "#6366f1" : "#D3D3D3"
@@ -214,29 +214,28 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
   return (
     <div
       style={{
-        height: "90vh",
+        height: "80vh", // Reduced height to center map more
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
-      <CountrySearch onCountrySelect={onCountrySelect} />
-
+      <CountrySearch onCountrySelect={onCountrySelect} />{" "}
       <div
         className="map-container"
         style={{
           display: "flex",
           flexDirection: "row",
-          alignItems: "center",
+          alignItems: "flex-start",
           justifyContent: "center",
-          paddingLeft: "40px",
+          paddingLeft: "20px",
+          borderLeft: "1px solid #d3d3d3",
         }}
       >
         <NutritionMapInfo />
-
-        <svg ref={svgRef} width={900} height={500}></svg>
-
+        <svg ref={svgRef} width={700} height={400}></svg>{" "}
+        {/* Adjusted SVG size */}
         <div
           ref={tooltipRef}
           style={{

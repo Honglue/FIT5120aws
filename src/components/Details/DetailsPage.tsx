@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import earth from "../../../public/images/earth-icon.jpg";
 import info from "../../../public/images/info-icon.jpg";

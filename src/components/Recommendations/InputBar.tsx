@@ -4,7 +4,7 @@ import FilterDropdown from "./FilterDropdown";
 import { FaUpload } from "react-icons/fa";
 import ImageRecognition from "./Image";
 import iso31661 from "iso-3166-1";
-
+import CountryFilter from "./CountryFilter";
 interface InputBarProps {
   onSearch: (ingredients: string, filters: any) => void;
   loading: boolean;
@@ -131,23 +131,12 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
           options={cuisineTypes}
           selectedOptions={selectedCuisineType}
           setSelectedOptions={setSelectedCuisineType}
-          isOpen={openDropdown === "cuisine"} // Open if the dropdown is the cuisine one
-          onOpen={() => setOpenDropdown("cuisine")} // Set open dropdown to cuisine
-          onClose={() => setOpenDropdown(null)} // Close dropdown
+          isOpen={openDropdown === "cuisine"}
+          onOpen={() => setOpenDropdown("cuisine")}
+          onClose={() => setOpenDropdown(null)}
         />
 
-        <FilterDropdown
-          label="Country"
-          options={[]}
-          selectedOptions={[]}
-          setSelectedOptions={() => {}}
-          isMultiSelect={false}
-          isCountrySelect={true}
-          onCountrySelect={handleCountrySelect}
-          isOpen={openDropdown === "country"} // Open if the dropdown is the country one
-          onOpen={() => setOpenDropdown("country")} // Set open dropdown to country
-          onClose={() => setOpenDropdown(null)} // Close dropdown
-        />
+        <CountryFilter onCountrySelect={handleCountrySelect} />
       </div>
 
       <form onSubmit={handleSubmit} className="input-bar-form">
@@ -163,7 +152,7 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
               id="file-input"
               accept="image/*"
               onChange={handleFileChange}
-              multiple // Allow multiple images
+              multiple
               style={{ display: "none" }}
               disabled={images.length >= 3}
             />
@@ -189,9 +178,9 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
           <ImageRecognition
             key={index}
             image={image}
-            onLabelsExtracted={(labels) => handleLabelsFromImage(labels, index)} // Pass the index to handle labels for the correct image
+            onLabelsExtracted={(labels) => handleLabelsFromImage(labels, index)}
             onRemoveImage={() => handleRemoveImage(index)}
-            label={labelsForImages[index]?.join(", ") || ""} // Display the labels for each image
+            label={labelsForImages[index]?.join(", ") || ""}
           />
         ))}
       </div>
