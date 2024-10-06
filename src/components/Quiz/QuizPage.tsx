@@ -100,7 +100,7 @@ interface Question {
 }
 
 interface QuizPageProps {
-  finishQuiz: (finalScore: number) => void; // Pass final score to summary
+  finishQuiz: (finalScore: number) => void;
   goToWelcome: () => void;
 }
 
@@ -108,42 +108,37 @@ const QuizPage: React.FC<QuizPageProps> = ({ finishQuiz, goToWelcome }) => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showSolution, setShowSolution] = useState<boolean>(false);
-  const [score, setScore] = useState<number>(0); // Track the score
+  const [score, setScore] = useState<number>(0);
 
-  // Handle answer selection
   const handleAnswerSelection = (option: string) => {
     if (!showSolution) {
       setSelectedAnswer(option);
     }
   };
 
-  // Check solution and update score
   const checkSolution = () => {
     setShowSolution(true);
     if (selectedAnswer === questions[currentQuestion].correctAnswer) {
-      setScore((prevScore) => prevScore + 1); // Increment score for correct answer
+      setScore((prevScore) => prevScore + 1);
     }
   };
 
-  // Move to the next question
   const nextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
     } else {
-      finishQuiz(score); // Finish quiz and pass the final score
+      finishQuiz(score);
     }
     setSelectedAnswer(null);
     setShowSolution(false);
   };
 
-  // Move to the previous question
   const previousQuestion = () => {
     setCurrentQuestion((prev) => Math.max(prev - 1, 0));
     setSelectedAnswer(null);
     setShowSolution(false);
   };
 
-  // Handle navigation from the navigation bar
   const goToQuestion = (index: number) => {
     if (index >= 0 && index < questions.length) {
       setCurrentQuestion(index);
@@ -190,7 +185,6 @@ const QuizPage: React.FC<QuizPageProps> = ({ finishQuiz, goToWelcome }) => {
                 {currentQuestion < questions.length - 1 ? (
                   <>
                     Next <i className="fas fa-arrow-right"></i>{" "}
-                    {/* Right arrow */}
                   </>
                 ) : (
                   "Finish Quiz"
@@ -202,17 +196,20 @@ const QuizPage: React.FC<QuizPageProps> = ({ finishQuiz, goToWelcome }) => {
 
         {showSolution && (
           <div className="solution-section">
-            <h3 style={{ fontWeight: "medium" }}>Answer</h3>
+            <h3 style={{ fontWeight: "normal" }}>Answer</h3>
             <p>
               {questions[currentQuestion].correctAnswer === selectedAnswer
                 ? "Correct!"
                 : "Incorrect!"}
             </p>
+            <hr /> {/* Divider between Correct answer and Explanation */}
+            <h4>Correct answer</h4>
             <p>
-              Correct answer:{" "}
-              <strong>{questions[currentQuestion].correctAnswer}</strong>
+              <p>{questions[currentQuestion].correctAnswer}</p>
             </p>
-            <p>Explanation: {questions[currentQuestion].explanation}</p>
+            <hr /> {/* Divider between Explanation section */}
+            <h4>Explanation</h4>
+            <p>{questions[currentQuestion].explanation}</p>
           </div>
         )}
       </div>
@@ -221,8 +218,10 @@ const QuizPage: React.FC<QuizPageProps> = ({ finishQuiz, goToWelcome }) => {
       <NavigationBar
         questions={questions}
         currentQuestion={currentQuestion}
-        goToQuestion={goToQuestion}
         goToWelcome={goToWelcome}
+        goToQuestion={goToQuestion}
+        finishQuiz={finishQuiz}
+        score={score}
       />
     </div>
   );

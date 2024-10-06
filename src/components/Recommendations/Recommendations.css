@@ -1,12 +1,11 @@
 .recommend-page-container {
   width: 95%;
-  margin: 0 auto;
+  margin: 20px auto 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  margin-top: 20px;
 }
 
 .sticky-input-bar {
@@ -14,18 +13,17 @@
   text-align: center;
 }
 
+/* Results Layout */
 .results-container {
   width: 100%;
   min-height: 100vh;
-  margin-top: 10px;
   display: flex;
-  justify-content: center; /* Center the content horizontally */
+  justify-content: center;
 }
 
 .results-content {
   width: 100%;
-  max-width: 1500px; /* Reduced max width */
-  padding: 20px;
+  max-width: 1500px;
   margin: 0 auto; /* Center horizontally */
 }
 
@@ -36,34 +34,37 @@
   justify-content: center; /* Ensure grid items are centered */
 }
 
+/* Error Message */
 .error-message {
   color: red;
   text-align: center; /* Center the error message */
 }
 
+/* Recommendation Cards */
 .recommendations-card {
   border: 1px solid #ccc;
-  padding: 25px;
-  border-radius: 20px;
+  padding: 20px;
+  border-radius: 15px;
   height: 500px;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-/* Style for the read-more button */
+/* Read More Button */
 .read-more {
-  cursor: pointer; /* Makes it look clickable */
-  text-decoration: underline; /* Adds underline */
-  color: #6366f1; /* Optional: you can make it blue to resemble a link */
+  cursor: pointer;
+  text-decoration: underline;
+  color: #6366f1; /* Optional: Blue to resemble a link */
 }
 
 .read-more:hover {
-  color: #575ad8; /* Optional: Changes color on hover */
+  color: #575ad8; /* Hover color */
   text-decoration: underline; /* Ensure underline remains on hover */
 }
 
-/* Modal Overlay */
+/* Modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -77,7 +78,6 @@
   z-index: 1000;
 }
 
-/* Modal Content */
 .modal-content {
   background-color: white;
   padding: 20px;
@@ -86,10 +86,9 @@
   max-width: 600px;
   position: relative;
   z-index: 1001;
-  margin: 0 auto; /* Center modal content */
+  margin: 0 auto;
 }
 
-/* Modal Header */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -104,14 +103,13 @@
   cursor: pointer;
 }
 
-/* Modal Body */
 .modal-body {
   text-align: left;
   max-height: 400px;
   overflow-y: auto;
 }
 
-/* Enlarge image */
+/* Card Image */
 .card-image {
   width: 60%; /* Enlarge image to fit width */
   height: 200px;
@@ -119,17 +117,66 @@
   margin-bottom: 15px;
 }
 
-/* Add section borders */
+/* Section Borders */
 hr {
   border: 0;
   height: 1px;
-  background-color: #ccc; /* Light gray line */
+  background-color: #ccc;
   margin: 20px 0; /* Add spacing around the lines */
 }
 
-/* Bold section titles */
+/* Section Titles */
 h3,
 h4 {
   font-weight: bold;
   margin-bottom: 10px;
+}
+
+/* Recommendations Container */
+.recommendations-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.recommendation-box {
+  flex: 1;
+  width: 200px;
+  height: 190px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.recommendation-box span {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+  color: #6366f1; /* Colored text */
+}
+
+.recommendation-box p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Diet Summary Box */
+.diet-summary-box {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  max-width: 750px;
+  margin: 5px auto;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.diet-summary-box p {
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 16px;
 }

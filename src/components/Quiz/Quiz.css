@@ -1,5 +1,5 @@
 .quiz {
-  min-height: 100vh;
+  min-height: 80vh;
 }
 
 .quiz-container {
@@ -196,7 +196,7 @@ button:hover {
 .navigation-bar {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 16px;
   border-top: 1px solid #ddd;
   margin-top: 20px;
 }
@@ -221,7 +221,7 @@ button:hover {
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin: 0 5px;
-  background-color: #3b40ce;
+  background-color: #6366f1;
 }
 
 .nav-btn:hover {
@@ -229,7 +229,7 @@ button:hover {
 }
 
 .nav-btn.active {
-  background-color: #3b40ce;
+  background-color: #6366f1;
 }
 
 .nav-questions {

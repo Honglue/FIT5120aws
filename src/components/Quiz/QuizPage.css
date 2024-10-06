@@ -1,6 +1,6 @@
 .quiz-container {
   width: 100%;
-  min-height: 80vh;
+  max-height: 80vh;
   display: flex;
   justify-content: space-between;
   padding: 20px;
@@ -14,42 +14,49 @@
   text-align: left; /* Aligns text to the left */
 }
 
-.question-section {
-  width: 50%;
-  padding-right: 20px;
-}
+/* .question-section {
+  width: 55%;
+  padding-left: 30px;
+  border-right: 1px solid #ddd;
+} */
 
 .solution-section {
   width: 40%;
+  max-height: 50vh;
   margin-left: 20px;
-  border: 1px solid #ddd;
+  position: relative; /* Allows for positioning of blurry circles */
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
+  background: transparent;
+  /* background: rgba(255, 255, 255, 0.6); Glass-like effect */
+  border-radius: 15px;
+  backdrop-filter: blur(15px);
+  /* border: none !important; */
+  overflow: hidden;
 }
 
 .option {
   padding: 10px 15px;
   margin: 10px 0;
-  border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-align: left;
+  background: none;
+  border: none;
 }
 
 .option:hover {
-  background-color: #f0f0f0;
+  background-color: rgba(240, 240, 240, 0.8);
 }
 
 .option.selected {
-  background-color: #e0e7ff;
+  background-color: rgba(224, 231, 255, 0.8); /* Glass-like background */
   border-color: #6366f1;
 }
 
 .disabled-option {
   cursor: not-allowed;
-  background-color: #f8f8f8;
+  background-color: rgba(248, 248, 248, 0.8);
 }
 
 .check-btn,
@@ -121,4 +128,18 @@ button:hover {
 
 .prev-btn {
   margin-right: 10px;
+}
+
+/* Styles for the hr element to create a subtle divider */
+.solution-section hr {
+  border: none; /* Removes default styling */
+  border-top: 1px solid darkgray; /* Light gray solid line */
+  margin: 15px 0; /* Add space around the divider */
+}
+
+/* Styles for the h4 elements (section headers) */
+.solution-section h4 {
+  font-weight: medium;
+  font-size: 16px; /* Slightly smaller than h3 */
+  margin-bottom: 5px;
 }
