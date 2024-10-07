@@ -3,7 +3,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: "20px";
 }
 
 .input-bar-form {
@@ -15,7 +14,7 @@
   height: "20px";
   border-radius: 35px;
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
@@ -26,7 +25,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   gap: 10px;
 }
 
@@ -37,15 +36,18 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  max-width: 800px;
+  max-width: 700px;
   gap: 10px;
 }
 
+/* Container for the icon buttons */
 .icon-buttons {
   display: flex;
   align-items: center;
+  position: relative; /* Required for the tooltip positioning */
 }
 
+/* Style for the upload button */
 .icon-button {
   background-color: #6366f1;
   border: none;
@@ -56,12 +58,39 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: relative; /* Ensure positioning for the tooltip */
 }
 
+/* Tooltip styling */
+.icon-button::after {
+  content: "Upload images of ingredients. Maximum 3 images allowed";
+  position: absolute;
+  bottom: 125%; /* Position the tooltip above the button */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* Prevent mouse interactions with the tooltip */
+  z-index: 1; /* Ensure it appears on top */
+}
+
+/* Show tooltip on hover */
+.icon-button:hover::after {
+  opacity: 1; /* Make the tooltip visible */
+}
+
+/* Hover state for the icon button */
 .icon-button:hover {
-  background-color: #cccccc;
+  background-color: #575ad8;
 }
 
+/* Disabled state styling for the icon button */
 .icon-button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
@@ -95,6 +124,7 @@
 .search-button:disabled {
   background-color: #a3a3f1;
   cursor: not-allowed;
+  color: #fff;
 }
 
 .input-with-labels-container {

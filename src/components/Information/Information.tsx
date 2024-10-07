@@ -32,7 +32,7 @@ const Information: React.FC = () => {
       <main>
         <div className="content-center">
           <div className="hero-content">
-            <h1>
+            <h1 style={{ fontWeight: "500" }}>
               Essential Nutrition Guidelines <br />
               and Health Information
             </h1>
@@ -52,6 +52,7 @@ const Information: React.FC = () => {
             <div className="info-block">
               <h3
                 onClick={() => toggleSection("guideline1")}
+                style={{ fontWeight: "500" }}
                 className="expandable-title"
               >
                 Australian Guidelines for Healthy Eating{" "}
@@ -108,6 +109,7 @@ const Information: React.FC = () => {
 
             <div className="info-block">
               <h3
+                style={{ fontWeight: "500" }}
                 onClick={() => toggleSection("guideline2")}
                 className="expandable-title"
               >
@@ -157,7 +159,7 @@ const Information: React.FC = () => {
                 of Health Information
               </h2>
             </div>
-            <div className="button-container">
+            <div className="info-button-container">
               <button
                 className="btn btn-custom btn-primary"
                 onClick={handleDownload}

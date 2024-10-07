@@ -33,25 +33,28 @@ function DetailsPage() {
           <p>Check nutrition deficiencies from your origin country</p>
         </div>
 
-        <div className="details-card" onClick={() => navigate("/information")}>
+        <div className="details-card" onClick={() => navigate("/indicator")}>
           <img src={indicator} alt="indicator" />
           <h4>Nutrition Indicator</h4>
           <p>Access important health-related info and support resources</p>
         </div>
 
-        <div className="details-card" onClick={() => navigate("/recommend")}>
+        <div
+          className="details-card"
+          onClick={() => navigate("/recommendations")}
+        >
           <img src={reward} alt="reward" />
           <h4>Dish Recommender</h4>
           <p>Find out how to improve your children's nutrition</p>
         </div>
 
-        <div className="details-card" onClick={() => navigate("/recommend")}>
+        <div className="details-card" onClick={() => navigate("/information")}>
           <img src={info} alt="info" />
           <h4>Nutrition Info</h4>
           <p>Access important health-related info and support resources</p>
         </div>
 
-        <div className="details-card" onClick={() => navigate("/recommend")}>
+        <div className="details-card" onClick={() => navigate("/quiz")}>
           <img src={idea} alt="idea" />
           <h4>Nutrition Quiz</h4>
           <p>Assess your nutrition knowledge to learn more</p>

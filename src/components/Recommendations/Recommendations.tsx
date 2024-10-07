@@ -8,7 +8,8 @@ const Recommendations: React.FC = () => {
   const [recipes, setRecipes] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [filteredData, setFilteredData] = useState<any[]>([]);
+  const [countryFilter, setCountryFilter] = useState<string>("");
+  const [isInputNotNone, setIsInputNotNone] = useState<boolean>(false);
 
   // State for diet labels
   const [dietLabels, setDietLabels] = useState({
@@ -129,7 +130,6 @@ const Recommendations: React.FC = () => {
       );
       const data = await response.json();
       const parsedData = JSON.parse(data.body);
-      setFilteredData(parsedData);
 
       // Process the nutrition data and update diet labels
       const processedData = processNutritionData(parsedData);
@@ -216,6 +216,16 @@ const Recommendations: React.FC = () => {
   };
 
   const handleSearch = async (ingredients: string, filters: any) => {
+    const hasIngredients = ingredients.trim() !== "";
+    const hasFilters =
+      filters &&
+      (filters.cuisineType?.length > 0 ||
+        filters.healthLabels?.length > 0 ||
+        filters.country_id);
+
+    setCountryFilter(filters.country_id);
+    setIsInputNotNone(hasIngredients || hasFilters);
+
     // Reset the error and recipes
     setError(null);
     setRecipes([]);
@@ -239,84 +249,110 @@ const Recommendations: React.FC = () => {
       {/* Search by Ingredients Input Bar */}
       <InputBar onSearch={handleSearch} loading={loading} />
 
-      {/* Show loading spinner or message */}
-
-      <div style={{ height: "40vh", width: "100%" }}>
-        {loading && <Loading />}
-      </div>
-
-      {/* Display error message */}
-      {error && !loading && <p className="error-message">{error}</p>}
-
-      {/* Display search results in Card component */}
       <div className="results-container">
+        {/* Show loading spinner or message */}
+        {loading && (
+          <div style={{ height: "50vh", width: "100%" }}>
+            <Loading />
+          </div>
+        )}
+
+        {/* Display error message */}
+        {error && !loading && <p className="error-message">{error}</p>}
+
+        {/* Display search results in Card component */}
         {!loading && recipes.length > 0 && (
           <div className="results-content">
-            <div className="diet-summary-box">
-              <h4 style={{ fontSize: "20px" }}>Recommended Dietary</h4>
-              <p>
-                The following dishes are recommended based on your selected
-                country, as your country has:
-              </p>
-              {dietLabels["High-Fiber"] === 1 && (
-                <p>
-                  • A low intake of fiber. We have suggested increasing
-                  consumption of fiber-rich foods such as beans, legumes, and
-                  whole grains.
-                </p>
-              )}
-              {dietLabels["High-Protein"] === 1 && (
-                <p>
-                  • A low intake of protein. We have recommended incorporating
-                  more protein-rich foods like nuts, seeds, and unprocessed
-                  meats.
-                </p>
-              )}
-              {dietLabels["Low-Fat"] === 1 && (
-                <p>
-                  • A high intake of fats. We have recommended low-fat foods and
-                  reducing saturated fats and processed meats.
-                </p>
-              )}
-              {dietLabels["Low-Sodium"] === 1 && (
-                <p>
-                  • A high intake of sodium. Limiting processed meats and added
-                  sugars will help lower sodium levels.
-                </p>
-              )}
-              {/* If none of the labels are 1 */}
-              {Object.values(dietLabels).every((label) => label === 0) && (
-                <p>
-                  Your country meets the recommended intake levels for fiber,
-                  protein, fat, and sodium. Keep up the balanced diet!
-                </p>
-              )}
-            </div>
+            {countryFilter && (
+              <div className="diet-summary-box">
+                <h4 style={{ fontWeight: "500" }}>
+                  Dietary Adjustments per Australian Standards
+                </h4>
+                {!Object.values(dietLabels).every((label) => label === 0) && (
+                  <p>
+                    We've recommended some of the dishes below because your
+                    selected country has:
+                  </p>
+                )}
 
-            <h4 style={{ textAlign: "left", fontWeight: "bold" }}>
-              Dishes Results
+                {dietLabels["High-Fiber"] === 1 && (
+                  <p>
+                    <span style={{ color: "#6366f1" }}>Low fiber intake</span>.
+                    Consider increasing foods like beans, legumes, and whole
+                    grains.
+                  </p>
+                )}
+                {dietLabels["High-Protein"] === 1 && (
+                  <p>
+                    {" "}
+                    <span style={{ color: "#6366f1" }}>Low protein intake</span>
+                    . We suggest adding more nuts, seeds, and unprocessed meats.
+                  </p>
+                )}
+                {dietLabels["Low-Fat"] === 1 && (
+                  <p>
+                    <span style={{ color: "#6366f1" }}>High fat intake</span>.
+                    Opt for low-fat foods and reduce saturated fats and
+                    processed meats.
+                  </p>
+                )}
+                {dietLabels["Low-Sodium"] === 1 && (
+                  <p>
+                    <span style={{ color: "#6366f1" }}>High sodium levels</span>
+                    . Limiting processed meats and added sugars can help.
+                  </p>
+                )}
+                {/* If none of the labels are 1 */}
+                {Object.values(dietLabels).every((label) => label === 0) && (
+                  <p>
+                    Your country meets the recommended levels for fiber,
+                    protein, fat, and sodium. Great job maintaining a balanced
+                    diet!
+                  </p>
+                )}
+              </div>
+            )}
+
+            <h4
+              style={{
+                textAlign: "left",
+                fontWeight: "500",
+                paddingLeft: "20px",
+              }}
+            >
+              Recommended Dishes
             </h4>
+
             <div className="recommend-page">
-              {recipes.map((recipe, index) => (
-                <Card key={index} data={recipe} />
-              ))}
+              {recipes.map((recipe, index) => {
+                const countryDietLabels = Object.keys(dietLabels).filter(
+                  (key) => dietLabels[key as keyof typeof dietLabels] === 1
+                );
+
+                return (
+                  <Card
+                    key={index}
+                    data={recipe}
+                    countryDietLabels={countryDietLabels}
+                  />
+                );
+              })}
             </div>
           </div>
         )}
 
         {/* Display no results message when recipes are empty */}
-        {/* {!loading && recipes.length === 0 && !error && (
+        {!loading && isInputNotNone && recipes.length === 0 && !error && (
           <div className="no-results">
-            <h4>No results found.</h4>
+            <h4 style={{ fontWeight: "medium" }}>No results found.</h4>
             <p>
               Please try again with different ingredients or remove some of the
               filters.
             </p>
           </div>
-        )} */}
+        )}
 
-        {/* Show placeholder boxes when no search has been made */}
-        {!loading && recipes.length === 0 && !error && (
+        {!loading && !isInputNotNone && recipes.length === 0 && !error && (
           <div className="recommendations-container">
             <div className="recommendation-box">
               <span>Get Dish Recommendations</span>
@@ -335,13 +371,6 @@ const Recommendations: React.FC = () => {
               <p>
                 Upload an image of an ingredient and we will help identify it
                 and include in search.
-              </p>
-            </div>
-
-            <div className="recommendation-box">
-              <span>Track Nutrition</span>
-              <p>
-                We help you track missing nutrients and suggest the best dishes.
               </p>
             </div>
           </div>

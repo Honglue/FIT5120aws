@@ -1,0 +1,228 @@
+/* Card container styles */
+.recommendations-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  border: none;
+  border-radius: 0px;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 5px;
+  padding: 20px;
+  padding-top: 30px;
+  height: 180px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+}
+
+/* CSS for the title text with max 3 lines and ellipsis */
+.title-text {
+  text-align: left;
+  font-size: 18px;
+  font-weight: 500;
+  /* height: 60px; */
+  padding-top: 10px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+/* Card hover effect */
+.recommendations-card:hover {
+  background-color: #f3f3f3;
+}
+
+/* Image styles */
+.card-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 2px;
+  margin-right: 20px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Content styles */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.content h5 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* Dietary label styles */
+.diet-label {
+  padding: 4px 6px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 5px;
+  position: relative; /* For tooltip positioning */
+}
+
+/* Tooltip styling */
+.diet-label[title]::after {
+  content: attr(title); /* Displays the tooltip text */
+  position: absolute;
+  top: -100%; /* Position the tooltip above the label */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  white-space: normal; /* Allow multiline text */
+  max-width: 280px; /* Maximum width for better line wrapping */
+  text-align: left;
+  font-size: 12px;
+  z-index: 1000;
+  opacity: 0; /* Hidden by default */
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Tooltip arrow styling */
+.diet-label[title]::before {
+  content: "";
+  position: absolute;
+  top: -6px; /* Adjust arrow position to align with tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent; /* Arrow pointing down */
+  z-index: 999;
+  opacity: 0; /* Hidden by default */
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show tooltip on hover */
+.diet-label[title]:hover::after,
+.diet-label[title]:hover::before {
+  opacity: 1; /* Show tooltip */
+  visibility: visible; /* Make tooltip visible */
+}
+
+.modal-body {
+  padding-top: 20px;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+/* Container to hold the image and info side by side */
+.image-info-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* Adjust the size of the image */
+.modal-image {
+  width: 225px;
+  height: 225px;
+  object-fit: cover;
+  /* border-radius: 10px; */
+}
+
+/* Information section on the right of the image */
+.info-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Container to display the diet labels */
+.diet-label-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* Dietary label styles */
+.diet-label {
+  padding: 4px 6px;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.modal-body h4,
+h5 {
+  font-weight: normal;
+}
+
+.modal-body p {
+  font-size: 16px;
+}
+
+/* Divider for each section */
+.section-divider {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 10px 0; /* Reduced margin to make sections closer */
+}
+
+/* Nutrition information grid layout */
+.nutrition-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Three columns layout */
+  gap: 10px;
+}
+
+.nutrition-header {
+  color: #555; /* Dark grey header color */
+  font-size: 14px;
+  margin: 0;
+}
+
+.nutrition-value {
+  color: #000; /* Black value color */
+  font-size: 16px;
+  margin: 0;
+}
+
+.ingredients-section p,
+.nutrition-section {
+  margin: 0; /* Remove extra margin for closer spacing */
+}
+
+.info-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.diet-label-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.nutrition-grid-item {
+  background: #f6f6f6;
+  border-radius: 6px;
+  padding: 10px;
+}

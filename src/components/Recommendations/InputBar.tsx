@@ -5,6 +5,7 @@ import { FaUpload } from "react-icons/fa";
 import ImageRecognition from "./Image";
 import iso31661 from "iso-3166-1";
 import CountryFilter from "./CountryFilter";
+
 interface InputBarProps {
   onSearch: (ingredients: string, filters: any) => void;
   loading: boolean;
@@ -13,14 +14,13 @@ interface InputBarProps {
 const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
   const [input, setInput] = useState<string>("");
   const [images, setImages] = useState<File[]>([]);
-  const [labelsForImages, setLabelsForImages] = useState<string[][]>([]); // Store labels for each image
-
+  const [labelsForImages, setLabelsForImages] = useState<string[][]>([]);
   const [selectedHealthLabels, setSelectedHealthLabels] = useState<string[]>(
     []
   );
   const [selectedCuisineType, setSelectedCuisineType] = useState<string[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null); // Keep track of the open dropdown
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const healthLabels = [
     "Pork-Free",
@@ -29,7 +29,6 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
     "Gluten-Free",
     "Low-Sugar",
   ];
-
   const cuisineTypes = [
     "American",
     "Asian",
@@ -63,9 +62,14 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const combinedInput = `${input} ${labelsForImages
+    const lowerCaseInput = input.toLowerCase().trim();
+    const lowerCaseLabelsForImages = labelsForImages
       .flat()
-      .join(", ")}`.trim(); // Combine all labels for all images
+      .map((label) => label.toLowerCase())
+      .join(", ");
+    const combinedInput = [lowerCaseInput, lowerCaseLabelsForImages]
+      .filter(Boolean)
+      .join(", ");
     const lowerCaseHealthLabels = selectedHealthLabels.map((label) =>
       label.toLowerCase()
     );
@@ -83,7 +87,7 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
   const handleLabelsFromImage = (labels: string[], index: number) => {
     setLabelsForImages((prevLabels) => {
       const newLabels = [...prevLabels];
-      newLabels[index] = labels; // Set labels for the current image
+      newLabels[index] = labels;
       return newLabels;
     });
   };
@@ -91,18 +95,15 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const newImages = Array.from(event.target.files);
-
-      // Only allow if total number of images is less than or equal to 3
       if (images.length + newImages.length > 3) {
         alert("You can only upload up to 3 images.");
         return;
       }
-
       setImages((prevImages) => [...prevImages, ...newImages]);
       setLabelsForImages((prevLabels) => [
         ...prevLabels,
         ...newImages.map(() => []),
-      ]); // Add empty labels for new images
+      ]);
     }
   };
 
@@ -110,7 +111,11 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
     setLabelsForImages((prevLabels) =>
       prevLabels.filter((_, i) => i !== index)
-    ); // Remove corresponding labels
+    );
+  };
+
+  const isFormEmpty = () => {
+    return input.trim() === "" && labelsForImages.flat().length === 0;
   };
 
   return (
@@ -121,9 +126,9 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
           options={healthLabels}
           selectedOptions={selectedHealthLabels}
           setSelectedOptions={setSelectedHealthLabels}
-          isOpen={openDropdown === "health"} // Open if the dropdown is the health one
-          onOpen={() => setOpenDropdown("health")} // Set open dropdown to health
-          onClose={() => setOpenDropdown(null)} // Close dropdown
+          isOpen={openDropdown === "health"}
+          onOpen={() => setOpenDropdown("health")}
+          onClose={() => setOpenDropdown(null)}
         />
 
         <FilterDropdown
@@ -140,7 +145,7 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
       </div>
 
       <form onSubmit={handleSubmit} className="input-bar-form">
-        <div className="icon-buttons">
+        <div className="icon-buttons" title="Maximum 3 images allowed">
           <button
             type="button"
             className="icon-button"
@@ -168,7 +173,11 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
           placeholder="Type ingredients here"
         />
 
-        <button type="submit" className="search-button" disabled={loading}>
+        <button
+          type="submit"
+          className="search-button"
+          disabled={loading || isFormEmpty()}
+        >
           Search
         </button>
       </form>
@@ -186,8 +195,8 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
       </div>
 
       {images.length <= 0 && (
-        <p style={{ width: "580px", textAlign: "left" }}>
-          You can only upload only up to 3 images
+        <p style={{ width: "680px", textAlign: "left", color: "#343434" }}>
+          Separate ingredients by comma or space
         </p>
       )}
     </div>

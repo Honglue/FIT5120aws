@@ -8,8 +8,8 @@ interface InputBarProps {
     ageValue: number | null,
     errorMessage: string | null
   ) => void;
-  loading: boolean; // Pass loading state
-  setLoading: (loading: boolean) => void; // Setter for loading state
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 const InputBar: React.FC<InputBarProps> = ({
@@ -17,60 +17,45 @@ const InputBar: React.FC<InputBarProps> = ({
   loading,
   setLoading,
 }) => {
-  const [age, setAge] = useState<number | "">(""); // State for age
-  const [gender, setGender] = useState<string>("Select"); // Default gender value is male
-  const [height, setHeight] = useState<number | "">(""); // State for height
-  const [weight, setWeight] = useState<number | "">(""); // State for weight
+  const [age, setAge] = useState<number | "">("");
+  const [gender, setGender] = useState<string>("Select");
+  const [height, setHeight] = useState<number | "">("");
+  const [weight, setWeight] = useState<number | "">("");
   const [closestPercentile, setClosestPercentile] = useState<string | null>(
     null
-  ); // To store API response
-  const [bmi, setBmi] = useState<number | null>(null); // To store calculated BMI
-  const [bmiPercentage, setBmiPercentage] = useState<string | null>(null); // To store BMI percentile as a percentage
-  const [error, setError] = useState<string | null>(null); // Error handling
-  
+  );
+  const [bmi, setBmi] = useState<number | null>(null);
+  const [bmiPercentage, setBmiPercentage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [bmiC, setBmiC] = useState<number | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!age || age <= 0 || age >= 19) {
       setError("Please input age between 1 and 18.");
-      // onResult(
-      //   null,
-      //   null,
-      //   null,
-      //   "Please fill in all fields, and ensure age is between 1 and 19."
-      // );
       return;
     }
 
     if (!height || !weight) {
       setError("Please fill in all fields");
-      // onResult(
-      //   null,
-      //   null,
-      //   null,
-      //   "Please fill in all fields, and ensure age is between 1 and 19."
-      // );
       return;
     }
 
     if (weight > 200) {
       setError("Please enter a weight less than 200 kg.");
-      // onResult(null, null, null, "Weight must be less than 200 kg.");
       return;
     }
 
     if (height > 200) {
       setError("Please enter a height less than 200 cm.");
-      // onResult(null, null, null, "Height must be less than 200 cm.");
       return;
     }
 
-    setLoading(true); // Start loading when the form is submitted
-
+    setLoading(true);
     const formattedGender = gender === "male" ? "boy" : "girl";
     const calculatedBmi = weight / ((height / 100) * (height / 100));
-    setBmi(calculatedBmi); // Store the calculated BMI in the state
+    setBmi(calculatedBmi);
 
     try {
       const response = await fetch(
@@ -87,16 +72,13 @@ const InputBar: React.FC<InputBarProps> = ({
       );
 
       const data = await response.json();
-      console.log(data);
-      console.log('gender', gender);
       if (response.ok) {
         setClosestPercentile(data.body);
         const percentileValue = data.body.replace("P", "") + "%";
         setBmiC(parseFloat(data.body.replace("P", "")));
-        
-        setBmiPercentage(percentileValue); // Store the percentage value
+        setBmiPercentage(percentileValue);
         setError(null);
-        onResult(data.body, gender, age, null); // Pass the data to the parent component
+        onResult(data.body, gender, age, null);
       } else {
         setError("Failed to fetch data. Please try again.");
         onResult(null, null, null, "Failed to fetch data. Please try again.");
@@ -105,52 +87,37 @@ const InputBar: React.FC<InputBarProps> = ({
       setError("Failed to fetch data. Please try again.");
       onResult(null, null, null, "Failed to fetch data. Please try again.");
     } finally {
-      setLoading(false); // Stop loading after the API response is received
+      setLoading(false);
     }
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit} className="recommend-input-bar">
-        <div className="form-group" style={{ marginLeft: "20px" }}>
-          <label
-            style={{
-              textAlign: "left",
-              fontWeight: "bold",
-            }}
-            htmlFor="age"
-          >
-            Age
-          </label>
+        <div className="form-group">
+          <label htmlFor="age">Age</label>
           <input
-            style={{ width: "150px" }}
             id="age"
-            type="number"
+            type="text"
             value={age}
-            onChange={(e) => setAge(Number(e.target.value))}
-            placeholder="Enter age 1-18"
-            min="1"
-            max="18"
-            // required
+            onChange={(e) => {
+              const value = e.target.value.replace(/^0+/, "");
+              if (/^\d*$/.test(value)) {
+                setAge(value === "" ? "" : Number(value));
+              }
+            }}
+            placeholder="Enter 1-18"
+            required
           />
         </div>
 
         <div className="form-group">
-          <label
-            style={{
-              textAlign: "left",
-              fontWeight: "bold",
-              paddingRight: "20px",
-            }}
-            htmlFor="gender"
-          >
-            Gender
-          </label>
+          <label htmlFor="gender">Gender</label>
           <select
-            style={{ width: "100px" }}
             id="gender"
             value={gender}
             onChange={(e) => setGender(e.target.value)}
+            required
           >
             <option value="">Select</option>
             <option value="male">Male</option>
@@ -159,120 +126,93 @@ const InputBar: React.FC<InputBarProps> = ({
         </div>
 
         <div className="form-group">
-          <label style={{ textAlign: "left", fontWeight: "bold" }}>
-            Weight
-          </label>
-          <div className="input-with-label" style={{ width: "150px" }}>
-            <input
-              id="weight"
-              type="number"
-              value={weight}
-              onChange={(e) => setWeight(Number(e.target.value))}
-              placeholder="Enter weight in kg"
-              min={1}
-              required
-            />
-          </div>
+          <label htmlFor="weight">Weight</label>
+          <input
+            id="weight"
+            type="text"
+            value={weight}
+            onChange={(e) => {
+              const value = e.target.value.replace(/^0+/, "");
+              if (/^\d*$/.test(value)) {
+                setWeight(value === "" ? "" : Number(value));
+              }
+            }}
+            placeholder="Enter in kg"
+            required
+          />
         </div>
 
         <div className="form-group">
-          <label
-            style={{ textAlign: "left", fontWeight: "bold" }}
-            htmlFor="height"
-          >
-            Height
-          </label>
-          <div className="input-with-label" style={{ width: "150px" }}>
-            <input
-              id="height"
-              type="number"
-              value={height}
-              onChange={(e) => setHeight(Number(e.target.value))}
-              placeholder="Enter height in cm"
-              min={1}
-              required
-            />
-          </div>
+          <label htmlFor="height">Height</label>
+          <input
+            id="height"
+            type="text"
+            value={height}
+            onChange={(e) => {
+              const value = e.target.value.replace(/^0+/, "");
+              if (/^\d*$/.test(value)) {
+                setHeight(value === "" ? "" : Number(value));
+              }
+            }}
+            placeholder="Enter in cm"
+            required
+          />
         </div>
 
-        <button type="submit" disabled={loading}>
-          Calculate
+        <button
+          type="submit"
+          disabled={loading}
+          className={loading ? "loading" : ""}
+        >
+          {loading ? "Calculating..." : "Calculate"}
         </button>
       </form>
 
-      {error && (
-        <p
-          className="error-message"
-          style={{ color: "red", marginTop: "10px" }}
-        >
-          {error}
-        </p>
-      )}
+      {error && <p className="error-message">{error}</p>}
 
-      {closestPercentile && bmi && bmiPercentage && bmiC &&(
-        <div
-          className="result"
-          style={{
-            backgroundColor: "#fff",
-            padding: "20px",
-            border: "1px solid #ccc",
-            borderRadius: "15px",
-            marginTop: "20px",
-            textAlign: "center",
-            maxWidth: "60vw",
-            margin: "20px auto",
-          }}
-        >
-          <h3
-            style={{
-              textAlign: "left",
-              fontSize: "18px",
-              fontWeight: "400",
-              marginBottom: "8px",
-            }}
-          >
-            Your BMI:{" "}
-            <span
-              style={{ fontWeight: "bold", fontSize: "24px", color: "#6366f1" }}
-            >
-              {bmi.toFixed(2)}
-            </span>
-          </h3>
-          
-          {gender === 'male' && (
-            <p style={{ fontSize: "18px", fontWeight: "400", textAlign: "left" }}>
-            {bmiC < 1.2
-              ? "Your child is underweight."
-              : bmiC < 29
-              ? "Your child is normal weight."
-              : bmiC < 72
-              ? "Your child is overweight."
-              : "Your child is obese."}
+      {!loading && closestPercentile && bmi && bmiPercentage && bmiC && (
+        <div className="result">
+          <h4>Results</h4>
+          <p>
+            Your child's BMI: <span>{bmi.toFixed(2)}</span>
           </p>
-          )}
-          {gender === 'female' && (
-            <p style={{ fontSize: "18px", fontWeight: "400", textAlign: "left" }}>
-            {bmiC < 2.1
-              ? "Your child is underweight."
-              : bmiC < 43
-              ? "Your child is normal weight."
-              : bmiC < 73
-              ? "Your child is overweight."
-              : "Your child is obese."}
-          </p>
-          )}
 
-          <h3
-            style={{ fontSize: "18px", fontWeight: "400", textAlign: "left" }}
-          >
-            Your BMI is larger than{" "}
-            <span
-              style={{ fontWeight: "bold", fontSize: "24px", color: "#6366f1" }}
-            >
-              {bmiPercentage}
-            </span>{" "}
-            of people in the same age and gender.
-          </h3>
+          <p>
+            {gender === "male" && (
+              <>
+                {bmiC < 1.2 &&
+                  "Your child's BMI suggests they might be underweight. Consider consulting with a healthcare professional for guidance on achieving a balanced diet."}
+                {bmiC >= 1.2 &&
+                  bmiC < 29 &&
+                  "Great news! Your child's BMI is within a healthy range. Keep up the good habits!"}
+                {bmiC >= 29 &&
+                  bmiC < 72 &&
+                  "Your child's BMI indicates they might be slightly above the ideal range. A focus on balanced nutrition and regular activity could help."}
+                {bmiC >= 72 &&
+                  "Your child's BMI suggests they might be in the higher range. It might be beneficial to seek advice from a healthcare provider for personalized support."}
+              </>
+            )}
+
+            {gender === "female" && (
+              <>
+                {bmiC < 2.1 &&
+                  "Your child's BMI suggests they might be underweight. It could be a good idea to speak with a healthcare professional for tips on healthy nutrition."}
+                {bmiC >= 2.1 &&
+                  bmiC < 43 &&
+                  "Great news! Your child's BMI is in a healthy range. Keep encouraging those healthy habits!"}
+                {bmiC >= 43 &&
+                  bmiC < 73 &&
+                  "Your child's BMI is slightly higher than the ideal range. A balanced diet and regular exercise can make a difference."}
+                {bmiC >= 73 &&
+                  "Your child's BMI suggests they might be in the higher range. Consulting a healthcare professional for tailored advice could be very helpful."}
+              </>
+            )}
+          </p>
+
+          <p>
+            Compared to other children of the same age and gender, your child's
+            BMI is higher than <span>{bmiPercentage}</span> of their peers.
+          </p>
         </div>
       )}
     </div>

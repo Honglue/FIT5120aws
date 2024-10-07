@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import "./Recommendations.css";
+import "./Card.css";
 
-// Define the prop types for the card component
 interface RecipeCardProps {
   data: {
     name: string;
@@ -28,10 +27,30 @@ interface RecipeCardProps {
     totalTime: number;
     yield: number;
   };
+  countryDietLabels: string[];
 }
 
-const Card: React.FC<RecipeCardProps> = ({ data }) => {
-  const [isModalOpen, setModalOpen] = useState(false); // State for modal visibility
+const dietLabelTooltips: { [key: string]: string } = {
+  Balanced: "Healthy diet",
+  "High-Fiber": "Aid digestion",
+  "High-Protein": "Support muscle growth",
+  "Low-Carb": "Reduce sugar levels",
+  "Low-Fat": "For heart health",
+  "Low-Sodium": "Low in salt",
+};
+
+const dietLabelColors: { [key: string]: { background: string; text: string } } =
+  {
+    Balanced: { background: "#e0ffe0", text: "#4caf50" }, // Light Green with darker green text
+    "High-Fiber": { background: "#fff4e0", text: "#ff9800" }, // Light Orange with darker orange text
+    "High-Protein": { background: "#e0f7f7", text: "#00796b" }, // Light Teal with darker teal text
+    "Low-Carb": { background: "#e0f7ff", text: "#03a9f4" }, // Light Blue with darker blue text
+    "Low-Fat": { background: "#fff9e0", text: "#ffc107" }, // Light Yellow with darker yellow text
+    "Low-Sodium": { background: "#f0e0ff", text: "#9c27b0" }, // Light Purple with darker purple text
+  };
+
+const Card: React.FC<RecipeCardProps> = ({ data, countryDietLabels }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
     setModalOpen(true);
@@ -41,63 +60,80 @@ const Card: React.FC<RecipeCardProps> = ({ data }) => {
     setModalOpen(false);
   };
 
-  return (
-    <div className="recommendations-card">
-      <img
-        className="card-image"
-        src={data.image}
-        alt={data.name}
-        style={{
-          maxHeight: "150px",
-          maxWidth: "500px",
-          borderRadius: "10px",
-        }}
-      />
+  const matchingDietLabels =
+    Array.isArray(data.dietLabels) && Array.isArray(countryDietLabels)
+      ? data.dietLabels.filter((label) => countryDietLabels.includes(label))
+      : [];
 
-      {/* Title Bar */}
-      <div className="title-bar" style={{ textAlign: "left" }}>
-        <h5
-          style={{ fontSize: "22px", paddingTop: "10px", fontWeight: "bold" }}
-        >
-          {data.name}
-        </h5>
+  const dietaryFocusLabel =
+    matchingDietLabels.length > 0
+      ? matchingDietLabels.join(", ")
+      : data.dietLabels.length > 0
+      ? data.dietLabels[0]
+      : null;
+
+  return (
+    <div className="recommendations-card" onClick={openModal}>
+      <div>
+        <img className="card-image" src={data.image} alt={data.name} />
       </div>
 
-      {/* Content */}
-      <div
-        className="content"
-        style={{
-          textAlign: "left",
-          // maxHeight: "200px",
-          overflow: "hidden",
-          position: "relative",
-        }}
-      >
-        {/* <p>Ingredients: {data.ingredients.join(", ")}</p> */}
-        <p>Calories: {data.nutrition.calories?.toFixed(2)} kcal</p>
-        <p>Proteins: {data.nutrition.proteins?.toFixed(2)} g</p>
-        <p>Carbs: {data.nutrition.carbs?.toFixed(2)} g</p>
-        <p>Fats: {data.nutrition.fats?.toFixed(2)} g</p>
-        {/* <p>Fiber: {data.nutrition.fiber?.toFixed(2)} g</p>
-        <p>Sugar: {data.nutrition.sugar?.toFixed(2)} g</p>
-        <p>Vitamin A: {data.nutrition.vitaminA?.toFixed(2)} g</p>
-        <p>Vitamin C: {data.nutrition.vitaminC?.toFixed(2)} g</p>
-        <p>Calcium: {data.nutrition.calcium?.toFixed(2)} g</p>
-        <p>Sodium: {data.nutrition.sodium?.toFixed(2)} mg</p>  */}
+      <div>
+        {/* Title Bar */}
+        <div className="title-bar">
+          <h5 className="title-text">{data.name}</h5>
+        </div>
 
-        {/* <h4>Health Labels</h4>
-        <p>{data.healthLabels.join(", ")}</p> */}
+        {/* Content */}
+        <div
+          className="card-content"
+          style={{
+            textAlign: "left",
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <p style={{ color: "#363636" }}>
+            {data.nutrition.calories?.toFixed(2)} kcal
+          </p>
 
-        {/* <h4>Additional Info</h4>
-        <p>Cuisine Type: {data.cuisineType.join(", ")}</p>
-        <p>Meal Type: {data.mealType.join(", ")}</p>
-        <p>Total Time: {data.totalTime} minutes</p>
-        <p>Yield: {data.yield} servings</p> */}
+          {dietaryFocusLabel && (
+            <p>
+              <span
+                className="diet-label"
+                title={
+                  dietLabelTooltips[dietaryFocusLabel.split(", ")[0]] || ""
+                }
+                style={{
+                  backgroundColor:
+                    dietLabelColors[dietaryFocusLabel.split(", ")[0]]
+                      ?.background || "#ddd",
+                  color:
+                    dietLabelColors[dietaryFocusLabel.split(", ")[0]]?.text ||
+                    "#555",
+                }}
+              >
+                {dietaryFocusLabel.split(", ")[0] || "Generic"}
+              </span>
+            </p>
+          )}
 
-        {/* Read More Button */}
-        <p onClick={openModal} className="read-more">
-          Read More
-        </p>
+          {/* Fallback label when no matches are found */}
+          {!dietaryFocusLabel && (
+            <p>
+              <span
+                className="diet-label"
+                title="General dietary recommendation"
+                style={{
+                  backgroundColor: "#e0e0e0",
+                  color: "#555555",
+                }}
+              >
+                Generic
+              </span>
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Modal for displaying full content */}
@@ -105,67 +141,149 @@ const Card: React.FC<RecipeCardProps> = ({ data }) => {
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2 style={{ textAlign: "left" }}>{data.name}</h2>
+              {/* <h2 style={{ textAlign: "left" }}>{data.name}</h2> */}
               <button className="close-button" onClick={closeModal}>
                 &times;
               </button>
             </div>
+
             <div className="modal-body">
-              <img className="card-image" src={data.image} alt={data.name} />
-              <hr />
-              <h3>Ingredients</h3>
-              <p>{data.ingredients.join(", ")}</p>
+              <div className="image-info-container">
+                {/* Image on the left */}
+                <img className="modal-image" src={data.image} alt={data.name} />
 
-              <hr />
-              <h4>Nutritional Information</h4>
-              <p>
-                Calories: <strong>{data.nutrition.calories?.toFixed(2)}</strong>{" "}
-                kcal
-              </p>
-              <p>
-                Proteins: <strong>{data.nutrition.proteins?.toFixed(2)}</strong>{" "}
-                g
-              </p>
-              <p>
-                Carbs: <strong>{data.nutrition.carbs?.toFixed(2)}</strong> g
-              </p>
-              <p>
-                Fats: <strong>{data.nutrition.fats?.toFixed(2)}</strong> g
-              </p>
-              <p>
-                Fiber: <strong>{data.nutrition.fiber?.toFixed(2)}</strong> g
-              </p>
-              <p>
-                Sugar: <strong>{data.nutrition.sugar?.toFixed(2)}</strong> g
-              </p>
-              <p>
-                Vitamin A:{" "}
-                <strong>{data.nutrition.vitaminA?.toFixed(2)}</strong> g
-              </p>
-              <p>
-                Vitamin C:{" "}
-                <strong>{data.nutrition.vitaminC?.toFixed(2)}</strong> g
-              </p>
-              <p>
-                Calcium: <strong>{data.nutrition.calcium?.toFixed(2)}</strong> g
-              </p>
-              <p>
-                Sodium: <strong>{data.nutrition.sodium?.toFixed(2)}</strong> mg
-              </p>
+                {/* Title and Additional Info on the right */}
+                <div className="info-section">
+                  <h4>{data.name}</h4>
 
-              <hr />
-              <h4>Health Labels</h4>
-              <p>{data.healthLabels.join(", ")}</p>
+                  {/* Map diet labels to the colors */}
+                  <div className="diet-label-container">
+                    {data.dietLabels.map((label, index) => (
+                      <span
+                        key={index}
+                        className="diet-label"
+                        title={dietLabelTooltips[label] || ""}
+                        style={{
+                          backgroundColor:
+                            dietLabelColors[label]?.background || "#ddd",
+                          color: dietLabelColors[label]?.text || "#555",
+                        }}
+                      >
+                        {label}
+                      </span>
+                    ))}
+                  </div>
 
-              <hr />
-              <h4>Additional Info</h4>
-              <p>Sources: {data.source}</p>
-              <p>Url: {data.url}</p>
-              <p>Cuisine Type: {data.cuisineType.join(", ")}</p>
-              <p>Diet Type: {data.dietLabels.join(", ")}</p>
-              <p>Meal Type: {data.mealType.join(", ")}</p>
-              <p>Total Time: {data.totalTime} minutes</p>
-              <p>Yield: {data.yield} servings</p>
+                  <div>
+                    <p>
+                      Cuisine Type:{" "}
+                      {data.cuisineType
+                        .map((cuisine) =>
+                          cuisine
+                            .split(" ")
+                            .map(
+                              (word) =>
+                                word.charAt(0).toUpperCase() +
+                                word.slice(1).toLowerCase()
+                            )
+                            .join(" ")
+                        )
+                        .join(", ")}
+                    </p>
+
+                    <p>Yield: {data.yield} servings</p>
+                    <p>
+                      Visit Source:{" "}
+                      <a
+                        href={data.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: "#6366f1",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        {data.source}
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <hr className="section-divider" />
+
+              <div className="ingredients-section">
+                <h4>Ingredients</h4>
+                <p>{data.ingredients.join(", ")}</p>
+              </div>
+
+              <hr className="section-divider" />
+
+              <div className="nutrition-section">
+                <h4>Nutritional Information</h4>
+                <div className="nutrition-grid">
+                  <div className="nutrition-grid-item">
+                    <p className="nutrition-header">Calories</p>
+                    <p className="nutrition-value">
+                      {data.nutrition.calories?.toFixed(2)} kcal
+                    </p>
+                  </div>
+                  <div className="nutrition-grid-item">
+                    <p className="nutrition-header">Protein</p>
+                    <p className="nutrition-value">
+                      {data.nutrition.proteins?.toFixed(2)} g
+                    </p>
+                  </div>
+                  <div className="nutrition-grid-item">
+                    <p className="nutrition-header">Carbs</p>
+                    <p className="nutrition-value">
+                      {data.nutrition.carbs?.toFixed(2)} g
+                    </p>
+                  </div>
+                  <div className="nutrition-grid-item">
+                    <p className="nutrition-header">Fats</p>
+                    <p className="nutrition-value">
+                      {data.nutrition.fats?.toFixed(2)} g
+                    </p>
+                  </div>
+                  <div className="nutrition-grid-item">
+                    <p className="nutrition-header">Fiber</p>
+                    <p className="nutrition-value">
+                      {data.nutrition.fiber?.toFixed(2)} g
+                    </p>
+                  </div>
+                  <div className="nutrition-grid-item">
+                    <p className="nutrition-header">Sugar</p>
+                    <p className="nutrition-value">
+                      {data.nutrition.sugar?.toFixed(2)} g
+                    </p>
+                  </div>
+                  <div className="nutrition-grid-item">
+                    <p className="nutrition-header">Vitamin A</p>
+                    <p className="nutrition-value">
+                      {data.nutrition.vitaminA?.toFixed(2)} g
+                    </p>
+                  </div>
+                  <div className="nutrition-grid-item">
+                    <p className="nutrition-header">Vitamin C</p>
+                    <p className="nutrition-value">
+                      {data.nutrition.vitaminC?.toFixed(2)} g
+                    </p>
+                  </div>
+                  <div className="nutrition-grid-item">
+                    <p className="nutrition-header">Calcium</p>
+                    <p className="nutrition-value">
+                      {data.nutrition.calcium?.toFixed(2)} g
+                    </p>
+                  </div>
+                  <div className="nutrition-grid-item">
+                    <p className="nutrition-header">Sodium</p>
+                    <p className="nutrition-value">
+                      {data.nutrition.sodium?.toFixed(2)} mg
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

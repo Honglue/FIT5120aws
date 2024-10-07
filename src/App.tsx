@@ -1,5 +1,10 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
+import {
+  useLocation,
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
@@ -20,6 +25,16 @@ import Recommend from "./components/Recommend/Recommend";
 import Recommendations from "./components/Recommendations/Recommendations";
 import Quiz from "./components/Quiz/Quiz";
 import info from "../public/images/info.jpg";
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -42,6 +57,7 @@ function App() {
             {isAuthenticated ? (
               <>
                 <Navbar />
+                <ScrollToTop />
                 <Routes>
                   <Route
                     path="/"
@@ -56,7 +72,7 @@ function App() {
                   />
                   <Route path="/nutrition-map" element={<NutritionMap />} />
                   <Route path="/information" element={<Information />} />
-                  <Route path="/recommend" element={<Recommend />} />
+                  <Route path="/indicator" element={<Recommend />} />
                   <Route path="/ingredient" element={<Ingredient />} />
                   <Route
                     path="/recommendations"

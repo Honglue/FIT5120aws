@@ -148,7 +148,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ finishQuiz, goToWelcome }) => {
   };
 
   return (
-    <div>
+    <div style={{ paddingTop: "10px" }}>
       <div className="quiz-container">
         <div className="question-section">
           <h2>Question {currentQuestion + 1}</h2>
@@ -196,19 +196,19 @@ const QuizPage: React.FC<QuizPageProps> = ({ finishQuiz, goToWelcome }) => {
 
         {showSolution && (
           <div className="solution-section">
-            <h3 style={{ fontWeight: "normal" }}>Answer</h3>
+            <h4 style={{ fontWeight: "normal" }}>Answer</h4>
             <p>
               {questions[currentQuestion].correctAnswer === selectedAnswer
                 ? "Correct!"
                 : "Incorrect!"}
             </p>
             <hr /> {/* Divider between Correct answer and Explanation */}
-            <h4>Correct answer</h4>
+            <h4 style={{ fontWeight: "normal" }}>Correct answer</h4>
             <p>
               <p>{questions[currentQuestion].correctAnswer}</p>
             </p>
             <hr /> {/* Divider between Explanation section */}
-            <h4>Explanation</h4>
+            <h4 style={{ fontWeight: "normal" }}>Explanation</h4>
             <p>{questions[currentQuestion].explanation}</p>
           </div>
         )}

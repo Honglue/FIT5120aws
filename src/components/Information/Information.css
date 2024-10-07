@@ -91,7 +91,7 @@
   text-align: "left";
 }
 
-.button-container {
+.info-button-container {
   z-index: 1;
   display: flex;
   justify-content: center;

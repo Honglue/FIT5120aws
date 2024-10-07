@@ -1,43 +1,58 @@
+/* Container for the entire recommendation page */
 .recommend-page-container {
-  width: 95%;
+  width: 90%;
   margin: 20px auto 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Ensure content starts from the top */
   align-items: center;
-  min-height: 100vh;
+  min-height: 100vh; /* Ensure the container takes up the full viewport height */
 }
 
+/* Input Bar with Sticky Position */
 .sticky-input-bar {
   width: 100%;
-  text-align: center;
+  max-width: 700px; /* Maintain consistent width */
+  position: sticky; /* Keeps the input bar in place */
+  top: 0; /* Stick to the top of the viewport */
+  z-index: 10; /* Ensure it stays above other content */
+  background: white; /* Make sure it doesn't blend into the background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow to distinguish from content */
+  padding: 8px;
 }
 
 /* Results Layout */
 .results-container {
   width: 100%;
-  min-height: 100vh;
+  min-height: 50vh;
   display: flex;
   justify-content: center;
+  margin-top: 20px;
+}
+
+/* Recommendation Page Grid Layout */
+.recommend-page {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Adjustments for Error Messages and Placeholder Boxes */
+.error-message,
+.no-results,
+.recommendations-container {
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .results-content {
   width: 100%;
-  max-width: 1500px;
-  margin: 0 auto; /* Center horizontally */
-}
-
-.recommend-page {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  justify-content: center; /* Ensure grid items are centered */
-}
-
-/* Error Message */
-.error-message {
-  color: red;
-  text-align: center; /* Center the error message */
+  margin: 0 auto;
 }
 
 /* Recommendation Cards */
@@ -155,7 +170,7 @@ h4 {
   font-weight: bold;
   display: block;
   margin-bottom: 10px;
-  color: #6366f1; /* Colored text */
+  color: #6366f1;
 }
 
 .recommendation-box p {
@@ -166,12 +181,13 @@ h4 {
 /* Diet Summary Box */
 .diet-summary-box {
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  max-width: 750px;
+  /* background-color: #f9f9f9; */
+  /* border-radius: 10px; */
+  /* border: 1px solid #ddd; */
+  border-bottom: 1px solid #ddd;
+  max-width: 7500px;
   margin: 5px auto;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   text-align: left;
 }
 
