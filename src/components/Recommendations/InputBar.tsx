@@ -121,8 +121,10 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
   return (
     <div className="input-bar-container">
       <div className="filters">
+        <CountryFilter onCountrySelect={handleCountrySelect} />
+
         <FilterDropdown
-          label="Dietary"
+          label="Dietary requirements"
           options={healthLabels}
           selectedOptions={selectedHealthLabels}
           setSelectedOptions={setSelectedHealthLabels}
@@ -140,8 +142,6 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
           onOpen={() => setOpenDropdown("cuisine")}
           onClose={() => setOpenDropdown(null)}
         />
-
-        <CountryFilter onCountrySelect={handleCountrySelect} />
       </div>
 
       <form onSubmit={handleSubmit} className="input-bar-form">
@@ -178,7 +178,7 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
           className="search-button"
           disabled={loading || isFormEmpty()}
         >
-          Search
+          {loading ? "Searching" : "Search"}
         </button>
       </form>
 
@@ -195,8 +195,8 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
       </div>
 
       {images.length <= 0 && (
-        <p style={{ width: "680px", textAlign: "left", color: "#343434" }}>
-          Separate ingredients by comma or space
+        <p style={{ width: "680px", textAlign: "left", color: "#505050" }}>
+          Separate ingredients by comma or space.
         </p>
       )}
     </div>

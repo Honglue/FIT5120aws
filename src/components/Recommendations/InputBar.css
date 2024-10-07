@@ -109,12 +109,14 @@
 .search-button {
   background-color: #6366f1;
   border: none;
+  width: 120px;
   padding: 8px 16px;
   border-radius: 25px;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
   margin-left: 10px;
+  text-align: center;
 }
 
 .search-button:hover {
@@ -122,6 +124,7 @@
 }
 
 .search-button:disabled {
+  width: 120px;
   background-color: #a3a3f1;
   cursor: not-allowed;
   color: #fff;

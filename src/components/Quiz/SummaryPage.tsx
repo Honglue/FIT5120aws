@@ -1,5 +1,6 @@
 import React from "react";
 import "./SummaryPage.css";
+import { Link } from "react-router-dom";
 
 interface SummaryPageProps {
   score: number;
@@ -40,6 +41,13 @@ const SummaryPage: React.FC<SummaryPageProps> = ({
           <div className="quiz-summary-content" />
         </div>
       </div>
+
+      <p className="link-page">
+        Curious about essential nutritional information for Victoria?
+        <Link to="/info" className="highlighted-link">
+          Discover More.
+        </Link>
+      </p>
     </div>
   );
 };

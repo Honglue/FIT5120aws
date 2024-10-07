@@ -69,12 +69,17 @@ button {
   transition: background-color 0.3s ease;
 }
 
+.check-btn {
+  width: 150px;
+}
+
 .check-btn:hover,
 button:hover {
   background-color: #4f46e5;
 }
 
 .check-btn:disabled {
+  width: 150px;
   background-color: #ccc;
   cursor: not-allowed;
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ViolationBar } from "./ViolationBar";
 import { FiArrowLeft } from "react-icons/fi";
 import Loading from "../Loading/loading";
-import Modal from "./Modal"; // Import the new Modal component
+import Modal from "./Modal";
 import "./ViolationPage.css";
 import Legend from "./Legends/Legends";
 import { Link } from "react-router-dom";
@@ -289,8 +289,8 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
       {/* Conditionally render nutrition sections */}
       {!loading && (
         <p className="link-page">
-          Want to get a dish recommendation for {selectedCountryName}?&nbsp; Use
-          our dish recommendation tool.
+          Want to get a dish recommendation for {selectedCountryName}? Use our
+          dish recommendation tool.
           <Link to="/recommendations" className="highlighted-link">
             View Recommendation.
           </Link>

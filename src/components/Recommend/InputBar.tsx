@@ -158,12 +158,8 @@ const InputBar: React.FC<InputBarProps> = ({
           />
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className={loading ? "loading" : ""}
-        >
-          {loading ? "Calculating..." : "Calculate"}
+        <button type="submit" disabled={loading} className="search-button">
+          Calculate
         </button>
       </form>
 
@@ -188,7 +184,7 @@ const InputBar: React.FC<InputBarProps> = ({
                   bmiC < 72 &&
                   "Your child's BMI indicates they might be slightly above the ideal range. A focus on balanced nutrition and regular activity could help."}
                 {bmiC >= 72 &&
-                  "Your child's BMI suggests they might be in the higher range. It might be beneficial to seek advice from a healthcare provider for personalized support."}
+                  "Your child's BMI suggests they might be in the higher range. It might be beneficial to seek advice from a healthcare provider for personalised support."}
               </>
             )}
 

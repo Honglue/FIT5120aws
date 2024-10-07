@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import "./FilterDropdown.css";
 
 interface FilterDropdownProps {
@@ -6,7 +6,6 @@ interface FilterDropdownProps {
   options: string[];
   selectedOptions: string[];
   setSelectedOptions: (selected: string[]) => void;
-  isMultiSelect?: boolean;
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
@@ -17,40 +16,52 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   options,
   selectedOptions,
   setSelectedOptions,
-  isMultiSelect = true,
   isOpen,
   onOpen,
   onClose,
 }) => {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   const toggleOption = (option: string) => {
-    if (isMultiSelect) {
-      if (selectedOptions.includes(option)) {
-        setSelectedOptions(
-          selectedOptions.filter((selected) => selected !== option)
-        );
-      } else {
-        setSelectedOptions([...selectedOptions, option]);
-      }
-    } else {
-      setSelectedOptions([option]);
+    setSelectedOptions([option]);
+    onClose();
+  };
+
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      onClose();
     }
   };
 
-  // Calculate how many filters are applied
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [isOpen]);
+
   const filterCount = selectedOptions.length;
+  const selectedLabel = filterCount > 0 ? selectedOptions[0] : label;
 
   return (
-    <div className="filter-dropdown">
+    <div className="filter-dropdown" ref={dropdownRef}>
       <button
         className="filter-button"
         type="button"
         onClick={(e) => {
           e.stopPropagation();
-          isOpen ? onClose() : onOpen(); // Open/close logic
+          isOpen ? onClose() : onOpen();
         }}
       >
-        {/* Show label with the applied filter count */}
-        {`${label} ${filterCount > 0 ? `(${filterCount})` : ""}`}
+        {selectedLabel}
       </button>
 
       {isOpen && (
@@ -62,7 +73,8 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
             {options.map((option) => (
               <label key={option} className="dropdown-option">
                 <input
-                  type={isMultiSelect ? "checkbox" : "radio"}
+                  type="radio"
+                  name="filter-option"
                   checked={selectedOptions.includes(option)}
                   onChange={() => toggleOption(option)}
                 />

@@ -246,13 +246,27 @@ const Recommendations: React.FC = () => {
 
   return (
     <div className="recommend-page-container">
+      <div className="banner">
+        <div className="banner-content">
+          <h2>Nutritional Dish Recommender</h2>
+          <p>
+            Explore dishes to meet your country's nutritional needs and fill
+            gaps with your ingredients
+          </p>
+        </div>
+      </div>
+
       {/* Search by Ingredients Input Bar */}
       <InputBar onSearch={handleSearch} loading={loading} />
 
       <div className="results-container">
         {/* Show loading spinner or message */}
         {loading && (
-          <div style={{ height: "50vh", width: "100%" }}>
+          <div
+            style={{
+              width: "100%",
+            }}
+          >
             <Loading />
           </div>
         )}
@@ -355,25 +369,32 @@ const Recommendations: React.FC = () => {
         {!loading && !isInputNotNone && recipes.length === 0 && !error && (
           <div className="recommendations-container">
             <div className="recommendation-box">
-              <span>Get Dish Recommendations</span>
+              <span>
+                Step 1: <br />
+                Add Ingredient
+              </span>
+              <p>Type or upload one ingredient at a time.</p>
+            </div>
+
+            <div className="recommendation-box">
+              <span>
+                Step 2: <br />
+                Apply Country Filter
+              </span>
               <p>
-                Receive dishes tailored to your country's nutritional needs.
+                Select your country to get dishes based on its nutritional
+                needs.
               </p>
             </div>
 
             <div className="recommendation-box">
-              <span>Input Ingredients</span>
+              <span>
+                Step 3: <br />
+                Choose Preferences
+              </span>
               <p>
-                Enter your ingredients to get recommendations for healthy
-                dishes.
-              </p>
-            </div>
-
-            <div className="recommendation-box">
-              <span>Upload images</span>
-              <p>
-                Upload an image of an ingredient and we will help identify it
-                and include in search.
+                Set cuisine types and dietary requirements for personalized
+                recommendations.
               </p>
             </div>
           </div>

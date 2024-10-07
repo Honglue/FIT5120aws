@@ -10,12 +10,19 @@
   max-width: 800px;
   margin-bottom: 5px;
   padding: 20px;
-  padding-top: 30px;
   height: 180px;
+  padding-top: 30px;
   transition: background-color 0.3s ease;
   cursor: pointer;
   position: relative;
   overflow: visible;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 /* CSS for the title text with max 3 lines and ellipsis */
@@ -24,7 +31,6 @@
   font-size: 18px;
   font-weight: 500;
   /* height: 60px; */
-  padding-top: 10px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -48,11 +54,13 @@
 }
 
 /* Content styles */
+/* Content styles */
 .card-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: left;
+  height: 100%;
 }
 
 .content h5 {
@@ -182,7 +190,6 @@ h5 {
 .nutrition-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .nutrition-grid {

@@ -14,9 +14,9 @@
 }
 
 .circle {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Ensures the element is perfectly round */
   background-color: #e0e0e0;
   display: flex;
   justify-content: center;
@@ -25,6 +25,7 @@
   font-weight: bold;
   color: #333;
   margin-right: 15px;
+  flex-shrink: 0; /* Prevents the circle from resizing in flex containers */
 }
 
 .sidebar-item.active .circle {
