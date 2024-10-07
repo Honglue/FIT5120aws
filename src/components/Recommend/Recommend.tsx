@@ -50,7 +50,6 @@ const Recommend: React.FC = () => {
   }, [age, gender]);
 
   const handleResult = (
-    percentile: string | null,
     genderValue: string | null,
     ageValue: number | null,
     errorMessage: string | null
