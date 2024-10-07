@@ -82,13 +82,13 @@ const CountrySearch: React.FC<MapPageProps> = ({ onCountrySelect }) => {
 
 const NutritionMapInfo = () => {
   const items = [
-    { label: "Select a country from the map", active: false },
+    { label: "Select a country from the map.", active: false },
     {
-      label: "Compare its dietary patterns to the Australian average",
+      label: "Compare its dietary patterns to the Australian average.",
       active: true,
     },
     {
-      label: "Identify areas for improvement in healthy and unhealthy foods",
+      label: "Identify areas for improvement in healthy and unhealthy foods.",
       active: false,
     },
   ];
@@ -96,29 +96,12 @@ const NutritionMapInfo = () => {
   return (
     <div
       style={{
-        maxWidth: "50%",
-        paddingRight: "40px",
+        textAlign: "left",
+        maxWidth: "30vw",
+        paddingTop: "20px",
+        paddingRight: "30px",
       }}
     >
-      <div
-        className="pt-4"
-        style={{
-          maxWidth: "400px",
-          marginBottom: "20px",
-          textAlign: "left",
-          padding: "10px",
-          borderRadius: "10px",
-        }}
-      >
-        <h2 style={{ fontWeight: "normal", marginBottom: "10px" }}>
-          Nutritional Map
-        </h2>
-        <p style={{ fontSize: "16px" }}>
-          Explore your countries dietary patterns comparing to Australian
-          standards by selecting from the map.
-        </p>
-      </div>
-
       <div className="sidebar-container">
         {items.map((item, index) => (
           <div key={index} className="sidebar-item active">
@@ -216,13 +199,24 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
   return (
     <div
       style={{
-        height: "90vh",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        padding: "20px 0",
       }}
     >
+      <div className="banner">
+        <div className="banner-content">
+          <h2>Nutritional Map</h2>
+          <p>
+            Explore your countries dietary patterns comparing to Australian
+            standards by selecting from the map.
+          </p>
+        </div>
+      </div>
+
       <div
         className="map-container"
         style={{
@@ -240,14 +234,14 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            borderLeft: "1px solid #d3d3d3",
+            // borderLeft: "1px solid #d3d3d3",
           }}
         >
           <CountrySearch onCountrySelect={onCountrySelect} />
 
           <svg
             ref={svgRef}
-            width={700}
+            width={800}
             height={400}
             style={{ paddingLeft: "40px" }}
           ></svg>

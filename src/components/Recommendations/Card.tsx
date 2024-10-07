@@ -78,7 +78,7 @@ const Card: React.FC<RecipeCardProps> = ({ data, countryDietLabels }) => {
         <img className="card-image" src={data.image} alt={data.name} />
       </div>
 
-      <div>
+      <div className="card-info">
         {/* Title Bar */}
         <div className="title-bar">
           <h5 className="title-text">{data.name}</h5>

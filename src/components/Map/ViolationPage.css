@@ -8,10 +8,9 @@
 
 /* Nutrition card styling */
 .nutrition-card {
-  padding: 20px;
+  padding: 0 20px;
   width: 100%;
   height: auto;
-  background: #f6f6f6;
   border: 1px solid lightgray;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -134,7 +133,7 @@
   width: 600px;
   text-align: left;
   background-color: #f9f9f9; /* Light background color for the box */
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #ddd; /* Light border around the box */
   border-radius: 5px; /* Rounded corners for the box */
   display: inline-block;

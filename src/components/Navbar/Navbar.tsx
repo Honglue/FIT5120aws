@@ -32,7 +32,7 @@ function Navbar() {
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
         padding: "10px",
-        marginRight: "20px",
+        // marginRight: "20px",
         zIndex: 1000,
         top: isVisible ? "0" : "-80px",
         transition: "top 0.3s ease-in-out",
@@ -103,7 +103,7 @@ function Navbar() {
             </li>
 
             {/* Education Dropdown */}
-            <li className="nav-item dropdown" style={{ marginRight: "40px" }}>
+            <li className="nav-item dropdown" style={{ paddingRight: "40px" }}>
               <Link
                 className={`nav-link dropdown-toggle ${
                   location.pathname === "/information" ||

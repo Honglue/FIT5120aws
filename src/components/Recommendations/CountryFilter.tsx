@@ -58,7 +58,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ onCountrySelect }) => {
         }}
         options={countryOptions}
         onChange={handleCountryChange}
-        placeholder="Country"
+        placeholder="Select country"
         isClearable
       />
     </div>
