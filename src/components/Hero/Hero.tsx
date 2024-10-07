@@ -174,14 +174,14 @@ const CarouselComponent = () => {
 
             {i === 2 && (
               <div
-                className="slide-content"
+                className="slide-content rounded-2"
                 style={{
                   backgroundImage: `url(${help})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   height: "100%",
                   width: "98%",
-                  borderRadius: "15px",
+                  // borderRadius: "15px",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "flex-start",

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Modal.css";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
 const exampleImages: { [key: string]: { images: string[]; labels: string[] } } =
   {
@@ -115,8 +116,8 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, nutritionId }) => {
       >
         {/* Header with Title and Close Button */}
         <div className="modal-header">
-          <h4>{variableMap[nutritionId]}</h4>
-          <button className="modal-close" onClick={onClose}>
+          <h4 style={{ fontWeight: "normal" }}>{variableMap[nutritionId]}</h4>
+          <button className="close-button" onClick={onClose}>
             &times;
           </button>
         </div>
@@ -124,12 +125,13 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, nutritionId }) => {
         {/* Navigation arrows */}
         <div
           className="navigation-arrows"
-          style={{ flexGrow: 1, display: "flex", alignItems: "center" }}
+          style={{
+            flexGrow: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <button className="arrow-left" onClick={handlePrevClick}>
-            &#8592;
-          </button>
-
           {/* Image Display */}
           <div
             className="image-container"
@@ -139,21 +141,49 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, nutritionId }) => {
               src={`/images/${images[currentIndex]}`}
               alt={variableMap[nutritionId]}
               style={{
-                width: "250px",
                 height: "200px",
                 objectFit: "cover",
-                borderRadius: "10px",
+                borderRadius: "6px",
               }}
             />
-            {/* Displaying the label below the image */}
-            <p style={{ textAlign: "center", marginTop: "10px" }}>
-              {labels[currentIndex]}
-            </p>
-          </div>
 
-          <button className="arrow-right" onClick={handleNextClick}>
-            &#8594;
-          </button>
+            <div
+              style={{
+                marginTop: "20px",
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <p
+                style={{
+                  textAlign: "left",
+                  marginTop: "10px",
+                  fontSize: "20px",
+                }}
+              >
+                {labels[currentIndex]}
+              </p>
+
+              <div
+                style={{
+                  width: "100px",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <button className="arrow-left" onClick={handlePrevClick}>
+                  <FiArrowLeft size={20} />
+                </button>
+
+                <button className="arrow-right" onClick={handleNextClick}>
+                  <FiArrowRight size={20} />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

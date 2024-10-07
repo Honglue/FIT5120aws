@@ -26,7 +26,7 @@ function Footer() {
               </div>
 
               <div>
-                <h5 className="fw-bold mb-2">
+                <h5 className="mb-2">
                   We are committed to providing support to refugees.
                 </h5>
                 <p>Nutrition Bridge, 2024.</p>
@@ -49,7 +49,7 @@ function Footer() {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/recommend" style={{ fontSize: "15px" }}>
+                    <Link to="/indicator" style={{ fontSize: "15px" }}>
                       Nutrition Indicator
                     </Link>
                   </li>

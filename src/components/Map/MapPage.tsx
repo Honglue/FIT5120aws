@@ -52,15 +52,16 @@ const CountrySearch: React.FC<MapPageProps> = ({ onCountrySelect }) => {
             borderRadius: "50px",
             textAlign: "left",
             width: "300px",
-            margin: "10px auto", // Centered the select box
+            margin: "10px auto",
+            color: "black",
             padding: "5px 20px",
-            backgroundColor: "f9f9f9",
-            border: "1px solid #ddd",
+            backgroundColor: "#fff",
+            border: "1px solid #c9cbcc",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.05)",
           }),
           placeholder: (baseStyles) => ({
             ...baseStyles,
-            color: "#999",
+            color: "black",
           }),
           option: (baseStyles, state) => ({
             ...baseStyles,
@@ -81,17 +82,24 @@ const CountrySearch: React.FC<MapPageProps> = ({ onCountrySelect }) => {
 
 const NutritionMapInfo = () => {
   const items = [
-    { label: "Select any country from the map", active: false },
-    { label: "You will be directed to the next page", active: true },
+    { label: "Select a country from the map", active: false },
     {
-      label:
-        "The country's nutrition will be compared to the Australian average",
+      label: "Compare its dietary patterns to the Australian average",
+      active: true,
+    },
+    {
+      label: "Identify areas for improvement in healthy and unhealthy foods",
       active: false,
     },
   ];
 
   return (
-    <div style={{ maxWidth: "50%" }}>
+    <div
+      style={{
+        maxWidth: "50%",
+        paddingRight: "40px",
+      }}
+    >
       <div
         className="pt-4"
         style={{
@@ -107,8 +115,7 @@ const NutritionMapInfo = () => {
         </h2>
         <p style={{ fontSize: "16px" }}>
           Explore your countries dietary patterns comparing to Australian
-          standards by selecting from the map. Click on your country for
-          detailed insights.
+          standards by selecting from the map.
         </p>
       </div>
 
@@ -120,12 +127,6 @@ const NutritionMapInfo = () => {
           </div>
         ))}
       </div>
-
-      <p style={{ fontSize: "16px", paddingTop: "20px" }}>
-        Note: The highlighted countries represent the{" "}
-        <span style={{ color: "#6366f1" }}>top refugee origins</span> in
-        Australia.
-      </p>
     </div>
   );
 };
@@ -138,8 +139,8 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
     if (!svgRef.current || !tooltipRef.current) return;
 
     const svg = d3.select(svgRef.current);
-    const width = 700; // Reduced map size
-    const height = 400; // Reduced map size
+    const width = 700;
+    const height = 400;
 
     const projection = d3
       .geoMercator()
@@ -183,9 +184,9 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
             .style("top", `${event.pageY - 28}px`)
             .text(countryName);
         })
-        .on("mouseout", function (d) {
+        .on("mouseout", function (event, d) {
           const countryName = d.properties?.name;
-          // Always keep refugee countries highlighted
+          // Always keep highlighted countries with their original color
           d3.select(this).attr(
             "fill",
             highlightedCountries.includes(countryName) ? "#6366f1" : "#D3D3D3"
@@ -214,14 +215,13 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
   return (
     <div
       style={{
-        height: "80vh", // Reduced height to center map more
+        height: "90vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
-      <CountrySearch onCountrySelect={onCountrySelect} />{" "}
       <div
         className="map-container"
         style={{
@@ -229,25 +229,47 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
           flexDirection: "row",
           alignItems: "flex-start",
           justifyContent: "center",
-          paddingLeft: "20px",
-          borderLeft: "1px solid #d3d3d3",
         }}
       >
         <NutritionMapInfo />
-        <svg ref={svgRef} width={700} height={400}></svg>{" "}
-        {/* Adjusted SVG size */}
+
         <div
-          ref={tooltipRef}
           style={{
-            position: "absolute",
-            background: "rgba(0, 0, 0, 0.8)",
-            color: "#fff",
-            padding: "5px",
-            borderRadius: "4px",
-            pointerEvents: "none",
-            opacity: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            borderLeft: "1px solid #d3d3d3",
           }}
-        ></div>
+        >
+          <CountrySearch onCountrySelect={onCountrySelect} />
+
+          <svg
+            ref={svgRef}
+            width={700}
+            height={400}
+            style={{ paddingLeft: "40px" }}
+          ></svg>
+
+          <div
+            ref={tooltipRef}
+            style={{
+              position: "absolute",
+              background: "rgba(0, 0, 0, 0.8)",
+              color: "#fff",
+              padding: "5px",
+              borderRadius: "4px",
+              pointerEvents: "none",
+              opacity: 0,
+            }}
+          ></div>
+
+          <p style={{ fontSize: "16px", paddingTop: "30px" }}>
+            The highlighted countries represent the{" "}
+            <span style={{ color: "#6366f1" }}>top refugee origins</span> in
+            Australia.
+          </p>
+        </div>
       </div>
     </div>
   );

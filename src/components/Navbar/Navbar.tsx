@@ -72,7 +72,7 @@ function Navbar() {
                 className={`nav-link dropdown-toggle ${
                   location.pathname === "/" ||
                   location.pathname === "/nutrition-map" ||
-                  location.pathname === "/recommend"
+                  location.pathname === "/indicator"
                     ? "active"
                     : ""
                 }`}
@@ -95,7 +95,7 @@ function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/recommend">
+                  <Link className="dropdown-item" to="/indicator">
                     Nutrition Indicator
                   </Link>
                 </li>
@@ -135,7 +135,11 @@ function Navbar() {
             </li>
 
             {/* Recommendations Dropdown */}
-            <li className="nav-item dropdown me-4">
+            <Link className="dropdown-item" to="/recommendations">
+              Dish Recommender
+            </Link>
+
+            {/* <li className="nav-item dropdown me-4">
               <Link
                 className={`nav-link dropdown-toggle ${
                   location.pathname === "/recommendations" ? "active" : ""
@@ -159,7 +163,7 @@ function Navbar() {
                   </Link>
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

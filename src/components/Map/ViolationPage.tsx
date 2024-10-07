@@ -58,7 +58,7 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
           }
         );
         const data = await response.json();
-        console.log(data)
+        console.log(data);
         const parsedData = JSON.parse(data.body);
         setFilteredData(parsedData);
 
@@ -197,63 +197,26 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
   };
 
   return (
-    <div className="container mt-4" style={{ maxWidth: "80vw" }}>
-      <div className="d-flex align-items-center mb-3">
-        <button
-          className="btn btn-link p-0"
-          onClick={handleBackToMap}
-          style={{ color: "#6366F1" }}
-        >
-          <FiArrowLeft size={20} /> Back to Map
-        </button>
-      </div>
+    <div className="container">
+      <button className="back-to-map-button" onClick={handleBackToMap}>
+        <FiArrowLeft size={20} /> Back to Map
+      </button>
 
-      <div
-        // className="bg-light"
-        style={{
-          backgroundColor: "#f0f4ff",
-          color: "#4f46e5",
-          borderRadius: "6px",
-          border: "1px solid #4f46e5",
-          padding: "16px",
-          width: "100%",
-          boxSizing: "border-box",
-          textAlign: "left",
-          margin: "30px 10px",
-        }}
-      >
+      <div className="page-description">
         This page compares the dietary intake patterns from{" "}
         {selectedCountryName} with the Australian standards.
       </div>
 
-      <div className="d-flex align-items-center justify-content-between mb-4">
-        <h2 className="me-3">{selectedCountryName}</h2>
-        <div
-          className="d-flex border p-2 rounded-pill ms-auto"
-          style={{
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            // backgroundColor: "#f9f9f9",
-            padding: "10px",
-          }}
-        >
-          {/* Age filter */}
-          <div className="me-4 p-1">
-            <span className="me-2" style={{ paddingLeft: "10px" }}>
-              Age:
-            </span>
+      <div className="filter-section">
+        <h2>{selectedCountryName}</h2>
+
+        <div className="filter-items">
+          <div className="filter-item">
             <select
               id="age-group-select"
               value={selectedAgeGroup}
               onChange={handleAgeGroupChange}
-              className="border-0 bg-light rounded-pill"
-              style={{
-                padding: "8px 20px",
-                // backgroundColor: "#ffffff",
-                // boxShadow: "0 1px 6px rgba(0, 0, 0, 0.1)",
-                border: "2px solid #d3d3d3",
-                cursor: "pointer",
-                // transition: "box-shadow 0.2s ease-in-out",
-              }}
+              className="filter-select"
             >
               <option value="7">All ages</option>
               <option value="1">0-11 months</option>
@@ -265,24 +228,12 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
             </select>
           </div>
 
-          {/* Nutrition type filter (Good or Bad) */}
-          <div className="me-4 p-1">
-            <span className="me-2" style={{ paddingLeft: "10px" }}>
-              Food Type:
-            </span>
+          <div className="filter-item">
             <select
               id="nutrition-type-select"
               value={selectedNutritionType}
               onChange={handleNutritionTypeChange}
-              className="border-0 bg-light rounded-pill"
-              style={{
-                padding: "8px 20px",
-                // backgroundColor: "#ffffff",
-                // boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)",
-                border: "1px solid #d3d3d3",
-                cursor: "pointer",
-                transition: "box-shadow 0.2s ease-in-out",
-              }}
+              className="filter-select"
             >
               <option value="good">Healthy Foods</option>
               <option value="bad">Unhealthy Foods</option>
@@ -291,20 +242,15 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
         </div>
       </div>
 
-      {/* Conditionally render based on selectedNutritionType */}
+      {/* Conditionally render nutrition sections */}
       {loading ? (
         <Loading />
       ) : selectedNutritionType === "good" ? (
-        <div className="nutrition-section mt-4">
-          <h5
-            className="mb-2"
-            style={{ textAlign: "left", fontWeight: "bold" }}
-          >
-            Healthy Foods
-          </h5>
-          <p style={{ textAlign: "left" }}>
+        <div className="nutrition-section">
+          <h5 className="nutrition-section-title">Healthy Foods</h5>
+          <p className="nutrition-section-description">
             Healthy foods provide essential nutrients for energy, growth, and
-            overall health, helping to prevent chronic diseases.{" "}
+            overall health, helping to prevent chronic diseases.
             <a
               href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
               target="_blank"
@@ -314,20 +260,16 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
               Learn more.
             </a>
           </p>
-
           <Legend isGoodNutrition={true} />
-
           {renderNutritionCards(goodNutritionData, true)}
         </div>
       ) : (
-        <div className="nutrition-section mt-4">
-          <h5 className="mb-2" style={{ textAlign: "left" }}>
-            Unhealthy Foods
-          </h5>
-          <p style={{ textAlign: "left" }}>
-            Unhealthy foods, including overeating or undereating, leads to
+        <div className="nutrition-section">
+          <h5 className="nutrition-section-title">Unhealthy Foods</h5>
+          <p className="nutrition-section-description">
+            Unhealthy foods, including overeating or undereating, lead to
             nutrient deficiencies or excesses, causing health issues such as
-            obesity, diabetes.{" "}
+            obesity, diabetes.
             <a
               href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
               target="_blank"
@@ -336,9 +278,7 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
               Learn more.
             </a>
           </p>
-
           <Legend isGoodNutrition={false} />
-
           {renderNutritionCards(badNutritionData, false)}
         </div>
       )}

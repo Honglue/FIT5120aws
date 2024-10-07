@@ -5,8 +5,8 @@
   justify-content: center; /* Center content horizontally */
   border: 1px solid #ddd;
   border-radius: 8px;
-  width: 250px;
-  height: 80px; /* Set fixed height to ensure consistent size */
+  width: 200px;
+  height: 80px;
   padding: 5px;
   position: relative;
 }

@@ -11,7 +11,7 @@
   width: 100%;
   overflow: hidden;
   margin-top: 50px;
-  padding: 10px 0;
+  padding: 15px 0;
 }
 
 /* Carousel slide wrapper */
@@ -36,13 +36,18 @@
   position: relative;
   overflow: hidden;
   max-width: 100%;
+  box-shadow: 5px 0 8px 0 rgba(141, 142, 157, 0.1); /* Add shadow effect */
   transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.glass-card {
+  background: white !important;
 }
 
 .slide-content:hover,
 .glass-card:hover {
   /* transform: scale(1.005);  */
-  box-shadow: 5px 0 15px 0 rgba(141, 142, 157, 0.2); /* Add shadow effect */
+  box-shadow: 5px 0 8px 0 rgba(141, 142, 157, 0.1); /* Add shadow effect */
 }
 
 /* Overlay and background for slide content */

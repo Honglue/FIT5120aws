@@ -2,8 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: 20px;
-  border-left: 1px solid #d3d3d3; /* Vertical line to match the design */
 }
 
 .sidebar-item {
@@ -49,6 +47,5 @@
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
-  border-left: 1px solid #d3d3d3; /* Line between sections */
   padding-left: 20px;
 }

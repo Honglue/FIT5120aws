@@ -10,34 +10,29 @@ import Loading from "../Loading/loading";
 
 const Recommend: React.FC = () => {
   const [gender, setGender] = useState<string | null>(null);
-  const [age, setAge] = useState<number | null>(null); // State for user's age
-  const [error, setError] = useState<string | null>(null); // State for error handling
-  const [nutritionData, setNutritionData] = useState<any | null>(null); // Fetched nutrition data
-  const [loading, setLoading] = useState<boolean>(false); // Loading state
+  const [age, setAge] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [nutritionData, setNutritionData] = useState<any | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  // Fetch the JSON data based on age and gender
   useEffect(() => {
     const fetchNutritionData = async () => {
-      if (!age || !gender) return; // Only fetch when age and gender are available
+      if (!age || !gender) return;
 
       setLoading(true);
-      console.log(loading);
-
-      // Convert gender from "Male"/"Female" to "boys"/"girls"
       const formattedGender = gender === "male" ? "boys" : "girls";
 
       try {
-        const response = await fetch("/us32.json"); // Path to JSON in the public folder
+        const response = await fetch("/us32.json");
         const data = await response.json();
 
-        // Find the matching entry based on age and formatted gender
         const filtered = data.find(
           (item: any) =>
             item.gender === formattedGender && item.age === String(age)
         );
 
         if (filtered) {
-          setNutritionData(filtered); // Store the matched data
+          setNutritionData(filtered);
           setError(null);
         } else {
           setNutritionData(null);
@@ -52,16 +47,14 @@ const Recommend: React.FC = () => {
     };
 
     fetchNutritionData();
-  }, [age, gender]); // Re-run fetch whenever age or gender changes
+  }, [age, gender]);
 
-  // Handle the result from InputBar (age, gender, percentile)
   const handleResult = (
     percentile: string | null,
     genderValue: string | null,
     ageValue: number | null,
     errorMessage: string | null
   ) => {
-    console.log(percentile);
     setGender(genderValue);
     setAge(ageValue);
     setError(errorMessage);
@@ -74,31 +67,42 @@ const Recommend: React.FC = () => {
         loading={loading}
         setLoading={setLoading}
       />
+
       <div className="recommend-content">
-        {!nutritionData && (
-          <p>
-            Check how your children is doing compared to other children.
-            <br />
-            Get started by calculating your child's BMI.
-          </p>
+        {!loading && !nutritionData && (
+          <div className="recommend-container">
+            <div className="recommendation-box recommend-box">
+              <span>Assess Your Child's Health</span>
+              <p>See how your child's health compares to their peers.</p>
+            </div>
+            <div className="recommendation-box recommend-box">
+              <span>Calculate BMI</span>
+              <p>Calculate your child's BMI to track their growth.</p>
+            </div>
+            <div className="recommendation-box recommend-box">
+              <span>Daily Nutrition Guidance</span>
+              <p>Get personalised nutrition tips for your child.</p>
+            </div>
+          </div>
         )}
-        {/* Show loading spinner or message */}
+
         {loading && <Loading />}
 
-        {error && !loading && <p className="error-message">{error}</p>}
+        {error && !loading && !nutritionData && (
+          <p className="error-message">{error}</p>
+        )}
 
         {!loading && nutritionData && (
-          <div style={{ padding: "40px" }}>
-            <h4 style={{ textAlign: "left", fontWeight: "bold" }}>
-              Daily Recommended Dietary Intake According to Australian Standards
+          <div style={{ padding: "20px" }}>
+            <h4 style={{ textAlign: "left", fontWeight: "500" }}>
+              Recommended Daily Intake per Australian Standards
             </h4>
-
             <div className="recommend-page">
-              <VegetablesCard data={nutritionData || {}} />
-              <FruitsCard data={nutritionData || {}} />
-              <GrainsCard data={nutritionData || {}} />
-              <LeanMeatsCard data={nutritionData || {}} />
-              <MilkProductCard data={nutritionData || {}} />
+              <VegetablesCard data={nutritionData} />
+              <FruitsCard data={nutritionData} />
+              <GrainsCard data={nutritionData} />
+              <LeanMeatsCard data={nutritionData} />
+              <MilkProductCard data={nutritionData} />
             </div>
           </div>
         )}

@@ -1,14 +1,23 @@
+/* Nutrition card container */
 .nutrition-card-container {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  margin-bottom: 16px;
 }
 
+/* Nutrition card styling */
 .nutrition-card {
-  transition: filter 0.2s ease, border-color 0.2s ease;
+  padding: 20px;
+  width: 100%;
+  height: auto;
+  background: #f6f6f6;
   border: 1px solid lightgray;
-  border-radius: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Hover effect overlay */
 .hover-overlay {
   position: absolute;
   top: 0;
@@ -25,6 +34,7 @@
   transition: opacity 0.3s ease;
 }
 
+/* Example button styling */
 .example-button {
   padding: 10px 20px;
   font-size: 16px;
@@ -39,4 +49,83 @@
 .example-button:hover {
   background-color: #4b4ade;
   border-color: #4b4ade;
+}
+
+/* General page styling */
+.back-to-map-button {
+  margin-top: 20px;
+  color: #fff;
+  background: #6366f1;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.back-to-map-button:hover {
+  background: #4b4ade;
+}
+
+.page-description {
+  background-color: #f0f4ff;
+  color: #4f46e5;
+  border-radius: 6px;
+  border: 1px solid #4f46e5;
+  padding: 16px;
+  margin: 30px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Filter section */
+.filter-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.filter-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.filter-item {
+  margin-left: 16px;
+  padding: 8px;
+}
+
+/* Styling the select element */
+.filter-select {
+  padding: 8px 40px 8px 20px;
+  border: 1px solid #c9cbcc;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  background-color: #ffffff;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray" width="24" height="24"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  appearance: none;
+}
+
+/* Nutrition section styling */
+.nutrition-section {
+  margin-top: 16px;
+  padding: 16px;
+}
+
+.nutrition-section-title {
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.nutrition-section-description {
+  text-align: left;
+}
+
+.legend-container {
+  margin-top: 16px;
 }

@@ -37,10 +37,7 @@ export const ViolationBar: React.FC<ViolationBarProps> = ({
     : badNutritionColors;
 
   return (
-    <div
-      className="violation-bar-container my-2 p-3"
-      style={{ textAlign: "left" }}
-    >
+    <div className="my-1 p-3" style={{ textAlign: "left" }}>
       <div className="mb-3">
         <h5>{variableMap[nutritionId]}</h5>
       </div>
