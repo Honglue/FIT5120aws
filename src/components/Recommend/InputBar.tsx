@@ -3,7 +3,6 @@ import "./InputBar.css";
 
 interface InputBarProps {
   onResult: (
-    percentile: string | null,
     genderValue: string | null,
     ageValue: number | null,
     errorMessage: string | null
@@ -78,14 +77,14 @@ const InputBar: React.FC<InputBarProps> = ({
         setBmiC(parseFloat(data.body.replace("P", "")));
         setBmiPercentage(percentileValue);
         setError(null);
-        onResult(data.body, gender, age, null);
+        onResult(gender, age, null);
       } else {
         setError("Failed to fetch data. Please try again.");
-        onResult(null, null, null, "Failed to fetch data. Please try again.");
+        onResult(null, null, "Failed to fetch data. Please try again.");
       }
     } catch (err) {
       setError("Failed to fetch data. Please try again.");
-      onResult(null, null, null, "Failed to fetch data. Please try again.");
+      onResult(null, null, "Failed to fetch data. Please try again.");
     } finally {
       setLoading(false);
     }

@@ -362,8 +362,11 @@ const Recommendations: React.FC = () => {
             </div>
 
             <div className="recommendation-box">
-              <span>Search Ingredients</span>
-              <p>Search different ingredients to meet your nutrition goals.</p>
+              <span>Input Ingredients</span>
+              <p>
+                Enter your ingredients to get recommendations for healthy
+                dishes.
+              </p>
             </div>
 
             <div className="recommendation-box">

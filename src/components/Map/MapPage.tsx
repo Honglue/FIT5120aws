@@ -185,6 +185,7 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
             .text(countryName);
         })
         .on("mouseout", function (event, d) {
+          console.log(event);
           const countryName = d.properties?.name;
           // Always keep highlighted countries with their original color
           d3.select(this).attr(

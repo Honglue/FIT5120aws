@@ -5,6 +5,8 @@ import Loading from "../Loading/loading";
 import Modal from "./Modal"; // Import the new Modal component
 import "./ViolationPage.css";
 import Legend from "./Legends/Legends";
+import { Link } from "react-router-dom";
+
 interface ViolationPageProps {
   selectedCountry: string;
   selectedCountryName: string | null;
@@ -279,8 +281,20 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
             </a>
           </p>
           <Legend isGoodNutrition={false} />
+
           {renderNutritionCards(badNutritionData, false)}
         </div>
+      )}
+
+      {/* Conditionally render nutrition sections */}
+      {!loading && (
+        <p className="link-page">
+          Want to get a dish recommendation for {selectedCountryName}?&nbsp; Use
+          our dish recommendation tool.
+          <Link to="/recommendations" className="highlighted-link">
+            View Recommendation.
+          </Link>
+        </p>
       )}
 
       {/* Modal for displaying example */}

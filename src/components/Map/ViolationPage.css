@@ -129,3 +129,25 @@
 .legend-container {
   margin-top: 16px;
 }
+
+.link-page {
+  width: 600px;
+  text-align: left;
+  background-color: #f9f9f9; /* Light background color for the box */
+  padding: 10px;
+  border: 1px solid #ddd; /* Light border around the box */
+  border-radius: 5px; /* Rounded corners for the box */
+  display: inline-block;
+}
+
+.highlighted-link {
+  color: #6366f1; /* Text color for the link */
+  font-weight: medium; /* Make the link text bold */
+  text-decoration: none; /* Remove the default underline */
+  padding: 2px 4px; /* Padding to make the link stand out */
+  border-radius: 4px; /* Rounded corners for the highlighted link */
+}
+
+.highlighted-link:hover {
+  text-decoration: underline; /* Underline the text when hovered */
+}
