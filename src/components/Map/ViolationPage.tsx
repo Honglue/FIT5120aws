@@ -60,6 +60,7 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
           }
         );
         const data = await response.json();
+        console.log('a', selectedCountry);
         console.log(data);
         const parsedData = JSON.parse(data.body);
         setFilteredData(parsedData);
@@ -299,7 +300,11 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
         <p className="link-page">
           Want to get a dish recommendation for {selectedCountryName}? Use our
           dish recommendation tool.
-          <Link to="/recommendations" className="highlighted-link">
+          <Link
+            to="/recommendations"
+            state={{selectedCountry: selectedCountry}}
+            className="highlighted-link"
+            >
             View Recommendation.
           </Link>
         </p>

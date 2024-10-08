@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./InputBar.css";
 import FilterDropdown from "./FilterDropdown";
 import { FaUpload } from "react-icons/fa";
@@ -12,6 +13,7 @@ interface InputBarProps {
 }
 
 const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
+  const location = useLocation();
   const [input, setInput] = useState<string>("");
   const [images, setImages] = useState<File[]>([]);
   const [labelsForImages, setLabelsForImages] = useState<string[][]>([]);
@@ -19,7 +21,8 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
     []
   );
   const [selectedCuisineType, setSelectedCuisineType] = useState<string[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState(location.state?.selectedCountry || null);
+  console.log('p', selectedCountry);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const healthLabels = [
@@ -121,7 +124,8 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
   return (
     <div className="input-bar-container">
       <div className="filters">
-        <CountryFilter onCountrySelect={handleCountrySelect} />
+        <CountryFilter onCountrySelect={handleCountrySelect}
+        selectedCountry={selectedCountry} />
 
         <FilterDropdown
           label="Dietary requirements"
