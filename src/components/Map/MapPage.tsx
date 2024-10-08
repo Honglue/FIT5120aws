@@ -3,9 +3,13 @@ import * as d3 from "d3";
 import { feature } from "topojson-client";
 import { FeatureCollection, Geometry, GeoJsonProperties } from "geojson";
 import Select from "react-select";
-// eslint-disable-next-line
-import { getNames, getCode } from "country-list";
 import "./MapPage.css";
+// eslint-disable-next-line
+import countries from "i18n-iso-countries";
+import { getNames, getCode } from "country-list";
+import en from "i18n-iso-countries/langs/en.json";
+
+countries.registerLocale(en);
 
 interface MapPageProps {
   onCountrySelect: (countryId: string, countryName: string | null) => void;
@@ -20,22 +24,49 @@ const highlightedCountries = [
   "South Sudan",
 ];
 
+const createReverseMapping = (): ReverseMapping => {
+  const numericCodes = countries.getNumericCodes(); // Get all numeric codes
+  const reverseMapping: ReverseMapping = {}; // Initialize the reverse mapping object
+
+  for (const [numeric, alpha2] of Object.entries(numericCodes)) {
+    reverseMapping[alpha2] = numeric;
+  }
+
+  return reverseMapping;
+};
+
+type ReverseMapping = {
+  [alpha2Code: string]: string;
+};
+
 const CountrySearch: React.FC<MapPageProps> = ({ onCountrySelect }) => {
-  const countries = getNames();
-  const options = countries.map((country: string) => ({
+  const countryList = getNames();
+  const options = countryList.map((country: string) => ({
     label: country,
     value: getCode(country),
   }));
 
   const [selectedCountry, setSelectedCountry] = useState(null);
-  // eslint-disable-next-line
+
+  const reverseNumericMapping = createReverseMapping();
+
   const handleCountrySelect = (selectedOption: any) => {
+    const alpha2Code = selectedOption.value; // Get the alpha-2 code
+    const numericCode = reverseNumericMapping[alpha2Code]; // Get numeric code using reverse mapping
+
+    // Check if numericCode is undefined
+    if (numericCode === undefined) {
+      console.error("Numeric code not found for:", alpha2Code);
+      return;
+    }
+
+    console.log("numericCode:", numericCode);
     setSelectedCountry(selectedOption);
 
     if (selectedOption) {
-      const countryId = selectedOption.value;
       const countryName = selectedOption.label;
-      onCountrySelect(countryId, countryName);
+      onCountrySelect(numericCode, countryName);
+      console.log(numericCode, countryName);
     }
   };
 
@@ -189,7 +220,6 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
   useEffect(() => {
     renderMap();
 
-    // Clean up the tooltip and SVG on unmount
     return () => {
       d3.select(svgRef.current).selectAll("*").remove();
       d3.select(tooltipRef.current).style("opacity", 0);
