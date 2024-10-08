@@ -1,8 +1,7 @@
 .quiz-container {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
+  /* display: flex; */
+  /* justify-content: space-between; */
   max-width: 1200px;
   margin: 0 auto;
   text-align: left;
@@ -21,7 +20,7 @@
 
 .solution-section {
   width: 40%;
-  max-height: 50vh;
+  max-height: 60vh;
   margin-left: 20px;
   position: relative; /* Allows for positioning of blurry circles */
   padding: 20px;
@@ -96,7 +95,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 
 .arrow-buttons {

@@ -182,6 +182,20 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
         </button>
       </form>
 
+      {/* {images.length <= 0 && ( */}
+      <p
+        style={{
+          width: "680px",
+          textAlign: "left",
+          fontSize: "14px",
+          color: "#505050",
+          paddingTop: "10px",
+        }}
+      >
+        Separate ingredients by comma or space.
+      </p>
+      {/* )} */}
+
       <div className="images-container">
         {images.map((image, index) => (
           <ImageRecognition
@@ -193,12 +207,6 @@ const InputBar: React.FC<InputBarProps> = ({ onSearch, loading }) => {
           />
         ))}
       </div>
-
-      {images.length <= 0 && (
-        <p style={{ width: "680px", textAlign: "left", color: "#505050" }}>
-          Separate ingredients by comma or space.
-        </p>
-      )}
     </div>
   );
 };

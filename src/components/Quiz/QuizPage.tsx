@@ -152,7 +152,9 @@ const QuizPage: React.FC<QuizPageProps> = ({ finishQuiz, goToWelcome }) => {
       <div className="quiz-container">
         <div className="question-section">
           <h2>Question {currentQuestion + 1}</h2>
-          <p>{questions[currentQuestion].question}</p>
+          <h5 style={{ fontWeight: "normal", padding: "10px 0" }}>
+            {questions[currentQuestion].question}
+          </h5>
           {questions[currentQuestion].options.map((option) => (
             <div
               key={option}
@@ -165,6 +167,12 @@ const QuizPage: React.FC<QuizPageProps> = ({ finishQuiz, goToWelcome }) => {
             </div>
           ))}
 
+          <p>
+            Score will only be recorded after you select{" "}
+            <span onClick={checkSolution} style={{ color: "#6366f1" }}>
+              Check Solution.
+            </span>
+          </p>
           <div className="navigation-buttons">
             <button
               className="check-btn"

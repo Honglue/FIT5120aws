@@ -205,6 +205,7 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
         alignItems: "center",
         justifyContent: "center",
         padding: "20px 0",
+        marginBottom: "30px",
       }}
     >
       <div className="banner">
@@ -239,6 +240,12 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
         >
           <CountrySearch onCountrySelect={onCountrySelect} />
 
+          <p style={{ fontSize: "16px" }}>
+            The highlighted countries represent the{" "}
+            <span style={{ color: "#6366f1" }}>top refugee origins</span> in
+            Australia.
+          </p>
+
           <svg
             ref={svgRef}
             width={800}
@@ -258,12 +265,6 @@ export const MapPage: React.FC<MapPageProps> = ({ onCountrySelect }) => {
               opacity: 0,
             }}
           ></div>
-
-          <p style={{ fontSize: "16px", paddingTop: "30px" }}>
-            The highlighted countries represent the{" "}
-            <span style={{ color: "#6366f1" }}>top refugee origins</span> in
-            Australia.
-          </p>
         </div>
       </div>
     </div>
