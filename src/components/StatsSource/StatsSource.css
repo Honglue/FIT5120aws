@@ -36,6 +36,10 @@
   transition: all 0.4s ease;
 }
 
+.hover-underline:hover {
+  text-decoration: underline;
+}
+
 .custom-select::after {
   content: "";
   text-align: center;

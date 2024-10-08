@@ -276,9 +276,34 @@ const TimeSeriesChart: React.FC = () => {
           Every year Victoria welcomes over 4,000 refugees and <br />
           many of them face challenges with malnutrition
         </h2>
+
         <p className="lead text-center" style={{ fontSize: "18px" }}>
           Discover the top countries they come from and learn about their
-          nutritional status below
+          nutritional status below.
+          <br />
+          <span>
+            This data is sourced from the{" "}
+            <a
+              href="https://platform.who.int/nutrition/malnutrition-database/database-search"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover-underline"
+              style={{
+                color: "#6366f1",
+              }}
+              onClick={(e) => {
+                const userConfirmed = window.confirm(
+                  "You are being redirected to the WHO Nutrition Database. Do you want to continue?"
+                );
+                if (!userConfirmed) {
+                  e.preventDefault();
+                }
+              }}
+            >
+              WHO Nutrition Database
+            </a>
+            .
+          </span>
         </p>
 
         <div className="d-flex justify-content-center">

@@ -158,9 +158,11 @@ const InputBar: React.FC<InputBarProps> = ({
           />
         </div>
 
-        <button type="submit" disabled={loading} className="calculate-button">
-          {loading ? "Calculating" : "Calculate"}
-        </button>
+        <div style={{ width: "150px" }}>
+          <button type="submit" disabled={loading} className="calculate-button">
+            {loading ? "Calculating" : "Calculate"}
+          </button>
+        </div>
       </form>
 
       {error && <p className="error-message">{error}</p>}
@@ -184,7 +186,7 @@ const InputBar: React.FC<InputBarProps> = ({
                   bmiC < 72 &&
                   "Your child's BMI indicates they might be slightly above the ideal range. A focus on balanced nutrition and regular activity could help."}
                 {bmiC >= 72 &&
-                  "Your child's BMI suggests they might be in the higher range. It might be beneficial to seek advice from a healthcare provider for personalised support."}
+                  "Your child's BMI suggests they might be very overweight. It might be beneficial to seek advice from a healthcare provider for personalised support."}
               </>
             )}
 
@@ -199,7 +201,7 @@ const InputBar: React.FC<InputBarProps> = ({
                   bmiC < 73 &&
                   "Your child's BMI is slightly higher than the ideal range. A balanced diet and regular exercise can make a difference."}
                 {bmiC >= 73 &&
-                  "Your child's BMI suggests they might be in the higher range. Consulting a healthcare professional for tailored advice could be very helpful."}
+                  "Your child's BMI suggests they might be very overweight. Consulting a healthcare professional for tailored advice could be very helpful."}
               </>
             )}
           </p>
