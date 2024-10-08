@@ -44,7 +44,7 @@ const SummaryPage: React.FC<SummaryPageProps> = ({
 
       <p className="link-page" style={{ fontSize: "16px" }}>
         Curious about essential nutritional information for Victoria?
-        <Link to="/info" className="highlighted-link">
+        <Link to="/information" className="highlighted-link">
           Discover More.
         </Link>
       </p>
