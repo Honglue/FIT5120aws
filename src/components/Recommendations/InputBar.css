@@ -54,6 +54,8 @@
   border-radius: 50%;
   padding: 10px;
   margin-right: 10px;
+  width: 45px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,6 +94,8 @@
 
 /* Disabled state styling for the icon button */
 .icon-button:disabled {
+  width: 45px;
+  height: 45px;
   background-color: #cccccc;
   cursor: not-allowed;
 }
