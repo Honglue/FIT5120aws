@@ -123,7 +123,7 @@ const Card: React.FC<RecipeCardProps> = ({ data, countryDietLabels }) => {
             <p>
               <span
                 className="diet-label"
-                title="General dietary recommendation"
+                title="General recommendation"
                 style={{
                   backgroundColor: "#e0e0e0",
                   color: "#555555",

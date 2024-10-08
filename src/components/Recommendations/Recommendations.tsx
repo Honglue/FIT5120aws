@@ -373,7 +373,12 @@ const Recommendations: React.FC = () => {
                 Step 1: <br />
                 Add Ingredient
               </span>
-              <p>Type or upload one ingredient at a time.</p>
+              <p>
+                <p>
+                  Enter multiple ingredients or upload an image of one to get
+                  started.
+                </p>
+              </p>
             </div>
 
             <div className="recommendation-box">
@@ -382,8 +387,8 @@ const Recommendations: React.FC = () => {
                 Apply Country Filter
               </span>
               <p>
-                Select your country to get dishes based on its nutritional
-                needs.
+                Select your country (optional) to get dishes based on its
+                nutritional needs.
               </p>
             </div>
 
@@ -393,7 +398,7 @@ const Recommendations: React.FC = () => {
                 Choose Preferences
               </span>
               <p>
-                Set cuisine types and dietary requirements for personalized
+                Set cuisine types and dietary requirements for personalised
                 recommendations.
               </p>
             </div>

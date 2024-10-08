@@ -193,6 +193,7 @@ const relevantLabels = [
 
 import React, { useState, useEffect } from "react";
 import "./Image.css";
+
 interface ImageRecognitionProps {
   image: File | null;
   onLabelsExtracted: (labels: string[]) => void;
@@ -257,14 +258,16 @@ const ImageRecognition: React.FC<ImageRecognitionProps> = ({
       );
 
       if (ingredientLabel.length === 0) {
-        throw new Error("Unable to identify");
+        throw new Error("Oops! We couldn't identify that. \nPlease try again.");
       }
 
       setLabels(ingredientLabel);
       console.log(labels);
       onLabelsExtracted(ingredientLabel); // Pass labels to parent
     } catch (err: any) {
-      setError(err.message || "Unable to identify");
+      setError(
+        err.message || "Oops! We couldn't identify that. \nPlease try again."
+      );
     } finally {
       setLoading(false); // Set loading to false after processing is done
     }
@@ -286,7 +289,14 @@ const ImageRecognition: React.FC<ImageRecognitionProps> = ({
       )}
 
       {/* Display error message if identification failed */}
-      {!loading && error && <div className="error-message">{error}</div>}
+      {!loading && error && (
+        <div
+          className="error-message"
+          style={{ fontSize: "12px", paddingTop: "4px", width: "80%" }}
+        >
+          {error}
+        </div>
+      )}
 
       {/* Display the image and labels only after loading is done and no error occurred */}
       {!loading && !error && (

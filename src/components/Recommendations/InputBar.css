@@ -30,7 +30,7 @@
 }
 
 .images-container {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

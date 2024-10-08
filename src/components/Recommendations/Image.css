@@ -22,7 +22,7 @@
 .image-preview {
   width: 50px;
   height: 50px;
-  border-radius: 8px;
+  border-radius: 4px;
   margin-left: 10px;
   overflow: hidden;
 }
@@ -48,9 +48,14 @@
 }
 
 .image-filename {
+  padding-top: 2px;
   color: #999;
   font-size: 14px;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
 }
 
 .remove-button {

@@ -313,7 +313,7 @@ const CarouselComponent = () => {
                       padding: "10px 25px",
                       borderRadius: "30px",
                     }}
-                    onClick={() => navigate("/recommendations")}
+                    onClick={() => navigate("/indicator")}
                   >
                     Explore Indicator
                   </button>

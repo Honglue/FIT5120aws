@@ -158,8 +158,8 @@ const InputBar: React.FC<InputBarProps> = ({
           />
         </div>
 
-        <button type="submit" disabled={loading} className="search-button">
-          Calculate
+        <button type="submit" disabled={loading} className="calculate-button">
+          {loading ? "Calculating" : "Calculate"}
         </button>
       </form>
 
