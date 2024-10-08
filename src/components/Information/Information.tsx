@@ -138,8 +138,16 @@ const Information: React.FC = () => {
                       href="https://refugeehealthnetwork.org.au/"
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => {
+                        const userConfirmed = window.confirm(
+                          "You are being redirected to an external page. Do you want to continue?"
+                        );
+                        if (!userConfirmed) {
+                          e.preventDefault();
+                        }
+                      }}
                     >
-                      Visit website:
+                      Visit website:{" "}
                       <span style={{ color: "#6366f1" }}>
                         https://refugeehealthnetwork.org.au/
                       </span>

@@ -202,6 +202,14 @@ const Card: React.FC<RecipeCardProps> = ({ data, countryDietLabels }) => {
                           color: "#6366f1",
                           textDecoration: "underline",
                         }}
+                        onClick={(e) => {
+                          const userConfirmed = window.confirm(
+                            "You are being redirected to an external page. Do you want to continue?"
+                          );
+                          if (!userConfirmed) {
+                            e.preventDefault();
+                          }
+                        }}
                       >
                         {data.source}
                       </a>

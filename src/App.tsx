@@ -120,6 +120,11 @@ function App() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handlePasswordSubmit();
+                      }
+                    }}
                   />
 
                   <button

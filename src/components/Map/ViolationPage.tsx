@@ -257,6 +257,14 @@ export const ViolationPage: React.FC<ViolationPageProps> = ({
               href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
               target="_blank"
               style={{ textDecoration: "underline" }}
+              onClick={(e) => {
+                const userConfirmed = window.confirm(
+                  "You are being redirected to an external page. Do you want to continue?"
+                );
+                if (!userConfirmed) {
+                  e.preventDefault();
+                }
+              }}
             >
               {" "}
               Learn more.

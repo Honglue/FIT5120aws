@@ -158,9 +158,11 @@ const InputBar: React.FC<InputBarProps> = ({
           />
         </div>
 
-        <button type="submit" disabled={loading} className="calculate-button">
-          {loading ? "Calculating" : "Calculate"}
-        </button>
+        <div style={{ width: "150px" }}>
+          <button type="submit" disabled={loading} className="calculate-button">
+            {loading ? "Calculating" : "Calculate"}
+          </button>
+        </div>
       </form>
 
       {error && <p className="error-message">{error}</p>}
